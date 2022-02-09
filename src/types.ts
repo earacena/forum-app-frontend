@@ -1,44 +1,24 @@
-export {};
+import * as RT from 'runtypes';
+import utils from './utils';
 
-// Common aliases
-type Id = number;
-type ThreadId = Id;
-type UserId = Id;
-type PostId = Id;
+const { isDateString } = utils;
 
-// Post aliases
-type PostContent = string;
-type DatePosted = Date;
+export const Post = RT.Record({
+  id: RT.Number,
+  threadId: RT.Number,
+  userId: RT.Number,
+  content: RT.String,
+  datePosted: RT.String.withConstraint(isDateString),
+});
+export const PostArray = RT.Array(Post);
 
-// Thread aliases
-type ThreadTitle = string;
-type DateCreated = Date;
+export const Thread = RT.Record({
+  id: RT.Number,
+  userId: RT.Number,
+  dateCreated: RT.String.withConstraint(isDateString),
+  title: RT.String,
+});
+export const ThreadArray = RT.Array(Thread);
 
-// User aliases
-type Username = string;
-type Name = string;
-type DateRegistered = Date;
-type PasswordHash = string;
-
-// Object types
-interface Post {
-  id: PostId;
-  threadId: ThreadId;
-  userId: UserId;
-  content: PostContent;
-}
-
-interface Thread {
-  id: ThreadId;
-  userId: UserId;
-  dateCreated: DateCreated;
-  title: ThreadTitle;
-}
-
-interface User {
-  id: UserId;
-  username: Username;
-  name: Name;
-  dateRegistered: DateRegistered;
-  passwordHash: PasswordHash;
-}
+export type Posts = RT.Static<typeof PostArray>;
+export type Threads = RT.Static<typeof ThreadArray>;
