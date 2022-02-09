@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-  PostArray,
-  Posts,
-  ThreadArray,
-  Threads,
-} from './types';
+import postService from './services/postService';
+import threadService from './services/threadService';
+import { Posts, Threads } from './types';
 
 function App() {
   const [posts, setPosts] = useState<Posts>([]);
@@ -12,8 +9,7 @@ function App() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch('http://localhost:3001/api/posts');
-      const fetchedPosts = PostArray.check(await response.json());
+      const fetchedPosts = await postService.getAll();
       setPosts(fetchedPosts);
     };
 
@@ -22,8 +18,7 @@ function App() {
 
   useEffect(() => {
     const fetchThreads = async () => {
-      const response = await fetch('http://localhost:3001/api/threads');
-      const fetchedThreads = ThreadArray.check(await response.json());
+      const fetchedThreads = await threadService.getAll();
       setThreads(fetchedThreads);
     };
 
