@@ -1,24 +1,47 @@
-import * as RT from 'runtypes';
-import utils from './utils';
+import {
+  Record as RtRecord,
+  Number as RtNumber,
+  String as RtString,
+  Array as RtArray,
+  Static as RtStatic,
+  Union as RtUnion,
+  InstanceOf as RtInstanceOf,
+} from 'runtypes';
 
-const { isDateString } = utils;
+export const Post = RtRecord({
+  id: RtNumber,
+  threadId: RtNumber,
+  userId: RtNumber,
+  content: RtString,
+  datePosted: RtUnion(
+    RtInstanceOf(Date),
+    RtString.withConstraint((x: string) => {
+      // Must be parsable into a Date object
+      if (!x || x === null || typeof x !== 'string' || Number.isNaN(Date.parse(x))) {
+        return false;
+      }
 
-export const Post = RT.Record({
-  id: RT.Number,
-  threadId: RT.Number,
-  userId: RT.Number,
-  content: RT.String,
-  datePosted: RT.String.withConstraint(isDateString),
+      return true;
+    }),
+  ),
 });
-export const PostArray = RT.Array(Post);
 
-export const Thread = RT.Record({
-  id: RT.Number,
-  userId: RT.Number,
-  dateCreated: RT.String.withConstraint(isDateString),
-  title: RT.String,
+export const Thread = RtRecord({
+  id: RtNumber,
+  userId: RtNumber,
+  dateCreated: RtString.withConstraint((x: string) => {
+    // Must be parsable into a Date object
+    if (!x || x === null || typeof x !== 'string' || Number.isNaN(Date.parse(x))) {
+      return false;
+    }
+
+    return true;
+  }),
+  title: RtString,
 });
-export const ThreadArray = RT.Array(Thread);
 
-export type Posts = RT.Static<typeof PostArray>;
-export type Threads = RT.Static<typeof ThreadArray>;
+export const PostArray = RtArray(Post);
+export const ThreadArray = RtArray(Thread);
+
+export type Posts = RtStatic<typeof PostArray>;
+export type Threads = RtStatic<typeof ThreadArray>;
