@@ -1,28 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const LoginFormWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  color: white;
-  background: white;
   border: 1px black solid;
-  border-radius: 3px;
-  justify-content: center;
-  margin: 1em 5em 2em 5em;
   padding: 1em;
 `;
 
 const Input = styled.input`
   padding: 1em;
-  margin: 1em 6em 1em 6em;
+  margin: 1em;
   background: papayawhip;
   border: none;
   border-radius: 3px;
 `;
 
 interface ButtonProps {
-  readonly primary: boolean;
+  readonly primary?: boolean;
 }
 
 const Button = styled.button<ButtonProps>`
@@ -31,17 +26,46 @@ const Button = styled.button<ButtonProps>`
   border-radius: 3px;
   font-size: 1em;
   padding: 1em;
-  margin: 1em 10em 0.5em 10em;
+  margin: 1em;
   border: 2px solid black;
+
+  &:hover {
+    background: ${(props) => ((props.primary) ? 'darkgrey' : 'grey')};
+    color: ${(props) => ((props.primary) ? 'black' : 'white')};
+  }
 `;
 
 function LoginForm() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleUsernameChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => setUsername(target.value);
+
+  const handlePasswordChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => setPassword(target.value);
+
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    console.log({ username, password });
+  };
+
   return (
     <LoginFormWrapper>
-      <Input placeholder="Enter Username" type="text" />
-      <Input placeholder="Enter Password" type="password" />
-      <Button primary>Login</Button>
-      <Button primary={false}>Register</Button>
+      <Input
+        placeholder="Enter Username"
+        type="text"
+        onChange={handleUsernameChange}
+      />
+      <Input
+        placeholder="Enter Password"
+        type="password"
+        onChange={handlePasswordChange}
+      />
+      <Button primary type="submit" onClick={handleSubmit}>Log in</Button>
+      <Button type="submit" value="Log in">Register</Button>
     </LoginFormWrapper>
   );
 }
