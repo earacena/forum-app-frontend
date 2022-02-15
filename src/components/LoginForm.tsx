@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useAppDispatch } from '../hooks';
+import { setNotificationMessage } from '../reducers/notificationReducer';
 
 const LoginFormWrapper = styled.form`
   display: flex;
@@ -38,6 +40,7 @@ const Button = styled.button<ButtonProps>`
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
 
   const handleUsernameChange = ({
     target,
@@ -49,7 +52,11 @@ function LoginForm() {
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log({ username, password });
+
+    dispatch(setNotificationMessage({
+      type: 'message',
+      message: `Sent credentials: ${JSON.stringify({ username, password })}`,
+    }));
   };
 
   return (
