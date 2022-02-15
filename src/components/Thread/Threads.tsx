@@ -4,31 +4,29 @@ import threadService from '../../services/threadService';
 import { Threads as ThreadsType } from '../../types';
 
 const ThreadsTitle = styled.h2`
-  display: flex;
-  justify-content: center;
+  text-align: center;
   size: 10px;
 `;
 
-const ThreadsWrapper = styled.div`
+const ThreadListWrapper = styled.div`
   padding: 1em;
   border-radius: 0.4em;
-  background: linear-gradient(white, lightgrey, lightgrey);
+  background: linear-gradient(white, gray, gray);
   margin: auto;
 `;
 
-const ThreadWrapper = styled.li`
-  display: flex;
-  justify-content: center;
+const ThreadWrapper = styled.p`
+  text-align: left;
   margin-left: 3em;
   margin-right: 3em;
   padding: 1em;
-  background: darkgrey;
+  background: lightgrey;
   border-radius: 0.3em;
   color: black;
-  border: 2px lightgrey solid;
+  border: 1px lightgrey solid;
   &:hover {
     background: white;
-    border: 2px black solid;
+    border: 1px black solid;
   }
 `;
 
@@ -45,14 +43,14 @@ function Threads() {
   }, []);
 
   return (
-    <ThreadsWrapper>
+    <ThreadListWrapper>
       <ThreadsTitle>Threads</ThreadsTitle>
       {threads.map((thread) => (
         <ThreadWrapper key={thread.id}>
           {thread.title}
         </ThreadWrapper>
       ))}
-    </ThreadsWrapper>
+    </ThreadListWrapper>
   );
 }
 
