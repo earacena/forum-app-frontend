@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useAppDispatch } from '../hooks';
-import { setNotificationMessage } from '../reducers/notificationReducer';
+import { useAppDispatch } from '../../hooks';
+import { setAuthenticatedUser } from '../auth/authSlice';
+import { setNotificationMessage } from '../notification/notificationSlice';
+import loginService from '../../services/loginService';
 
 const LoginFormWrapper = styled.form`
   display: flex;
@@ -50,13 +52,30 @@ function LoginForm() {
     target,
   }: React.ChangeEvent<HTMLInputElement>) => setPassword(target.value);
 
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    try {
+      const credentials = { username, password };
+      const token = await loginService.login(credentials);
 
-    dispatch(setNotificationMessage({
-      type: 'message',
-      message: `Sent credentials: ${JSON.stringify({ username, password })}`,
-    }));
+      if (token) {
+        const message = token.name
+          ? `Successfully signed in, welcome ${token.name}`
+          : `Successfully signed in, welcome ${token.username}`;
+
+        dispatch(setAuthenticatedUser(token));
+        dispatch(setNotificationMessage({
+          type: 'message',
+          message,
+        }));
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(setNotificationMessage({
+        type: 'error',
+        message: 'Incorrect credentials',
+      }));
+    }
   };
 
   return (

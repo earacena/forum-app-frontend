@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useAppSelector } from '../hooks';
+import { useAppSelector } from '../../hooks';
 
 const NotificationWrapper = styled.div<NotificationWrapperProps>`
   background: lightgrey;

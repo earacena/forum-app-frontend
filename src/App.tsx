@@ -1,7 +1,7 @@
 import React from 'react';
-import LoginForm from './components/LoginForm';
-import Notification from './components/Notification';
-import Threads from './components/Thread/Threads';
+import LoginForm from './features/loginForm/LoginForm';
+import Notification from './features/notification/Notification';
+import Threads from './features/thread/Threads';
 
 function App() {
   return (
