@@ -7,23 +7,21 @@ interface Credentials {
   password: string;
 }
 
-interface LoginFields {
-  credentials: Credentials;
-}
-
-const login = async ({ credentials }: LoginFields) => {
-  try {
-    const response = await fetch(baseUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(credentials),
-    });
-    const tokenResponse = TokenResponse.check(await response.json());
+const login = async (credentials: Credentials) => {
+  const response = await fetch(baseUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(credentials),
+  });
+  console.log(response);
+  const responseJson = await response.json();
+  if (responseJson.error) {
+    throw new Error(`${responseJson.error}`);
+  } else {
+    const tokenResponse = TokenResponse.check(responseJson);
     return tokenResponse;
-  } catch (error) {
-    throw new Error(`${error}`);
   }
 };
 
