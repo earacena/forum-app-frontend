@@ -10,6 +10,11 @@ interface RemoveFields {
   id: number;
 }
 
+interface UpdateFields {
+  id: string;
+  content: string;
+}
+
 const getAll = async () => {
   const response = await fetch(baseUrl);
   const fetchedPosts = PostArray.check(await response.json());
@@ -40,8 +45,25 @@ const remove = async ({ id }: RemoveFields) => {
   );
 };
 
+const update = async ({ id, content }: UpdateFields) => {
+  const response = await fetch(
+    `${baseUrl}/${id}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: content,
+    },
+  );
+
+  const updatedPost = Post.check(await response.json());
+  return updatedPost;
+};
+
 export default {
   getAll,
   create,
   remove,
+  update,
 };
