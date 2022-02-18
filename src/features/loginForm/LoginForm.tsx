@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../hooks';
 import { setAuthenticatedUser } from '../auth/authSlice';
-import { setNotificationMessage } from '../notification/notificationSlice';
 import loginService from '../../services/loginService';
+import { notify } from '../notification/Notification';
 
 const LoginFormWrapper = styled.form`
   display: flex;
@@ -64,17 +64,10 @@ function LoginForm() {
           : `Successfully signed in, welcome ${token.username}`;
 
         dispatch(setAuthenticatedUser(token));
-        dispatch(setNotificationMessage({
-          type: 'message',
-          message,
-        }));
+        notify('message', message, 4);
       }
     } catch (error) {
-      console.error(error);
-      dispatch(setNotificationMessage({
-        type: 'error',
-        message: 'Incorrect credentials',
-      }));
+      notify('error', 'Incorrect username or password, try again.', 4);
     }
   };
 
