@@ -15,7 +15,6 @@ const login = async (credentials: Credentials) => {
     },
     body: JSON.stringify(credentials),
   });
-  console.log(response);
   const responseJson = await response.json();
   if (responseJson.error) {
     throw new Error(`${responseJson.error}`);
