@@ -6,6 +6,10 @@ interface CreateFields {
   content: string;
 }
 
+interface RemoveFields {
+  id: number;
+}
+
 const getAll = async () => {
   const response = await fetch(baseUrl);
   const fetchedPosts = PostArray.check(await response.json());
@@ -27,7 +31,17 @@ const create = async ({ content }: CreateFields) => {
   return createdThread;
 };
 
+const remove = async ({ id }: RemoveFields) => {
+  await fetch(
+    `${baseUrl}/${id}`,
+    {
+      method: 'DELETE',
+    },
+  );
+};
+
 export default {
   getAll,
   create,
+  remove,
 };
