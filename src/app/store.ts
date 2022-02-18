@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import notificationReducer from '../features/notification/notificationSlice';
 import authReducer from '../features/auth/authSlice';
+import threadsReducer from '../features/thread/threadSlice';
 
 const store = configureStore({
   reducer: {
     notification: notificationReducer,
     auth: authReducer,
+    threads: threadsReducer,
   },
 });
 
