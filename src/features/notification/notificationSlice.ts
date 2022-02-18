@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   type: '',
   message: '',
+  timeoutId: undefined,
 };
 
 const notificationSlice = createSlice({
@@ -10,8 +11,9 @@ const notificationSlice = createSlice({
   initialState,
   reducers: {
     setNotificationMessage(state, action) {
-      const { type, message } = action.payload;
-      return { type, message };
+      const { type, message, newTimeoutId } = action.payload;
+      clearTimeout(state.timeoutId);
+      return { type, message, timeoutId: newTimeoutId };
     },
     removeNotificationMessage() {
       return initialState;
