@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import threadService from '../../services/threadService';
-import { Threads as ThreadsType } from '../../types';
+import { setThreads } from './threadSlice';
 
 const ThreadsTitle = styled.h2`
   text-align: center;
@@ -31,17 +32,17 @@ const ThreadWrapper = styled.p`
 `;
 
 function Threads() {
-  const [threads, setThreads] = useState<ThreadsType>([]);
+  const dispatch = useAppDispatch();
+  const threads = useAppSelector((state) => state.threads);
 
   useEffect(() => {
     const fetchThreads = async () => {
       const fetchedThreads = await threadService.getAll();
-      setThreads(fetchedThreads);
+      dispatch(setThreads(fetchedThreads));
     };
 
     fetchThreads();
-  }, []);
-
+  }, [dispatch]);
   return (
     <ThreadListWrapper>
       <ThreadsTitle>Threads</ThreadsTitle>
