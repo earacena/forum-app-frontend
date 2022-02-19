@@ -3,6 +3,7 @@ import { Post, PostArray } from '../types';
 const baseUrl = 'http://localhost:3001/api/posts';
 
 interface CreateFields {
+  threadId: number;
   content: string;
 }
 
@@ -21,7 +22,7 @@ const getAll = async () => {
   return fetchedPosts;
 };
 
-const create = async ({ content }: CreateFields) => {
+const create = async ({ threadId, content }: CreateFields) => {
   const response = await fetch(
     baseUrl,
     {
@@ -29,7 +30,7 @@ const create = async ({ content }: CreateFields) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: content,
+      body: JSON.stringify({ threadId, content }),
     },
   );
   const createdThread = Post.check(await response.json());
