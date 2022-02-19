@@ -10,13 +10,13 @@ const LoginFormWrapper = styled.form`
   flex-direction: column;
   border: 1px black solid;
   padding: 1em;
+  margin: 1em;
 `;
 
 const Input = styled.input`
   padding: 1em;
   margin: 1em;
-  background: papayawhip;
-  border: none;
+  border: 1px black solid;
   border-radius: 3px;
 `;
 
@@ -25,6 +25,7 @@ interface ButtonProps {
 }
 
 const Button = styled.button<ButtonProps>`
+  cursor: pointer;
   background: ${(props) => (props.primary ? 'black' : 'white')};
   color: ${(props) => (props.primary ? 'white' : 'black')};
   border-radius: 3px;
@@ -32,10 +33,11 @@ const Button = styled.button<ButtonProps>`
   padding: 1em;
   margin: 1em;
   border: 2px solid black;
+  box-shadow: 1px 1px 4px 2px grey;
 
   &:hover {
-    background: ${(props) => ((props.primary) ? 'darkgrey' : 'grey')};
-    color: ${(props) => ((props.primary) ? 'black' : 'white')};
+    background: ${(props) => (props.primary ? 'darkgrey' : 'grey')};
+    color: ${(props) => (props.primary ? 'black' : 'white')};
   }
 `;
 
@@ -74,17 +76,23 @@ function LoginForm() {
   return (
     <LoginFormWrapper>
       <Input
-        placeholder="Enter Username"
+        placeholder="Username"
         type="text"
         onChange={handleUsernameChange}
+        value={username}
       />
       <Input
-        placeholder="Enter Password"
+        placeholder="Password"
         type="password"
         onChange={handlePasswordChange}
+        value={password}
       />
-      <Button primary type="submit" onClick={handleSubmit}>Log in</Button>
-      <Button type="submit" value="Log in">Register</Button>
+      <Button primary type="submit" onClick={handleSubmit}>
+        Log in
+      </Button>
+      <Button type="submit" value="Log in">
+        Register
+      </Button>
     </LoginFormWrapper>
   );
 }
