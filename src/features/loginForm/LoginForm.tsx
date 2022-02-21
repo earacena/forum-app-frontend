@@ -1,63 +1,39 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch } from '../../hooks';
 import { setAuthenticatedUser } from '../auth/authSlice';
 import loginService from '../../services/loginService';
 import { notify } from '../notification/Notification';
+import {
+  Input,
+  Button,
+  LoginFormWrapper,
+  LoginFormTitle,
+  ErrorMessage,
+  Label,
+} from './loginFormStyle';
 
-const LoginFormWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  border: 1px black solid;
-  padding: 1em;
-  margin: 1em;
-`;
-
-const Input = styled.input`
-  padding: 1em;
-  margin: 1em;
-  border: 1px black solid;
-  border-radius: 3px;
-`;
-
-interface ButtonProps {
-  readonly primary?: boolean;
-}
-
-const Button = styled.button<ButtonProps>`
-  cursor: pointer;
-  background: ${(props) => (props.primary ? 'black' : 'white')};
-  color: ${(props) => (props.primary ? 'white' : 'black')};
-  border-radius: 3px;
-  font-size: 1em;
-  padding: 1em;
-  margin: 1em;
-  border: 2px solid black;
-  box-shadow: 1px 1px 4px 2px grey;
-
-  &:hover {
-    background: ${(props) => (props.primary ? 'darkgrey' : 'grey')};
-    color: ${(props) => (props.primary ? 'black' : 'white')};
-  }
-`;
+type Inputs = {
+  username: string;
+  password: string;
+};
 
 function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
 
-  const handleUsernameChange = ({
-    target,
-  }: React.ChangeEvent<HTMLInputElement>) => setUsername(target.value);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
 
-  const handlePasswordChange = ({
-    target,
-  }: React.ChangeEvent<HTMLInputElement>) => setPassword(target.value);
-
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const onSubmit: SubmitHandler<Inputs> = async (credentials) => {
     try {
-      const credentials = { username, password };
       const token = await loginService.login(credentials);
 
       if (token) {
@@ -74,25 +50,27 @@ function LoginForm() {
   };
 
   return (
-    <LoginFormWrapper>
+    <LoginFormWrapper onSubmit={handleSubmit(onSubmit)}>
+      <LoginFormTitle>Login</LoginFormTitle>
+      <Label htmlFor="username">Username</Label>
+      {errors.username && <ErrorMessage>This field is required</ErrorMessage>}
       <Input
-        placeholder="Username"
+        id="username"
         type="text"
-        onChange={handleUsernameChange}
-        value={username}
+        placeholder="Username"
+        {...register('username', { required: true })}
       />
+
+      <Label htmlFor="password">Password</Label>
+      {errors.password && <ErrorMessage>This field is required</ErrorMessage>}
       <Input
-        placeholder="Password"
+        id="password"
         type="password"
-        onChange={handlePasswordChange}
-        value={password}
+        placeholder="Password"
+        {...register('password', { required: true })}
       />
-      <Button primary type="submit" onClick={handleSubmit}>
-        Log in
-      </Button>
-      <Button type="submit" value="Log in">
-        Register
-      </Button>
+
+      <Button type="submit">Log In</Button>
     </LoginFormWrapper>
   );
 }
