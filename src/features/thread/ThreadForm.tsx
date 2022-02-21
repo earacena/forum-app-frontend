@@ -1,84 +1,62 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import threadService from '../../services/threadService';
 import { notify } from '../notification/Notification';
+import {
+  ThreadFormTitle,
+  ThreadFormWrapper,
+  Input,
+  Button,
+  TextArea,
+  Label,
+  ErrorMessage,
+} from './threadForm.style';
+import { setThreads } from './threadSlice';
 
-const ThreadFormWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  border: 1px black solid;
-  padding: 1em;
-  margin: 1em;
-`;
-
-const Input = styled.input`
-  padding: 1em;
-  margin: 1em;
-`;
-
-const TextArea = styled.textarea`
-  padding: 1em;
-  margin: 1em;
-  margin-top: 0em;
-  resize: none;
-  height: 300px;
-`;
-
-interface ButtonProps {
-  readonly primary?: boolean;
-}
-
-const Button = styled.button<ButtonProps>`
-  cursor: pointer;
-  background: ${(props) => (props.primary ? 'black' : 'white')};
-  color: ${(props) => (props.primary ? 'white' : 'black')};
-  border-radius: 3px;
-  font-size: 1em;
-  padding: 1em;
-  margin: 1em;
-  border: 2px solid black;
-  box-shadow: 1px 1px 4px 2px grey;
-
-  &:hover {
-    background: ${(props) => ((props.primary) ? 'darkgrey' : 'grey')};
-    color: ${(props) => ((props.primary) ? 'black' : 'white')};
-  }
-`;
+type Inputs = {
+  title: string;
+  content: string;
+};
 
 function ThreadForm() {
-  const [threadTitle, setThreadTitle] = useState('');
-  const [postContent, setPostContent] = useState('');
+  const auth = useAppSelector((state) => state.auth);
+  const threads = useAppSelector((state) => state.threads);
+  const dispatch = useAppDispatch();
 
-  const handleThreadTitleChange = ({
-    target,
-  }: React.ChangeEvent<HTMLInputElement>) => setThreadTitle(target.value);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {
+      title: '',
+      content: '',
+    },
+  });
 
-  const handlePostContentChange = ({
-    target,
-  }: React.ChangeEvent<HTMLTextAreaElement>) => setPostContent(target.value);
-
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const onSubmit: SubmitHandler<Inputs> = async (threadData) => {
     try {
       // Prepare new thread
       const newThread = {
-        title: threadTitle,
+        token: auth.token,
+        title: threadData.title,
       };
 
       // POST new thread, get id
       const createdThread = await threadService.create(newThread);
+      dispatch(setThreads(threads.concat(createdThread)));
 
       // Prepare new post for thread
       const newPost = {
-        content: postContent,
+        token: auth.token,
+        content: threadData.content,
         threadId: createdThread.id,
       };
 
       // POST new post
       const createdPost = await postService.create(newPost);
-
-      // Update state
 
       notify('message', 'Thread created.', 4);
     } catch (error: unknown) {
@@ -87,19 +65,25 @@ function ThreadForm() {
   };
 
   return (
-    <ThreadFormWrapper>
+    <ThreadFormWrapper onSubmit={handleSubmit(onSubmit)}>
+      <ThreadFormTitle>Start a discussion</ThreadFormTitle>
+      <Label htmlFor="title">Thread Title</Label>
+      {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
       <Input
-        placeholder="Thread Title"
+        id="title"
         type="text"
-        onChange={handleThreadTitleChange}
-        value={threadTitle}
+        placeholder="Thread Title"
+        {...register('title', { required: true })}
       />
+
+      <Label htmlFor="content">Content</Label>
+      {errors.content && <ErrorMessage>This field is required</ErrorMessage>}
       <TextArea
-        placeholder="Tell us more..."
-        onChange={handlePostContentChange}
-        value={postContent}
+        id="content"
+        placeholder="What's on your mind?"
+        {...register('content', { required: true })}
       />
-      <Button primary type="submit">Create thread</Button>
+      <Button type="submit">Create Thread</Button>
     </ThreadFormWrapper>
   );
 }
