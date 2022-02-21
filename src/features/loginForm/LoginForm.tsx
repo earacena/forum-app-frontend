@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { setAuthenticatedUser } from '../auth/authSlice';
 import loginService from '../../services/loginService';
@@ -20,7 +21,7 @@ type Inputs = {
 
 function LoginForm() {
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -43,6 +44,7 @@ function LoginForm() {
 
         dispatch(setAuthenticatedUser(token));
         notify('message', message, 4);
+        navigate('/threads');
       }
     } catch (error) {
       notify('error', 'Incorrect username or password, try again.', 4);
