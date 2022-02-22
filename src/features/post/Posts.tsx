@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import postService from '../../services/postService';
 import { Posts as PostsType } from '../../types';
+import Post from './Post';
 
-function Posts() {
-  const [posts, setPosts] = useState<PostsType>([]);
+interface PostsProps {
+  posts: PostsType;
+  authorId: number | undefined;
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const fetchedPosts = await postService.getAll();
-      setPosts(fetchedPosts);
-    };
-
-    fetchPosts();
-  }, []);
-
+function Posts({ posts, authorId }: PostsProps) {
   return (
     <div>
-      <h3>Posts</h3>
       <ul>
         {posts.map((post) => (
-          <li key={post.id}>{post.content}</li>
+          <li key={post.id}>
+            <Post post={post} isAuthor={authorId ? authorId === post.userId : false} />
+          </li>
         ))}
       </ul>
     </div>
