@@ -44,7 +44,7 @@ function LoginForm() {
 
         dispatch(setAuthenticatedUser(token));
         notify('message', message, 4);
-        navigate('/threads');
+        navigate('/');
       }
     } catch (error) {
       notify('error', 'Incorrect username or password, try again.', 4);
