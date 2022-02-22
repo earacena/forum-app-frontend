@@ -1,12 +1,20 @@
 import styled from 'styled-components';
 
+interface VisibilityProps {
+  readonly visible?: boolean;
+}
+
+interface ButtonProps {
+  readonly primary?: boolean;
+}
+
 export const ThreadFormTitle = styled.h2`
   font-size: 1.5em;
   text-align: center;
 `;
 
-export const ThreadFormWrapper = styled.form`
-  display: flex;
+export const ThreadFormWrapper = styled.form<VisibilityProps>`
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
   flex-direction: column;
   border: 1px black solid;
   padding: 1em;
@@ -26,10 +34,6 @@ export const TextArea = styled.textarea`
   resize: none;
   height: 300px;
 `;
-
-interface ButtonProps {
-  readonly primary?: boolean;
-}
 
 export const Button = styled.button<ButtonProps>`
   cursor: pointer;
@@ -57,4 +61,34 @@ export const Label = styled.label`
 export const ErrorMessage = styled.p`
   color: red;
   padding-left: 1em;
+`;
+
+export const CreateButton = styled.button<VisibilityProps>`
+  display: ${(props) => (props.visible ? '' : 'none')};
+  cursor: pointer;
+  border-radius: 20px;
+  padding: 0.6em;
+  color: lightgrey;
+  background: black;
+  border: 1px black solid;
+  width: auto;
+  height: auto;
+  font-size: 16px;
+`;
+
+export const CloseButton = styled.button<VisibilityProps>`
+  display: ${(props) => (props.visible ? '' : 'none')};
+  cursor: pointer;
+  border-radius: 20px;
+  padding: 0.6em;
+  color: red;
+  background: darkred;
+  border: 1px darkred solid;
+  width: auto;
+  height: auto;
+  font-size: 16px;
+`;
+
+export const CenteredDiv = styled.div`
+  text-align: center;
 `;

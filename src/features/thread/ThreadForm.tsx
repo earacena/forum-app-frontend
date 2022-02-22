@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import threadService from '../../services/threadService';
 import { notify } from '../notification/Notification';
+import { setThreads } from './threadSlice';
 import {
   ThreadFormTitle,
   ThreadFormWrapper,
@@ -12,8 +13,10 @@ import {
   TextArea,
   Label,
   ErrorMessage,
+  CreateButton,
+  CloseButton,
+  CenteredDiv,
 } from './threadForm.style';
-import { setThreads } from './threadSlice';
 
 type Inputs = {
   title: string;
@@ -24,7 +27,7 @@ function ThreadForm() {
   const auth = useAppSelector((state) => state.auth);
   const threads = useAppSelector((state) => state.threads);
   const dispatch = useAppDispatch();
-
+  const [threadFormVisible, setThreadFormVisible] = useState(false);
   const {
     register,
     handleSubmit,
@@ -65,26 +68,45 @@ function ThreadForm() {
   };
 
   return (
-    <ThreadFormWrapper onSubmit={handleSubmit(onSubmit)}>
-      <ThreadFormTitle>Start a discussion</ThreadFormTitle>
-      <Label htmlFor="title">Thread Title</Label>
-      {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
-      <Input
-        id="title"
-        type="text"
-        placeholder="Thread Title"
-        {...register('title', { required: true })}
-      />
+    <div>
+      {auth.token && (
+        <CenteredDiv>
+          <CreateButton
+            visible={!threadFormVisible}
+            onClick={() => setThreadFormVisible(!threadFormVisible)}
+          >
+            Create Thread
+          </CreateButton>
+          <CloseButton
+            visible={threadFormVisible}
+            onClick={() => setThreadFormVisible(!threadFormVisible)}
+          >
+            Close
+          </CloseButton>
+        </CenteredDiv>
+      )}
 
-      <Label htmlFor="content">Content</Label>
-      {errors.content && <ErrorMessage>This field is required</ErrorMessage>}
-      <TextArea
-        id="content"
-        placeholder="What's on your mind?"
-        {...register('content', { required: true })}
-      />
-      <Button type="submit">Create Thread</Button>
-    </ThreadFormWrapper>
+      <ThreadFormWrapper visible={threadFormVisible} onSubmit={handleSubmit(onSubmit)}>
+        <ThreadFormTitle>Start a discussion</ThreadFormTitle>
+        <Label htmlFor="title">Thread Title</Label>
+        {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
+        <Input
+          id="title"
+          type="text"
+          placeholder="Thread Title"
+          {...register('title', { required: true })}
+        />
+
+        <Label htmlFor="content">Content</Label>
+        {errors.content && <ErrorMessage>This field is required</ErrorMessage>}
+        <TextArea
+          id="content"
+          placeholder="What's on your mind?"
+          {...register('content', { required: true })}
+        />
+        <Button type="submit">Create Thread</Button>
+      </ThreadFormWrapper>
+    </div>
   );
 }
 
