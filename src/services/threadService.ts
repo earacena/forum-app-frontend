@@ -15,6 +15,10 @@ interface ThreadPostsFields {
   id: number;
 }
 
+interface GetThreadFields {
+  id: number;
+}
+
 const getAll = async () => {
   const response = await fetch(baseUrl);
   const fetchedThreads = ThreadArray.check(await response.json());
@@ -58,9 +62,19 @@ const getPostsOfThread = async ({ id }: ThreadPostsFields) => {
   return posts;
 };
 
+const getThread = async ({ id }: GetThreadFields) => {
+  if (Number.isNaN(id)) {
+    throw new Error('invalid thread number');
+  }
+  const response = await fetch(`${baseUrl}/${id}`);
+  const fetchedThread = Thread.check(await response.json());
+  return fetchedThread;
+};
+
 export default {
   getAll,
   create,
   remove,
   getPostsOfThread,
+  getThread,
 };
