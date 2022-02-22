@@ -1,4 +1,4 @@
-import { Thread, ThreadArray } from '../types';
+import { PostArray, Thread, ThreadArray } from '../types';
 
 const baseUrl = 'http://localhost:3001/api/threads';
 
@@ -8,6 +8,10 @@ interface CreateFields {
 }
 
 interface RemoveFields {
+  id: number;
+}
+
+interface ThreadPostsFields {
   id: number;
 }
 
@@ -45,8 +49,14 @@ const remove = async ({ id }: RemoveFields) => {
   });
 };
 
+const getPostsOfThread = async ({ id }: ThreadPostsFields) => {
+  const posts = PostArray.check(await fetch(`${baseUrl}/${id}/posts`));
+  return posts;
+};
+
 export default {
   getAll,
   create,
   remove,
+  getPostsOfThread,
 };
