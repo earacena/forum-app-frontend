@@ -6,18 +6,21 @@ import { useAppSelector, useAppDispatch } from '../../hooks';
 import threadService from '../../services/threadService';
 import { setPosts } from '../post/postsSlice';
 import Posts from '../post/Posts';
+import PostForm from '../post/PostForm';
 
 function Thread() {
   const dispatch = useAppDispatch();
   const [thread, setThread] = useState<Static<typeof ThreadType>>();
   const posts = useAppSelector((state) => state.posts);
+
   const { id } = useParams();
+  const threadId = RtNumber.check(Number(id));
 
   useEffect(() => {
     const fetchThread = async () => {
       try {
         const fetchedThread = await threadService.getThread({
-          id: RtNumber.check(Number(id)),
+          id: threadId,
         });
         setThread(fetchedThread);
       } catch (error) {
@@ -28,7 +31,7 @@ function Thread() {
     const fetchPosts = async () => {
       try {
         const fetchedPosts = await threadService.getPostsOfThread({
-          id: RtNumber.check(Number(id)),
+          id: threadId,
         });
         dispatch(setPosts(fetchedPosts));
       } catch (error) {
@@ -38,12 +41,13 @@ function Thread() {
 
     fetchThread();
     fetchPosts();
-  }, [id, dispatch]);
+  }, [threadId, dispatch]);
 
   return (
     <div>
       <h3>{thread?.title}</h3>
       <Posts posts={posts} authorId={thread?.userId} />
+      <PostForm threadId={threadId} />
     </div>
   );
 }
