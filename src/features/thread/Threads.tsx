@@ -63,6 +63,7 @@ function Threads() {
             key={thread.id}
           >
             {thread.title}
+            <span style={{ display: 'block', textAlign: 'right' }}>{new Date(thread.dateCreated).toDateString()}</span>
           </ThreadWrapper>
         ))}
       </ThreadListWrapper>
