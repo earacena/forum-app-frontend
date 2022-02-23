@@ -59,7 +59,7 @@ function ThreadForm() {
       };
 
       // POST new post
-      const createdPost = await postService.create(newPost);
+      await postService.create(newPost);
 
       notify('message', 'Thread created.', 4);
     } catch (error: unknown) {
