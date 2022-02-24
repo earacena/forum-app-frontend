@@ -1,83 +1,20 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import threadService from '../../services/threadService';
 import { setPosts } from './postsSlice';
 import { notify } from '../notification/Notification';
-
-interface VisibilityProps {
-  readonly visible: boolean;
-}
-
-const PostFormWrapper = styled.form<VisibilityProps>`
-  display: ${(props) => (props.visible ? 'flex' : 'none')};
-  flex-direction: column;
-  border: 1px red solid;
-  border-radius: 10px;
-  padding: 1em;
-  width: 500px;
-  margin: 0 auto;
-  margin-top: 1em;
-`;
-
-const TextArea = styled.textarea`
-  resize: none;
-  border: 1px black solid;
-  padding: 1em;
-  height: 150px;
-`;
-
-const PostButton = styled.button`
-  cursor: pointer;
-  font-size: 15px;
-  background: black;
-  color: lightgrey;
-  border: none;
-  padding: 1em;
-  margin: auto;
-  margin-top: 1em;
-  border-radius: 30px;
-`;
-
-const AddPostButton = styled.button<VisibilityProps>`
-  display: ${(props) => (props.visible ? '' : 'none')};
-  cursor: pointer;
-  font-size: 15px;
-  background: black;
-  color: lightgrey;
-  border: none;
-  padding: 1em;
-  margin: auto;
-  margin-top: 1em;
-  border-radius: 30px;
-`;
-
-const CloseFormButton = styled.button<VisibilityProps>`
-  display: ${(props) => (props.visible ? '' : 'none')};
-  cursor: pointer;
-  font-size: 15px;
-  background: black;
-  color: lightgrey;
-  border: none;
-  padding: 1em;
-  margin: auto;
-  margin-top: 1em;
-  border-radius: 30px;
-`;
-
-const Label = styled.label`
-  padding: 1em;
-`;
-
-const CenteredDiv = styled.div`
-  text-align: center;
-`;
-
-const ErrorMessage = styled.span`
-  color: red;
-`;
+import {
+  CenteredDiv,
+  AddPostButton,
+  CloseFormButton,
+  PostFormWrapper,
+  Label,
+  ErrorMessage,
+  TextArea,
+  PostButton,
+} from './postForm.style';
 
 type Input = {
   content: string;
