@@ -31,6 +31,7 @@ function ThreadForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
@@ -62,6 +63,11 @@ function ThreadForm() {
       await postService.create(newPost);
 
       notify('message', 'Thread created.', 4);
+      reset({
+        title: '',
+        content: '',
+      });
+      setThreadFormVisible(!threadFormVisible);
     } catch (error: unknown) {
       notify('error', 'Error while creating thread.', 4);
     }
@@ -86,7 +92,10 @@ function ThreadForm() {
         </CenteredDiv>
       )}
 
-      <ThreadFormWrapper visible={threadFormVisible} onSubmit={handleSubmit(onSubmit)}>
+      <ThreadFormWrapper
+        visible={threadFormVisible}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <ThreadFormTitle>Start a discussion</ThreadFormTitle>
         <Label htmlFor="title">Thread Title</Label>
         {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
