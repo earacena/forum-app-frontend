@@ -28,6 +28,7 @@ function RegisterForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
@@ -47,6 +48,11 @@ function RegisterForm() {
       });
 
       dispatch(setAuthenticatedUser(token));
+      reset({
+        name: '',
+        username: '',
+        password: '',
+      });
       notify('message', 'New account registered.', 4);
       navigate('/');
     } catch (error) {
