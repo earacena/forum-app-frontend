@@ -7,6 +7,7 @@ import Notification, { notify } from './features/notification/Notification';
 import Thread from './features/thread/Thread';
 import Threads from './features/thread/Threads';
 import { useAppDispatch, useAppSelector } from './hooks';
+import RegisterForm from './features/registerForm/RegisterForm';
 
 const NavButton = styled.button`
   cursor: pointer;
@@ -39,6 +40,11 @@ function App() {
             <NavButton>Log In</NavButton>
           </Link>
         )}
+        {!auth.token && (
+          <Link to="/register">
+            <NavButton>Register</NavButton>
+          </Link>
+        )}
         {auth.token && (
           <span>
             {` ${auth.name} `}
@@ -52,6 +58,7 @@ function App() {
         <Route path="/" element={<Threads />} />
         <Route path="/thread/:id" element={<Thread />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
       </Routes>
     </div>
   );
