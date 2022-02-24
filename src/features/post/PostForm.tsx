@@ -52,7 +52,6 @@ const AddPostButton = styled.button<VisibilityProps>`
   margin: auto;
   margin-top: 1em;
   border-radius: 30px;
-
 `;
 
 const CloseFormButton = styled.button<VisibilityProps>`
@@ -81,7 +80,7 @@ const ErrorMessage = styled.span`
 `;
 
 type Input = {
-  content: string,
+  content: string;
 };
 
 interface PostFormProps {
@@ -96,6 +95,7 @@ function PostForm({ threadId }: PostFormProps) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Input>({
     defaultValues: {
@@ -116,8 +116,14 @@ function PostForm({ threadId }: PostFormProps) {
       };
 
       await postService.create(newPost);
-      const updatedPosts = await threadService.getPostsOfThread({ id: threadId });
+      const updatedPosts = await threadService.getPostsOfThread({
+        id: threadId,
+      });
       dispatch(setPosts(updatedPosts));
+      reset({
+        content: '',
+      });
+      setPostFormVisible(!postFormVisible);
       notify('message', 'Replied to thread', 4);
     } catch (error: unknown) {
       notify('error', 'Error while replying to thread.', 4);
@@ -143,7 +149,10 @@ function PostForm({ threadId }: PostFormProps) {
         </CenteredDiv>
       )}
 
-      <PostFormWrapper visible={postFormVisible} onSubmit={handleSubmit(onSubmit)}>
+      <PostFormWrapper
+        visible={postFormVisible}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <Label htmlFor="post-content">Post body</Label>
         {errors.content && <ErrorMessage>This field is required</ErrorMessage>}
         <TextArea
