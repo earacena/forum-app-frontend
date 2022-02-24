@@ -25,6 +25,7 @@ function LoginForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
@@ -43,6 +44,10 @@ function LoginForm() {
           : `Successfully signed in, welcome ${token.username}`;
 
         dispatch(setAuthenticatedUser(token));
+        reset({
+          username: '',
+          password: '',
+        });
         notify('message', message, 4);
         navigate('/');
       }
