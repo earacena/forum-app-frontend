@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import postService from '../../services/postService';
+import styled from 'styled-components';
 import { Posts as PostsType } from '../../types';
 import Post from './Post';
 
@@ -8,16 +8,28 @@ interface PostsProps {
   authorId: number | undefined;
 }
 
+const PostList = styled.ul`
+  list-style-type: none;
+  padding-left: 0;
+  
+`;
+
+const PostItem = styled.li`
+`;
+
 function Posts({ posts, authorId }: PostsProps) {
   return (
     <div>
-      <ul>
+      <PostList>
         {posts.map((post) => (
-          <li key={post.id}>
-            <Post post={post} isAuthor={authorId ? authorId === post.userId : false} />
-          </li>
+          <PostItem key={post.id}>
+            <Post
+              post={post}
+              isAuthor={authorId ? authorId === post.userId : false}
+            />
+          </PostItem>
         ))}
-      </ul>
+      </PostList>
     </div>
   );
 }
