@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useAppSelector } from '../../hooks';
 import { Posts as PostsType } from '../../types';
 import Post from './Post';
 
 interface PostsProps {
   posts: PostsType;
-  authorId: number | undefined;
+  threadAuthorId: number | undefined;
 }
 
 const PostList = styled.ul`
@@ -17,7 +18,9 @@ const PostList = styled.ul`
 const PostItem = styled.li`
 `;
 
-function Posts({ posts, authorId }: PostsProps) {
+function Posts({ posts, threadAuthorId }: PostsProps) {
+  const auth = useAppSelector((state) => state.auth);
+
   return (
     <div>
       <PostList>
@@ -25,7 +28,8 @@ function Posts({ posts, authorId }: PostsProps) {
           <PostItem key={post.id}>
             <Post
               post={post}
-              isAuthor={authorId ? authorId === post.userId : false}
+              isThreadAuthor={threadAuthorId ? threadAuthorId === post.userId : false}
+              isAuthor={auth.id ? auth.id === post.userId : false}
             />
           </PostItem>
         ))}
