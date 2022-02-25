@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: UserAuthentication = {
+  id: 0,
   token: '',
   username: '',
   name: '',
@@ -16,6 +17,7 @@ const authSlice = createSlice({
 });
 
 export interface UserAuthentication {
+  id: number;
   token: string;
   username: string;
   name: string;
