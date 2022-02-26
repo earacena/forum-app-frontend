@@ -51,7 +51,7 @@ function Thread() {
   return (
     <div>
       <ThreadTitle>{thread?.title}</ThreadTitle>
-      <Posts posts={posts} authorId={thread?.userId} />
+      <Posts posts={posts} threadAuthorId={thread?.userId} />
       <PostForm threadId={threadId} />
     </div>
   );
