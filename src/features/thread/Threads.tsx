@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { Number as RtNumber } from 'runtypes';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import threadService from '../../services/threadService';
 import ThreadForm from './ThreadForm';
 import { setThreads } from './threadSlice';
+import topicService from '../../services/topicService';
 
 const ThreadsTitle = styled.h2`
   text-align: center;
   size: 10px;
+`;
+
+const ThreadsDescription = styled.h3`
+  text-align: center;
 `;
 
 const ThreadListWrapper = styled.div`
@@ -37,26 +42,28 @@ const ThreadWrapper = styled.p`
 function Threads() {
   const dispatch = useAppDispatch();
   const threads = useAppSelector((state) => state.threads);
+  // const topic = useAppSelector((state) => state.topic);
   const navigate = useNavigate();
+  const { id } = useParams();
+  const topicId = RtNumber.check(Number(id));
 
   useEffect(() => {
     const fetchThreads = async () => {
-      const fetchedThreads = await threadService.getAll();
+      const fetchedThreads = await topicService.getThreadsOfTopic({ id: topicId });
       dispatch(setThreads(fetchedThreads));
     };
 
     fetchThreads();
-  }, [dispatch]);
+  }, [dispatch, topicId]);
 
-  const openThread = (id: number) => {
-    navigate(`/thread/${id}`);
+  const openThread = (threadId: number) => {
+    navigate(`/thread/${threadId}`);
   };
 
   return (
     <div>
       <ThreadForm />
       <ThreadListWrapper>
-        <ThreadsTitle>Threads</ThreadsTitle>
         {threads.map((thread) => (
           <ThreadWrapper
             onClick={() => openThread(thread.id)}
