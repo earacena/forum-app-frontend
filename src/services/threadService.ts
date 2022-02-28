@@ -55,7 +55,7 @@ const remove = async ({ id }: RemoveFields) => {
 
 const getPostsOfThread = async ({ id }: ThreadPostsFields) => {
   if (Number.isNaN(id)) {
-    throw new Error('invalid thread number');
+    throw new Error('invalid thread id number');
   }
   const response = await fetch(`${baseUrl}/${id}/posts`);
   const posts = PostArray.check(await response.json());
