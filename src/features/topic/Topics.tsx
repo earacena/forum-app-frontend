@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Static as RtStatic } from 'runtypes';
 import styled from 'styled-components';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import topicService from '../../services/topicService';
-import { TopicArray } from '../../types';
+import { Topic } from '../../types';
+import { setCurrentTopic, setTopics } from './topicSlice';
 
 const TopicListWrapper = styled.ul`
   border: 1px black solid;
@@ -16,26 +18,33 @@ const TopicListItem = styled.li`
 `;
 
 function Topics() {
-  const [topics, setTopics] = useState<RtStatic<typeof TopicArray>>([]);
+  const dispatch = useAppDispatch();
+  const topics = useAppSelector((state) => state.topics);
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchTopics = async () => {
       try {
         const fetchedTopics = await topicService.getAll();
-        setTopics(fetchedTopics);
+        dispatch(setTopics(fetchedTopics));
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchTopics();
-  }, []);
+  }, [dispatch]);
+
+  const handleClick = (topic: RtStatic<typeof Topic>) => {
+    dispatch(setCurrentTopic(topic));
+    navigate(`/topic/${topic.id}`);
+  };
 
   return (
     <div>
       <TopicListWrapper>
-        {topics.map((topic) => (
-          <TopicListItem key={topic.id} onClick={() => navigate(`/topic/${topic.id}`)}>
+        {topics.topics.map((topic) => (
+          <TopicListItem key={topic.id} onClick={() => handleClick(topic)}>
             {`${topic.title} * ${topic.description}`}
           </TopicListItem>
         ))}
