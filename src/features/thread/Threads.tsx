@@ -42,7 +42,7 @@ const ThreadWrapper = styled.p`
 function Threads() {
   const dispatch = useAppDispatch();
   const threads = useAppSelector((state) => state.threads);
-  // const topic = useAppSelector((state) => state.topic);
+  const topic = useAppSelector((state) => state.topics.currentTopic);
   const navigate = useNavigate();
   const { id } = useParams();
   const topicId = RtNumber.check(Number(id));
@@ -62,6 +62,8 @@ function Threads() {
 
   return (
     <div>
+      <ThreadsTitle>{topic?.title}</ThreadsTitle>
+      <ThreadsDescription>{topic?.description}</ThreadsDescription>
       <ThreadForm />
       <ThreadListWrapper>
         {threads.map((thread) => (
