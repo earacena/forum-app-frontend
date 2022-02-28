@@ -6,6 +6,7 @@ import LoginForm from './features/loginForm/LoginForm';
 import Notification, { notify } from './features/notification/Notification';
 import Thread from './features/thread/Thread';
 import Threads from './features/thread/Threads';
+import Topics from './features/topic/Topics';
 import { useAppDispatch, useAppSelector } from './hooks';
 import RegisterForm from './features/registerForm/RegisterForm';
 
@@ -33,7 +34,7 @@ function App() {
       <h1>Forum App</h1>
       <nav>
         <Link to="/">
-          <NavButton>Threads</NavButton>
+          <NavButton>Topics</NavButton>
         </Link>
         {!auth.token && (
           <Link to="/login">
@@ -55,7 +56,8 @@ function App() {
       <Notification />
 
       <Routes>
-        <Route path="/" element={<Threads />} />
+        <Route path="/" element={<Topics />} />
+        <Route path="/topic/:id" element={<Threads />} />
         <Route path="/thread/:id" element={<Thread />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
