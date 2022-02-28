@@ -3,11 +3,13 @@ import notificationReducer from '../features/notification/notificationSlice';
 import authReducer from '../features/auth/authSlice';
 import threadsReducer from '../features/thread/threadSlice';
 import postsReducer from '../features/post/postsSlice';
+import topicsReducer from '../features/topic/topicSlice';
 
 const store = configureStore({
   reducer: {
     notification: notificationReducer,
     auth: authReducer,
+    topics: topicsReducer,
     threads: threadsReducer,
     posts: postsReducer,
   },
