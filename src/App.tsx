@@ -20,6 +20,10 @@ const NavButton = styled.button`
   border: 1px black solid;
 `;
 
+const AppHeader = styled.h1`
+  text-align: center;
+`;
+
 function App() {
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.auth);
@@ -31,7 +35,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Forum App</h1>
+      <AppHeader>Forum App</AppHeader>
       <nav>
         <Link to="/">
           <NavButton>Topics</NavButton>
