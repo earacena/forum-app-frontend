@@ -1,36 +1,16 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Static as RtStatic } from 'runtypes';
-import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import topicService from '../../services/topicService';
 import { Topic } from '../../types';
 import { setCurrentTopic, setTopics } from './topicSlice';
-
-const TopicTitle = styled.span`
-  font-size: 20px;
-`;
-
-const TopicListWrapper = styled.ul`
-  padding: 1em;
-  border: 1px black solid;
-  border-radius: 4px;
-  list-style-type: none;
-  margin: 1em;
-`;
-
-const TopicListItem = styled.li`
-  cursor: pointer;
-  padding: 1em;
-  border: 1px black solid;
-  border-radius: 8px;
-`;
-
-const LeftVerticalLine = styled.span`
-  border-left: 1px solid black;
-  padding: 0.5em;
-  margin-left: 1em;
-`;
+import {
+  TopicListWrapper,
+  TopicListItem,
+  TopicTitle,
+  LeftVerticalLine,
+} from './topics.style';
 
 function Topics() {
   const dispatch = useAppDispatch();
