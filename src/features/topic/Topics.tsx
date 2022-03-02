@@ -4,7 +4,7 @@ import { Static as RtStatic } from 'runtypes';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import topicService from '../../services/topicService';
 import { Topic } from '../../types';
-import { setCurrentTopic, setTopics } from './topicSlice';
+import { setCurrentTopic, setTopics } from './topic.slice';
 import {
   TopicListWrapper,
   TopicListItem,
