@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { setAuthenticatedUser } from '../auth/authSlice';
+import { setAuthenticatedUser } from '../auth/auth.slice';
 import loginService from '../../services/loginService';
 import { notify } from '../notification/Notification';
 import {

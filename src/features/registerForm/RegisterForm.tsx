@@ -13,7 +13,7 @@ import { Button } from '../loginForm/loginFormStyle';
 import { notify } from '../notification/Notification';
 import userService from '../../services/userService';
 import loginService from '../../services/loginService';
-import { setAuthenticatedUser } from '../auth/authSlice';
+import { setAuthenticatedUser } from '../auth/auth.slice';
 
 type Inputs = {
   name: string;

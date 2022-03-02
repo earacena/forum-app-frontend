@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Routes, Route, Link } from 'react-router-dom';
-import { removeAuthenticatedUser } from './features/auth/authSlice';
+import { removeAuthenticatedUser } from './features/auth/auth.slice';
 import LoginForm from './features/loginForm/LoginForm';
 import Notification, { notify } from './features/notification/Notification';
 import Thread from './features/thread/Thread';
