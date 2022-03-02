@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Thread as ThreadType } from '../../types';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import threadService from '../../services/threadService';
-import { setPosts } from '../post/postsSlice';
+import { setPosts } from '../post/posts.slice';
 import Posts from '../post/Posts';
 import PostForm from '../post/PostForm';
 

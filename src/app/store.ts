@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import notificationReducer from '../features/notification/notificationSlice';
 import authReducer from '../features/auth/authSlice';
 import threadsReducer from '../features/thread/thread.slice';
-import postsReducer from '../features/post/postsSlice';
+import postsReducer from '../features/post/posts.slice';
 import topicsReducer from '../features/topic/topic.slice';
 
 const store = configureStore({

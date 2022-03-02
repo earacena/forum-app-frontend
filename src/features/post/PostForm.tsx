@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import threadService from '../../services/threadService';
-import { setPosts } from './postsSlice';
+import { setPosts } from './posts.slice';
 import { notify } from '../notification/Notification';
 import {
   CenteredDiv,
