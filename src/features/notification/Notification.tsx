@@ -5,7 +5,7 @@ import { useAppSelector } from '../../hooks';
 import {
   removeNotificationMessage,
   setNotificationMessage,
-} from './notificationSlice';
+} from './notification.slice';
 
 interface NotificationWrapperProps {
   readonly error?: boolean;
