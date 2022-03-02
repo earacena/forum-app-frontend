@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import threadService from '../../services/threadService';
 import { notify } from '../notification/Notification';
-import { setThreads } from './threadSlice';
+import { setThreads } from './thread.slice';
 import {
   ThreadFormTitle,
   ThreadFormWrapper,

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Number as RtNumber } from 'runtypes';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import ThreadForm from './ThreadForm';
-import { setThreads } from './threadSlice';
+import { setThreads } from './thread.slice';
 import topicService from '../../services/topicService';
 import { setCurrentTopic } from '../topic/topic.slice';
 import {
