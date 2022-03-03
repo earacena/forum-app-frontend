@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Routes, Route, Link } from 'react-router-dom';
-import { removeAuthenticatedUser } from './features/auth/auth.slice';
+import { removeAuthenticatedUser, setAuthenticatedUser } from './features/auth/auth.slice';
 import LoginForm from './features/loginForm/LoginForm';
 import Notification, { notify } from './features/notification/Notification';
 import Thread from './features/thread/Thread';
@@ -28,8 +28,18 @@ function App() {
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.auth);
 
+  // Check if user session already exists
+  useEffect(() => {
+    const forumAppUserJSON = window.localStorage.getItem('forumAppUser');
+    if (forumAppUserJSON) {
+      const forumAppUser = JSON.parse(forumAppUserJSON);
+      dispatch(setAuthenticatedUser(forumAppUser));
+    }
+  }, [dispatch]);
+
   const handleLogOut = () => {
     dispatch(removeAuthenticatedUser());
+    window.localStorage.removeItem('forumAppUser');
     notify('message', 'Successfully logged out. Goodbye!', 4);
   };
 
