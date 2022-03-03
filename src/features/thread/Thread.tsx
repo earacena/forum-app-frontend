@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Number as RtNumber, Static } from 'runtypes';
 import styled from 'styled-components';
 import { Thread as ThreadType } from '../../types';
@@ -10,14 +10,33 @@ import Posts from '../post/Posts';
 import PostForm from '../post/PostForm';
 
 const ThreadTitle = styled.h3`
-  text-align: center;
+  align-self: center; 
 `;
+
+const BackButton = styled.button`
+  cursor: pointer;
+  border-radius: 15px;
+  color: lightgrey;
+  background: black;
+  border: 1px white solid;
+  border-radius: 20px;
+  padding: 0.6em;
+  margin: 0.5em;
+`;
+
+const TopOfThread = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const InvisibleItem = styled.div``;
 
 function Thread() {
   const dispatch = useAppDispatch();
   const [thread, setThread] = useState<Static<typeof ThreadType>>();
   const posts = useAppSelector((state) => state.posts);
-
+  const currentTopic = useAppSelector((state) => state.topics.currentTopic);
+  const navigate = useNavigate();
   const { id } = useParams();
   const threadId = RtNumber.check(Number(id));
 
@@ -48,9 +67,20 @@ function Thread() {
     fetchPosts();
   }, [threadId, dispatch]);
 
+  const handleBackClick = () => {
+    if (!currentTopic) {
+      return;
+    }
+    navigate(`/topic/${currentTopic.id}`);
+  };
+
   return (
     <div>
-      <ThreadTitle>{thread?.title}</ThreadTitle>
+      <TopOfThread>
+        <BackButton onClick={handleBackClick}>Back</BackButton>
+        <ThreadTitle>{thread?.title}</ThreadTitle>
+        <InvisibleItem />
+      </TopOfThread>
       <Posts posts={posts} threadAuthorId={thread?.userId} />
       <PostForm threadId={threadId} />
     </div>
