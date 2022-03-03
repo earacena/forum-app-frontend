@@ -87,7 +87,7 @@ function PostForm({ threadId }: PostFormProps) {
       )}
 
       <PostFormWrapper
-        visible={postFormVisible}
+        visible={auth.token ? postFormVisible : false}
         onSubmit={handleSubmit(onSubmit)}
       >
         <Label htmlFor="post-content">Post body</Label>
