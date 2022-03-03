@@ -9,6 +9,7 @@ interface CreateFields {
 }
 
 interface RemoveFields {
+  token: string;
   id: number;
 }
 
@@ -24,41 +25,36 @@ const getAll = async () => {
 };
 
 const create = async ({ token, threadId, content }: CreateFields) => {
-  const response = await fetch(
-    baseUrl,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ threadId, content }),
+  const response = await fetch(baseUrl, {
+    method: 'POST',
+    headers: {
+      Authorization: `bearer ${token}`,
+      'Content-Type': 'application/json',
     },
-  );
+    body: JSON.stringify({ threadId, content }),
+  });
   const createdThread = Post.check(await response.json());
   return createdThread;
 };
 
-const remove = async ({ id }: RemoveFields) => {
-  await fetch(
-    `${baseUrl}/${id}`,
-    {
-      method: 'DELETE',
+const remove = async ({ token, id }: RemoveFields) => {
+  await fetch(`${baseUrl}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `bearer ${token}`,
+      'Content-Type': 'application/json',
     },
-  );
+  });
 };
 
 const update = async ({ id, content }: UpdateFields) => {
-  const response = await fetch(
-    `${baseUrl}/${id}`,
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: content,
+  const response = await fetch(`${baseUrl}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    body: content,
+  });
 
   const updatedPost = Post.check(await response.json());
   return updatedPost;
