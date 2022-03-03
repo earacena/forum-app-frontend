@@ -44,6 +44,10 @@ function LoginForm() {
           : `Successfully signed in, welcome ${token.username}`;
 
         dispatch(setAuthenticatedUser(token));
+
+        // Save user session
+        window.localStorage.setItem('forumAppUser', JSON.stringify(token));
+
         reset({
           username: '',
           password: '',
