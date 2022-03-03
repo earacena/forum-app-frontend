@@ -5,6 +5,7 @@ const baseUrl = 'http://localhost:3001/api/threads';
 interface CreateFields {
   token: string;
   title: string;
+  topicId: number;
 }
 
 interface RemoveFields {
@@ -25,7 +26,7 @@ const getAll = async () => {
   return fetchedThreads;
 };
 
-const create = async ({ token, title }: CreateFields) => {
+const create = async ({ token, title, topicId }: CreateFields) => {
   if (!token) {
     throw new Error('Cannot perform this action if not signed in');
   }
@@ -36,7 +37,7 @@ const create = async ({ token, title }: CreateFields) => {
       Authorization: `bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ title }),
+    body: JSON.stringify({ title, topicId }),
   });
 
   if (response.status === 400) {

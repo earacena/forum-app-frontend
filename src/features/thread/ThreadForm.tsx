@@ -26,6 +26,7 @@ type Inputs = {
 function ThreadForm() {
   const auth = useAppSelector((state) => state.auth);
   const threads = useAppSelector((state) => state.threads);
+  const currentTopic = useAppSelector((state) => state.topics.currentTopic);
   const dispatch = useAppDispatch();
   const [threadFormVisible, setThreadFormVisible] = useState(false);
   const {
@@ -43,9 +44,14 @@ function ThreadForm() {
   const onSubmit: SubmitHandler<Inputs> = async (threadData) => {
     try {
       // Prepare new thread
+      if (!currentTopic) {
+        throw new Error('Cannot post in a undefined topic');
+      }
+
       const newThread = {
         token: auth.token,
         title: threadData.title,
+        topicId: currentTopic.id,
       };
 
       // POST new thread, get id
