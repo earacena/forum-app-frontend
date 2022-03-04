@@ -14,7 +14,7 @@ import {
 
 function Topics() {
   const dispatch = useAppDispatch();
-  const topics = useAppSelector((state) => state.topics);
+  const topics = useAppSelector((state) => state.topics.allTopics);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ function Topics() {
   return (
     <div>
       <TopicListWrapper>
-        {topics.topics.map((topic) => (
+        {topics.map((topic) => (
           <TopicListItem key={topic.id} onClick={() => handleClick(topic)}>
             <TopicTitle>
               {topic.title}

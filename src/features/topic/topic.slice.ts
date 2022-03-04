@@ -3,12 +3,12 @@ import { Static as RtStatic } from 'runtypes';
 import { TopicArray, Topic } from '../../types';
 
 interface TopicsState {
-  topics: RtStatic<typeof TopicArray>,
+  allTopics: RtStatic<typeof TopicArray>,
   currentTopic: RtStatic<typeof Topic> | undefined,
 }
 
 const initialState: TopicsState = {
-  topics: [],
+  allTopics: [],
   currentTopic: undefined,
 };
 
@@ -16,9 +16,9 @@ const topicSlice = createSlice({
   name: 'topic',
   initialState,
   reducers: {
-    setTopics: (state, action) => ({ ...state, topics: action.payload }),
+    setTopics: (state, action) => ({ ...state, allTopics: action.payload }),
     setCurrentTopic: (state, action) => ({ ...state, currentTopic: action.payload }),
-    resetTopics: (state) => ({ ...state, topics: [] }),
+    resetTopics: (state) => ({ ...state, allTopics: [] }),
     resetCurrentTopic: (state) => ({ ...state, currentTopic: initialState.currentTopic }),
   },
 });
