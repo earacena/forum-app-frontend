@@ -30,6 +30,7 @@ export const Post = RtRecord({
 export const Thread = RtRecord({
   id: RtNumber,
   userId: RtNumber,
+  topicId: RtNumber,
   dateCreated: RtString.withConstraint((x: string) => {
     // Must be parsable into a Date object
     if (!x || x === null || typeof x !== 'string' || Number.isNaN(Date.parse(x))) {
