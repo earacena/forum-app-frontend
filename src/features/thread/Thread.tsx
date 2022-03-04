@@ -8,6 +8,8 @@ import threadService from '../../services/threadService';
 import { setPosts } from '../post/posts.slice';
 import Posts from '../post/Posts';
 import PostForm from '../post/PostForm';
+import topicService from '../../services/topicService';
+import { setCurrentTopic } from '../topic/topic.slice';
 
 const ThreadTitle = styled.h3`
   align-self: center; 
@@ -51,7 +53,10 @@ function Thread() {
         console.log(error);
       }
     };
+    fetchThread();
+  }, [threadId]);
 
+  useEffect(() => {
     const fetchPosts = async () => {
       try {
         const fetchedPosts = await threadService.getPostsOfThread({
@@ -62,10 +67,20 @@ function Thread() {
         console.log(error);
       }
     };
-
-    fetchThread();
     fetchPosts();
   }, [threadId, dispatch]);
+
+  useEffect(() => {
+    const fetchTopic = async () => {
+      try {
+        const topic = await topicService.getTopicById({ id: thread?.topicId });
+        dispatch(setCurrentTopic(topic));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchTopic();
+  }, [thread?.topicId, dispatch]);
 
   const handleBackClick = () => {
     if (!currentTopic) {
