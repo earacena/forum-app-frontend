@@ -73,14 +73,18 @@ function Thread() {
   useEffect(() => {
     const fetchTopic = async () => {
       try {
-        const topic = await topicService.getTopicById({ id: thread?.topicId });
-        dispatch(setCurrentTopic(topic));
+        if (thread?.topicId) {
+          const topic = await topicService.getTopicById({ id: thread?.topicId });
+          dispatch(setCurrentTopic(topic));
+        }
       } catch (error) {
         console.log(error);
       }
     };
-    fetchTopic();
-  }, [thread?.topicId, dispatch]);
+    if (!currentTopic) {
+      fetchTopic();
+    }
+  }, [currentTopic, thread?.topicId, dispatch]);
 
   const handleBackClick = () => {
     if (!currentTopic) {

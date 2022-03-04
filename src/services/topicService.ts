@@ -3,7 +3,7 @@ import { ThreadArray, Topic, TopicArray } from '../types';
 const baseUrl = 'http://localhost:3001/api/topics';
 
 interface TopicIdFields {
-  id: number | undefined;
+  id: number;
 }
 
 interface TopicThreadsFields {
