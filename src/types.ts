@@ -6,12 +6,14 @@ import {
   Static as RtStatic,
   Union as RtUnion,
   InstanceOf as RtInstanceOf,
+  Boolean as RtBoolean,
 } from 'runtypes';
 
 export const Post = RtRecord({
   id: RtNumber,
   threadId: RtNumber,
   userId: RtNumber,
+  isOriginalPost: RtBoolean,
   authorName: RtString,
   content: RtString,
   datePosted: RtUnion(
