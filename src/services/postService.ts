@@ -6,6 +6,7 @@ interface CreateFields {
   token: string;
   threadId: number;
   content: string;
+  isOriginalPost: boolean;
 }
 
 interface RemoveFields {
@@ -24,14 +25,19 @@ const getAll = async () => {
   return fetchedPosts;
 };
 
-const create = async ({ token, threadId, content }: CreateFields) => {
+const create = async ({
+  token,
+  threadId,
+  content,
+  isOriginalPost,
+}: CreateFields) => {
   const response = await fetch(baseUrl, {
     method: 'POST',
     headers: {
       Authorization: `bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ threadId, content }),
+    body: JSON.stringify({ threadId, content, isOriginalPost }),
   });
   const createdThread = Post.check(await response.json());
   return createdThread;
