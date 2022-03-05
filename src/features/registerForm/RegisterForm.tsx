@@ -48,6 +48,7 @@ function RegisterForm() {
       });
 
       dispatch(setAuthenticatedUser(token));
+      window.localStorage.setItem('forumAppUser', JSON.stringify(token));
       reset({
         name: '',
         username: '',
