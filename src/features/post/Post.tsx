@@ -62,7 +62,9 @@ function Post({ post, isThreadAuthor, isAuthor }: PostProps) {
       {`${post?.authorName} ${isThreadAuthor ? '[Author]' : ''} on ${new Date(
         post.datePosted,
       ).toDateString()}`}
-      {isAuthor && (<DeleteButton onClick={handleDelete}>Delete</DeleteButton>)}
+      { isAuthor
+        && !post.isOriginalPost
+        && (<DeleteButton onClick={handleDelete}>Delete</DeleteButton>)}
       <hr />
       {post.content}
     </PostWrapper>
