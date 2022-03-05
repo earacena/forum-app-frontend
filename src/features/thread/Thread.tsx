@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Number as RtNumber, Static } from 'runtypes';
+import { Number as RtNumber } from 'runtypes';
 import styled from 'styled-components';
-import { Thread as ThreadType } from '../../types';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import threadService from '../../services/threadService';
 import { setPosts } from '../post/posts.slice';
@@ -10,6 +9,7 @@ import Posts from '../post/Posts';
 import PostForm from '../post/PostForm';
 import topicService from '../../services/topicService';
 import { setCurrentTopic } from '../topic/topic.slice';
+import { setCurrentThread } from './thread.slice';
 
 const ThreadTitle = styled.h3`
   align-self: center; 
@@ -35,7 +35,7 @@ const InvisibleItem = styled.div``;
 
 function Thread() {
   const dispatch = useAppDispatch();
-  const [thread, setThread] = useState<Static<typeof ThreadType>>();
+  const thread = useAppSelector((state) => state.threads.currentThread);
   const posts = useAppSelector((state) => state.posts);
   const currentTopic = useAppSelector((state) => state.topics.currentTopic);
   const navigate = useNavigate();
@@ -48,13 +48,13 @@ function Thread() {
         const fetchedThread = await threadService.getThread({
           id: threadId,
         });
-        setThread(fetchedThread);
+        dispatch(setCurrentThread(fetchedThread));
       } catch (error) {
         console.log(error);
       }
     };
     fetchThread();
-  }, [threadId]);
+  }, [dispatch, threadId]);
 
   useEffect(() => {
     const fetchPosts = async () => {
