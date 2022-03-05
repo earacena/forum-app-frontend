@@ -63,6 +63,7 @@ function ThreadForm() {
         token: auth.token,
         content: threadData.content,
         threadId: createdThread.id,
+        isOriginalPost: true,
       };
 
       // POST new post

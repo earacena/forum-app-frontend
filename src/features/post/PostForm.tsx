@@ -49,6 +49,7 @@ function PostForm({ threadId }: PostFormProps) {
       const newPost = {
         token: auth.token,
         content: postData.content,
+        isOriginalPost: false,
         threadId,
       };
 
