@@ -31,8 +31,6 @@ const TopOfThread = styled.div`
   justify-content: space-evenly;
 `;
 
-const InvisibleItem = styled.div``;
-
 function Thread() {
   const dispatch = useAppDispatch();
   const thread = useAppSelector((state) => state.threads.currentThread);
@@ -98,7 +96,7 @@ function Thread() {
       <TopOfThread>
         <BackButton onClick={handleBackClick}>Back</BackButton>
         <ThreadTitle>{thread?.title}</ThreadTitle>
-        <InvisibleItem />
+        <BackButton style={{ visibility: 'hidden' }}>Back</BackButton>
       </TopOfThread>
       <Posts posts={posts} threadAuthorId={thread?.userId} />
       <PostForm threadId={threadId} />
