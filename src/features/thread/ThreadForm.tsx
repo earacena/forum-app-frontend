@@ -25,7 +25,7 @@ type Inputs = {
 
 function ThreadForm() {
   const auth = useAppSelector((state) => state.auth);
-  const threads = useAppSelector((state) => state.threads);
+  const threads = useAppSelector((state) => state.threads.allThreads);
   const currentTopic = useAppSelector((state) => state.topics.currentTopic);
   const dispatch = useAppDispatch();
   const [threadFormVisible, setThreadFormVisible] = useState(false);

@@ -18,7 +18,7 @@ import {
 
 function Threads() {
   const dispatch = useAppDispatch();
-  const threads = useAppSelector((state) => state.threads);
+  const threads = useAppSelector((state) => state.threads.allThreads);
   const topic = useAppSelector((state) => state.topics.currentTopic);
   const navigate = useNavigate();
   const { id } = useParams();
