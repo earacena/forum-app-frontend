@@ -7,10 +7,11 @@ import { setThreads } from './thread.slice';
 import topicService from '../../services/topicService';
 import { setCurrentTopic } from '../topic/topic.slice';
 import {
+  ThreadsDiv,
   ThreadListWrapper,
   ThreadsTitle,
   ThreadsDescription,
-  ThreadWrapper,
+  ThreadItemWrapper,
   ThreadTitle,
   LeftVerticalLine,
 } from './threads.style';
@@ -51,13 +52,13 @@ function Threads() {
   };
 
   return (
-    <div>
+    <ThreadsDiv>
       <ThreadForm />
+      <ThreadsTitle>{topic?.title}</ThreadsTitle>
+      <ThreadsDescription>{topic?.description}</ThreadsDescription>
       <ThreadListWrapper>
-        <ThreadsTitle>{topic?.title}</ThreadsTitle>
-        <ThreadsDescription>{topic?.description}</ThreadsDescription>
         {threads.map((thread) => (
-          <ThreadWrapper
+          <ThreadItemWrapper
             key={thread.id}
             onClick={() => openThread(thread.id)}
             author={auth.id === thread.userId}
@@ -66,10 +67,10 @@ function Threads() {
             <LeftVerticalLine>
               {new Date(thread.dateCreated).toDateString()}
             </LeftVerticalLine>
-          </ThreadWrapper>
+          </ThreadItemWrapper>
         ))}
       </ThreadListWrapper>
-    </div>
+    </ThreadsDiv>
   );
 }
 
