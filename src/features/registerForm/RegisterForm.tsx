@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch } from '../../hooks';
 import {
-  Button,
   ErrorMessage,
   Label,
   Input,
@@ -14,6 +13,7 @@ import { notify } from '../notification/Notification';
 import userService from '../../services/userService';
 import loginService from '../../services/loginService';
 import { setAuthenticatedUser } from '../auth/auth.slice';
+import FormSubmitButton from '../../components/FormSubmitButton';
 
 type Inputs = {
   name: string;
@@ -113,7 +113,7 @@ function RegisterForm() {
         {...register('password', { required: true, minLength: 8 })}
       />
 
-      <Button primary type="submit">Register User</Button>
+      <FormSubmitButton primary type="submit">Register User</FormSubmitButton>
     </RegisterFormWrapper>
   );
 }
