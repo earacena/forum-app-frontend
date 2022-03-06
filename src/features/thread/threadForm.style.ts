@@ -16,9 +16,12 @@ export const ThreadFormTitle = styled.h2`
 export const ThreadFormWrapper = styled.form<VisibilityProps>`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
   flex-direction: column;
-  border: 1px black solid;
   padding: 1em;
-  margin: 1em;
+  margin: 1em auto;
+  width: clamp(400px, 50vw, 700px);
+  border: 1px lightgrey solid;
+  border-radius: 8px;
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
 `;
 
 export const Input = styled.input`
@@ -79,14 +82,15 @@ export const CreateButton = styled.button<VisibilityProps>`
 export const CloseButton = styled.button<VisibilityProps>`
   display: ${(props) => (props.visible ? '' : 'none')};
   cursor: pointer;
-  border-radius: 20px;
-  padding: 0.6em;
+  border-radius: 30px;
+  padding: 0.5em;
   color: red;
   background: darkred;
   border: 1px darkred solid;
   width: auto;
   height: auto;
   font-size: 16px;
+  margin: auto;
 `;
 
 export const CenteredDiv = styled.div`
