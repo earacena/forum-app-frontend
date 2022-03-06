@@ -40,4 +40,5 @@ export const ThreadTitle = styled.p`
 export const LeftVerticalLine = styled.span`
   border-left: 1px solid black;
   padding: 0.5em;
+  min-width: 110px;
 `;
