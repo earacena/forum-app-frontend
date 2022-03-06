@@ -5,7 +5,6 @@ import { useAppDispatch } from '../../hooks';
 import {
   ErrorMessage,
   Label,
-  Input,
   RegisterFormTitle,
   RegisterFormWrapper,
 } from './registerForm.style';
@@ -14,6 +13,7 @@ import userService from '../../services/userService';
 import loginService from '../../services/loginService';
 import { setAuthenticatedUser } from '../auth/auth.slice';
 import FormSubmitButton from '../../components/FormSubmitButton';
+import FormInput from '../../components/FormInput';
 
 type Inputs = {
   name: string;
@@ -71,7 +71,7 @@ function RegisterForm() {
       {errors.name?.type === 'required' && (
         <ErrorMessage>This field is required</ErrorMessage>
       )}
-      <Input
+      <FormInput
         id="name"
         type="text"
         placeholder="Name"
@@ -88,7 +88,7 @@ function RegisterForm() {
       {errors.username?.type === 'required' && (
         <ErrorMessage>This field is required</ErrorMessage>
       )}
-      <Input
+      <FormInput
         id="username"
         type="text"
         placeholder="Username"
@@ -106,7 +106,7 @@ function RegisterForm() {
       {errors.password?.type === 'required' && (
         <ErrorMessage>This field is required</ErrorMessage>
       )}
-      <Input
+      <FormInput
         id="password"
         type="password"
         placeholder="Password"
