@@ -20,7 +20,7 @@ export const ThreadListWrapper = styled.ul`
   padding: 1em;
   border-radius: 5px;
   margin: 1em;
-  `;
+`;
 
 export const ThreadItemWrapper = styled.li<ThreadItemWrapperProps>`
   display: flex;
@@ -38,7 +38,12 @@ export const ThreadItemWrapper = styled.li<ThreadItemWrapperProps>`
 
   &:hover {
     border: 1px lightgrey solid;
-    box-shadow: 0 3px 10px rgb(0, 0, 0, 0.4);
+    box-shadow: 0 3px 10px rgb(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    box-shadow: 0 3px 10px rgb(0, 0, 0, 0.2);
+    transform: translateY(1px);
   }
 `;
 
