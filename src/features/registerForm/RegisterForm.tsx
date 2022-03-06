@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch } from '../../hooks';
 import {
-  ErrorMessage,
   Label,
   RegisterFormTitle,
   RegisterFormWrapper,
@@ -14,6 +13,7 @@ import loginService from '../../services/loginService';
 import { setAuthenticatedUser } from '../auth/auth.slice';
 import FormSubmitButton from '../../components/FormSubmitButton';
 import FormInput from '../../components/FormInput';
+import ErrorMessage from '../../components/ErrorMessage';
 
 type Inputs = {
   name: string;
