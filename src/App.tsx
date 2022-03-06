@@ -18,6 +18,14 @@ const NavButton = styled.button`
   color: lightgrey;
   background: black;
   border: 1px black solid;
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
+  &:hover {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
+  }
+  &:active {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.1);
+    transform: translateY(2px);
+  }
 `;
 
 const AppHeader = styled.h1`
@@ -46,7 +54,7 @@ function App() {
   return (
     <div className="App">
       <AppHeader>Forum App</AppHeader>
-      <nav>
+      <nav style={{ margin: '1em' }}>
         <Link to="/">
           <NavButton>Topics</NavButton>
         </Link>
