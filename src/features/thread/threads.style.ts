@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface ThreadWrapperProps {
+  readonly author: boolean;
+}
+
 export const ThreadsTitle = styled.h2`
   text-align: center;
   margin-bottom: 0;
@@ -19,7 +23,7 @@ export const ThreadListWrapper = styled.div`
   margin: 1em;
 `;
 
-export const ThreadWrapper = styled.div`
+export const ThreadWrapper = styled.div<ThreadWrapperProps>`
   display: flex;
   cursor: pointer;
   justify-content: space-between;
@@ -29,6 +33,7 @@ export const ThreadWrapper = styled.div`
   border-radius: 8px;
   color: black;
   border: 1px black solid;
+  background: ${(props) => (props.author ? 'papayawhip' : '')};
 `;
 
 export const ThreadTitle = styled.p`
