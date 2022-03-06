@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import FormInput from '../../components/FormInput';
 import FormSubmitButton from '../../components/FormSubmitButton';
+import ErrorMessage from '../../components/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import threadService from '../../services/threadService';
@@ -12,7 +13,6 @@ import {
   ThreadFormWrapper,
   TextArea,
   Label,
-  ErrorMessage,
   CreateButton,
   CloseButton,
   CenteredDiv,
