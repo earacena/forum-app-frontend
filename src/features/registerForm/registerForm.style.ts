@@ -8,11 +8,13 @@ export const RegisterFormTitle = styled.h2`
 export const RegisterFormWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  border: 1px black solid;
+  border: 1px lightgrey solid;
+  border-radius: 10px;
   padding: 2em;
   padding-top: 0.4em;
   margin: 0 auto;
   width: 400px;
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
 `;
 
 export const Input = styled.input`
@@ -34,7 +36,7 @@ export const Button = styled.button<ButtonProps>`
   border-radius: 30px;
   font-size: 1em;
   padding: 1em;
-  margin: auto;
+  margin: 1em auto;
   border: 1px lightgrey solid;
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
   width: 50%;
