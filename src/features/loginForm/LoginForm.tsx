@@ -7,12 +7,12 @@ import loginService from '../../services/loginService';
 import { notify } from '../notification/Notification';
 import {
   Input,
-  Button,
   LoginFormWrapper,
   LoginFormTitle,
   ErrorMessage,
   Label,
 } from './loginFormStyle';
+import FormSubmitButton from '../../components/FormSubmitButton';
 
 type Inputs = {
   username: string;
@@ -81,7 +81,7 @@ function LoginForm() {
         {...register('password', { required: true })}
       />
 
-      <Button primary type="submit">Log In</Button>
+      <FormSubmitButton primary type="submit">Log In</FormSubmitButton>
     </LoginFormWrapper>
   );
 }
