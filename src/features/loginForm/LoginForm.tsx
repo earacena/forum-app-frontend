@@ -81,7 +81,7 @@ function LoginForm() {
         {...register('password', { required: true })}
       />
 
-      <Button type="submit">Log In</Button>
+      <Button primary type="submit">Log In</Button>
     </LoginFormWrapper>
   );
 }
