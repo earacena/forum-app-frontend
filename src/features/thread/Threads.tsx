@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { Number as RtNumber } from 'runtypes';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import ThreadForm from './ThreadForm';
