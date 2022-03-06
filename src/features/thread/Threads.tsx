@@ -19,6 +19,7 @@ function Threads() {
   const dispatch = useAppDispatch();
   const threads = useAppSelector((state) => state.threads.allThreads);
   const topic = useAppSelector((state) => state.topics.currentTopic);
+  const auth = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const { id } = useParams();
   const topicId = RtNumber.check(Number(id));
@@ -56,7 +57,11 @@ function Threads() {
         <ThreadsTitle>{topic?.title}</ThreadsTitle>
         <ThreadsDescription>{topic?.description}</ThreadsDescription>
         {threads.map((thread) => (
-          <ThreadWrapper onClick={() => openThread(thread.id)} key={thread.id}>
+          <ThreadWrapper
+            key={thread.id}
+            onClick={() => openThread(thread.id)}
+            author={auth.id === thread.userId}
+          >
             <ThreadTitle>{thread.title}</ThreadTitle>
             <LeftVerticalLine>
               {new Date(thread.dateCreated).toDateString()}
