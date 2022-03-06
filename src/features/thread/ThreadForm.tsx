@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import FormSubmitButton from '../../components/FormSubmitButton';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import threadService from '../../services/threadService';
@@ -9,7 +10,6 @@ import {
   ThreadFormTitle,
   ThreadFormWrapper,
   Input,
-  Button,
   TextArea,
   Label,
   ErrorMessage,
@@ -120,7 +120,7 @@ function ThreadForm() {
           placeholder="What's on your mind?"
           {...register('content', { required: true })}
         />
-        <Button type="submit">Create Thread</Button>
+        <FormSubmitButton type="submit">Create Thread</FormSubmitButton>
       </ThreadFormWrapper>
     </div>
   );
