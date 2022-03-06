@@ -90,12 +90,6 @@ function ThreadForm() {
           >
             Create Thread
           </CreateButton>
-          <CloseButton
-            visible={threadFormVisible}
-            onClick={() => setThreadFormVisible(!threadFormVisible)}
-          >
-            Close
-          </CloseButton>
         </CenteredDiv>
       )}
 
@@ -103,6 +97,12 @@ function ThreadForm() {
         visible={threadFormVisible}
         onSubmit={handleSubmit(onSubmit)}
       >
+        <CloseButton
+          visible={threadFormVisible}
+          onClick={() => setThreadFormVisible(!threadFormVisible)}
+        >
+          Cancel
+        </CloseButton>
         <ThreadFormTitle>Start a discussion</ThreadFormTitle>
         <Label htmlFor="title">Thread Title</Label>
         {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
