@@ -8,11 +8,11 @@ import { notify } from '../notification/Notification';
 import {
   LoginFormWrapper,
   LoginFormTitle,
-  ErrorMessage,
   Label,
 } from './loginFormStyle';
 import FormSubmitButton from '../../components/FormSubmitButton';
 import FormInput from '../../components/FormInput';
+import ErrorMessage from '../../components/ErrorMessage';
 
 type Inputs = {
   username: string;
