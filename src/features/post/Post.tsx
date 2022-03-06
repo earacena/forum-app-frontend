@@ -13,12 +13,13 @@ interface PostWrapperProps {
 }
 
 const PostWrapper = styled.div<PostWrapperProps>`
-  border: ${(props) => (props.threadAuthor ? '3px grey dotted' : '')};
+  border: ${(props) => (props.threadAuthor ? '2px grey dotted' : '')};
   border-radius: 8px;
   padding: 1em;
-  margin: 0 auto;
+  margin: 1em auto;
   width: 60vw;
   background: ${(props) => (props.author ? 'papayawhip' : '')};
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
 `;
 
 const DeleteButton = styled.button`
