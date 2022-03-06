@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import FormInput from '../../components/FormInput';
 import FormSubmitButton from '../../components/FormSubmitButton';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
@@ -9,7 +10,6 @@ import { setThreads } from './thread.slice';
 import {
   ThreadFormTitle,
   ThreadFormWrapper,
-  Input,
   TextArea,
   Label,
   ErrorMessage,
@@ -106,7 +106,7 @@ function ThreadForm() {
         <ThreadFormTitle>Start a discussion</ThreadFormTitle>
         <Label htmlFor="title">Thread Title</Label>
         {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
-        <Input
+        <FormInput
           id="title"
           type="text"
           placeholder="Thread Title"
