@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch } from '../../hooks';
 import {
+  Button,
   ErrorMessage,
   Label,
   Input,
   RegisterFormTitle,
   RegisterFormWrapper,
 } from './registerForm.style';
-import { Button } from '../loginForm/loginFormStyle';
 import { notify } from '../notification/Notification';
 import userService from '../../services/userService';
 import loginService from '../../services/loginService';
@@ -113,7 +113,7 @@ function RegisterForm() {
         <ErrorMessage>This field is required</ErrorMessage>
       )}
 
-      <Button type="submit">Register User</Button>
+      <Button primary type="submit">Register User</Button>
     </RegisterFormWrapper>
   );
 }
