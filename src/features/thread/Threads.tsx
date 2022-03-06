@@ -53,9 +53,9 @@ function Threads() {
 
   return (
     <ThreadsDiv>
-      <ThreadForm />
       <ThreadsTitle>{topic?.title}</ThreadsTitle>
       <ThreadsDescription>{topic?.description}</ThreadsDescription>
+      <ThreadForm />
       <ThreadListWrapper>
         {threads.map((thread) => (
           <ThreadItemWrapper
