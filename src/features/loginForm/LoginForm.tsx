@@ -6,13 +6,13 @@ import { setAuthenticatedUser } from '../auth/auth.slice';
 import loginService from '../../services/loginService';
 import { notify } from '../notification/Notification';
 import {
-  Input,
   LoginFormWrapper,
   LoginFormTitle,
   ErrorMessage,
   Label,
 } from './loginFormStyle';
 import FormSubmitButton from '../../components/FormSubmitButton';
+import FormInput from '../../components/FormInput';
 
 type Inputs = {
   username: string;
@@ -65,7 +65,7 @@ function LoginForm() {
       <LoginFormTitle>Login</LoginFormTitle>
       <Label htmlFor="username">Username</Label>
       {errors.username && <ErrorMessage>This field is required</ErrorMessage>}
-      <Input
+      <FormInput
         id="username"
         type="text"
         placeholder="Username"
@@ -74,7 +74,7 @@ function LoginForm() {
 
       <Label htmlFor="password">Password</Label>
       {errors.password && <ErrorMessage>This field is required</ErrorMessage>}
-      <Input
+      <FormInput
         id="password"
         type="password"
         placeholder="Password"
