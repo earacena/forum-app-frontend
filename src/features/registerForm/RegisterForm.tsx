@@ -65,20 +65,29 @@ function RegisterForm() {
     <RegisterFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <RegisterFormTitle>Register</RegisterFormTitle>
       <Label htmlFor="name">Name</Label>
-      <Input
-        id="name"
-        type="text"
-        placeholder="Name"
-        {...register('name', { required: true, maxLength: 50 })}
-      />
       {errors.name?.type === 'maxLength' && (
         <ErrorMessage>Name is too long</ErrorMessage>
       )}
       {errors.name?.type === 'required' && (
         <ErrorMessage>This field is required</ErrorMessage>
       )}
+      <Input
+        id="name"
+        type="text"
+        placeholder="Name"
+        {...register('name', { required: true, maxLength: 50 })}
+      />
 
       <Label htmlFor="username">Username</Label>
+      {errors.username?.type === 'minLength' && (
+        <ErrorMessage>Username is too short</ErrorMessage>
+      )}
+      {errors.username?.type === 'maxLength' && (
+        <ErrorMessage>Username is too long</ErrorMessage>
+      )}
+      {errors.username?.type === 'required' && (
+        <ErrorMessage>This field is required</ErrorMessage>
+      )}
       <Input
         id="username"
         type="text"
@@ -89,29 +98,20 @@ function RegisterForm() {
           maxLength: 20,
         })}
       />
-      {errors.username?.type === 'minLength' && (
-        <ErrorMessage>Username is too short</ErrorMessage>
-      )}
-      {errors.username?.type === 'maxLength' && (
-        <ErrorMessage>Username is too long</ErrorMessage>
-      )}
-      {errors.username?.type === 'required' && (
-        <ErrorMessage>This field is required</ErrorMessage>
-      )}
 
       <Label htmlFor="password">Password</Label>
-      <Input
-        id="password"
-        type="password"
-        placeholder="Password"
-        {...register('password', { required: true, minLength: 8 })}
-      />
       {errors.password?.type === 'minLength' && (
         <ErrorMessage>Password is too short</ErrorMessage>
       )}
       {errors.password?.type === 'required' && (
         <ErrorMessage>This field is required</ErrorMessage>
       )}
+      <Input
+        id="password"
+        type="password"
+        placeholder="Password"
+        {...register('password', { required: true, minLength: 8 })}
+      />
 
       <Button primary type="submit">Register User</Button>
     </RegisterFormWrapper>
