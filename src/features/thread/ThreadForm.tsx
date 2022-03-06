@@ -120,7 +120,7 @@ function ThreadForm() {
           placeholder="What's on your mind?"
           {...register('content', { required: true })}
         />
-        <FormSubmitButton type="submit">Create Thread</FormSubmitButton>
+        <FormSubmitButton primary type="submit">Create Thread</FormSubmitButton>
       </ThreadFormWrapper>
     </div>
   );
