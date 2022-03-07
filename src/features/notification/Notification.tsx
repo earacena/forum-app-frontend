@@ -12,12 +12,12 @@ interface NotificationWrapperProps {
 }
 
 const NotificationWrapper = styled.div<NotificationWrapperProps>`
-  background: lightgrey;
-  border: 2px ${(props) => (props.error ? 'red' : 'green')} solid;
+  background: ${(props) => (props.error ? 'red' : 'hsl(112.2, 65.2%, 81.3%)')};
+  text-align: center;
   border-radius: 4px;
   margin-left: 10em;
   margin-right: 10em;
-  padding: 0.8em;
+  padding: 1em;
 `;
 
 function Notification() {
