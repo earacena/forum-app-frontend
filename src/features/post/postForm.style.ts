@@ -7,12 +7,13 @@ interface VisibilityProps {
 export const PostFormWrapper = styled.form<VisibilityProps>`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
   flex-direction: column;
-  border: 1px red solid;
-  border-radius: 10px;
+  border: 1px lightgrey solid;
+  border-radius: 8px;
   padding: 1em;
   width: 500px;
   margin: 0 auto;
   margin-top: 1em;
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
 `;
 
 export const TextArea = styled.textarea`
