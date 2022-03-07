@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppDispatch } from '../../hooks';
 import {
-  Label,
   RegisterFormTitle,
   RegisterFormWrapper,
 } from './registerForm.style';
@@ -14,6 +13,7 @@ import { setAuthenticatedUser } from '../auth/auth.slice';
 import FormSubmitButton from '../../components/FormSubmitButton';
 import FormInput from '../../components/FormInput';
 import ErrorMessage from '../../components/ErrorMessage';
+import FormLabel from '../../components/FormLabel';
 
 type Inputs = {
   name: string;
@@ -64,7 +64,7 @@ function RegisterForm() {
   return (
     <RegisterFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <RegisterFormTitle>Register</RegisterFormTitle>
-      <Label htmlFor="name">Name</Label>
+      <FormLabel htmlFor="name">Name</FormLabel>
       {errors.name?.type === 'maxLength' && (
         <ErrorMessage>Name is too long</ErrorMessage>
       )}
@@ -78,7 +78,7 @@ function RegisterForm() {
         {...register('name', { required: true, maxLength: 50 })}
       />
 
-      <Label htmlFor="username">Username</Label>
+      <FormLabel htmlFor="username">Username</FormLabel>
       {errors.username?.type === 'minLength' && (
         <ErrorMessage>Username is too short</ErrorMessage>
       )}
@@ -99,7 +99,7 @@ function RegisterForm() {
         })}
       />
 
-      <Label htmlFor="password">Password</Label>
+      <FormLabel htmlFor="password">Password</FormLabel>
       {errors.password?.type === 'minLength' && (
         <ErrorMessage>Password is too short</ErrorMessage>
       )}
