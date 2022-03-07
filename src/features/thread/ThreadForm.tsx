@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import FormInput from '../../components/FormInput';
 import FormSubmitButton from '../../components/FormSubmitButton';
 import ErrorMessage from '../../components/ErrorMessage';
+import FormLabel from '../../components/FormLabel';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import threadService from '../../services/threadService';
@@ -12,7 +13,6 @@ import {
   ThreadFormTitle,
   ThreadFormWrapper,
   TextArea,
-  Label,
   CreateButton,
   CloseButton,
   CenteredDiv,
@@ -104,7 +104,7 @@ function ThreadForm() {
           Cancel
         </CloseButton>
         <ThreadFormTitle>Start a discussion</ThreadFormTitle>
-        <Label htmlFor="title">Thread Title</Label>
+        <FormLabel htmlFor="title">Thread Title</FormLabel>
         {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
         <FormInput
           id="title"
@@ -113,7 +113,7 @@ function ThreadForm() {
           {...register('title', { required: true })}
         />
 
-        <Label htmlFor="content">Content</Label>
+        <FormLabel htmlFor="content">Content</FormLabel>
         {errors.content && <ErrorMessage>This field is required</ErrorMessage>}
         <TextArea
           id="content"
