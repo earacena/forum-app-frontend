@@ -15,8 +15,9 @@ interface RemoveFields {
 }
 
 interface UpdateFields {
-  id: string;
+  id: number;
   content: string;
+  token: string;
 }
 
 const getAll = async () => {
@@ -53,13 +54,14 @@ const remove = async ({ token, id }: RemoveFields) => {
   });
 };
 
-const update = async ({ id, content }: UpdateFields) => {
+const update = async ({ token, id, content }: UpdateFields) => {
   const response = await fetch(`${baseUrl}/${id}`, {
     method: 'PUT',
     headers: {
+      Authorization: `bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    body: content,
+    body: JSON.stringify({ content }),
   });
 
   const updatedPost = Post.check(await response.json());
