@@ -61,6 +61,7 @@ function Post({ post, isThreadAuthor, isAuthor }: PostProps) {
     try {
       await postService.remove({ id: post.id, token: auth.token });
       dispatch(setPosts(posts.filter((p) => p.id !== post.id)));
+      notify('message', 'Deleted a post', 4);
     } catch (error) {
       console.error(error);
     }
