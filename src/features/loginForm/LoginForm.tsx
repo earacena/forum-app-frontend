@@ -8,11 +8,11 @@ import { notify } from '../notification/Notification';
 import {
   LoginFormWrapper,
   LoginFormTitle,
-  Label,
 } from './loginFormStyle';
 import FormSubmitButton from '../../components/FormSubmitButton';
 import FormInput from '../../components/FormInput';
 import ErrorMessage from '../../components/ErrorMessage';
+import FormLabel from '../../components/FormLabel';
 
 type Inputs = {
   username: string;
@@ -63,7 +63,7 @@ function LoginForm() {
   return (
     <LoginFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <LoginFormTitle>Login</LoginFormTitle>
-      <Label htmlFor="username">Username</Label>
+      <FormLabel htmlFor="username">Username</FormLabel>
       {errors.username && <ErrorMessage>This field is required</ErrorMessage>}
       <FormInput
         id="username"
@@ -72,7 +72,7 @@ function LoginForm() {
         {...register('username', { required: true })}
       />
 
-      <Label htmlFor="password">Password</Label>
+      <FormLabel htmlFor="password">Password</FormLabel>
       {errors.password && <ErrorMessage>This field is required</ErrorMessage>}
       <FormInput
         id="password"
