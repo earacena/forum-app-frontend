@@ -11,10 +11,10 @@ import {
   CloseFormButton,
   PostFormWrapper,
   Label,
-  ErrorMessage,
   TextArea,
-  PostButton,
 } from './postForm.style';
+import FormSubmitButton from '../../components/FormSubmitButton';
+import ErrorMessage from '../../components/ErrorMessage';
 
 type Input = {
   content: string;
@@ -78,12 +78,6 @@ function PostForm({ threadId }: PostFormProps) {
           >
             Reply
           </AddPostButton>
-          <CloseFormButton
-            visible={postFormVisible}
-            onClick={() => setPostFormVisible(!postFormVisible)}
-          >
-            Close
-          </CloseFormButton>
         </CenteredDiv>
       )}
 
@@ -91,6 +85,12 @@ function PostForm({ threadId }: PostFormProps) {
         visible={auth.token ? postFormVisible : false}
         onSubmit={handleSubmit(onSubmit)}
       >
+        <CloseFormButton
+          visible={postFormVisible}
+          onClick={() => setPostFormVisible(!postFormVisible)}
+        >
+          Close
+        </CloseFormButton>
         <Label htmlFor="post-content">Post body</Label>
         {errors.content && <ErrorMessage>This field is required</ErrorMessage>}
         <TextArea
@@ -98,7 +98,7 @@ function PostForm({ threadId }: PostFormProps) {
           placeholder="What would you like to say?"
           {...register('content', { required: true })}
         />
-        <PostButton>Post</PostButton>
+        <FormSubmitButton primary>Post</FormSubmitButton>
       </PostFormWrapper>
     </div>
   );
