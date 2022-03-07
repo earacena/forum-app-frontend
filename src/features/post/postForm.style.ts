@@ -52,8 +52,8 @@ export const CloseFormButton = styled.button<VisibilityProps>`
   display: ${(props) => (props.visible ? '' : 'none')};
   cursor: pointer;
   font-size: 15px;
-  background: black;
-  color: lightgrey;
+  background: darkred;
+  color: red;
   border: none;
   padding: 1em;
   margin: auto;
