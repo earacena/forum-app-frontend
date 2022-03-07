@@ -10,11 +10,11 @@ import {
   AddPostButton,
   CloseFormButton,
   PostFormWrapper,
-  Label,
   TextArea,
 } from './postForm.style';
 import FormSubmitButton from '../../components/FormSubmitButton';
 import ErrorMessage from '../../components/ErrorMessage';
+import FormLabel from '../../components/FormLabel';
 
 type Input = {
   content: string;
@@ -91,7 +91,7 @@ function PostForm({ threadId }: PostFormProps) {
         >
           Close
         </CloseFormButton>
-        <Label htmlFor="post-content">Post body</Label>
+        <FormLabel htmlFor="post-content">Post body</FormLabel>
         {errors.content && <ErrorMessage>This field is required</ErrorMessage>}
         <TextArea
           id="content"
