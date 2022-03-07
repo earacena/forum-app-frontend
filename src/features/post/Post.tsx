@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import { Post as PostType } from '../../types';
+import { notify } from '../notification/Notification';
 import { setPosts } from './posts.slice';
 
 interface PostWrapperProps {
@@ -30,11 +31,18 @@ const DeleteButton = styled.button`
   margin-left: 1em;
   color: lightgrey;
   background: black;
-  border: 1px black solid;
+  border: none;
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
 
   &:hover {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
     background: darkred;
     color: pink;
+  }
+
+  &:active {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.17);
+    transform: translateY(2px);
   }
 `;
 
