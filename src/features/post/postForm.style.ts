@@ -46,6 +46,16 @@ export const AddPostButton = styled.button<VisibilityProps>`
   margin: auto;
   margin-top: 1em;
   border-radius: 30px;
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
+
+  &:hover {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
+    transform: translateY(2px);
+  }
 `;
 
 export const CloseFormButton = styled.button<VisibilityProps>`
@@ -59,6 +69,15 @@ export const CloseFormButton = styled.button<VisibilityProps>`
   margin: auto;
   margin-top: 1em;
   border-radius: 30px;
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
+
+  &:hover {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
+    transform: translateY(2px);
 `;
 
 export const Label = styled.label`
