@@ -45,6 +45,15 @@ export const CreateButton = styled.button<VisibilityProps>`
   width: auto;
   height: auto;
   font-size: 16px;
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
+
+  &:hover {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
+    transform: translateY(2px);
 `;
 
 export const CloseButton = styled.button<VisibilityProps>`
@@ -59,6 +68,15 @@ export const CloseButton = styled.button<VisibilityProps>`
   height: auto;
   font-size: 16px;
   margin: auto;
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
+
+  &:hover {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
+    transform: translateY(2px);
 `;
 
 export const CenteredDiv = styled.div`
