@@ -71,7 +71,7 @@ function Threads() {
                 {new Date(thread.dateCreated).toDateString()}
               </LeftVerticalLine>
             </ThreadItemWrapper>
-            <DeleteThreadButton>Delete</DeleteThreadButton>
+            {auth.id === thread.userId && <DeleteThreadButton>Delete</DeleteThreadButton>}
           </ThreadRow>
         ))}
       </ThreadListWrapper>
