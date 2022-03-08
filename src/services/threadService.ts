@@ -9,6 +9,7 @@ interface CreateFields {
 }
 
 interface RemoveFields {
+  token: string;
   id: number;
 }
 
@@ -48,9 +49,13 @@ const create = async ({ token, title, topicId }: CreateFields) => {
   return createdThread;
 };
 
-const remove = async ({ id }: RemoveFields) => {
+const remove = async ({ token, id }: RemoveFields) => {
   await fetch(`${baseUrl}/${id}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: `bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
   });
 };
 
