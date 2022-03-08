@@ -26,9 +26,9 @@ export const ThreadItemWrapper = styled.li<ThreadItemWrapperProps>`
   display: flex;
   cursor: pointer;
   justify-content: space-between;
+  align-self: stretch;
   margin: 1em;
-  margin-left: 3em;
-  margin-right: 3em;
+  width: 100%;
   padding: 0.5em;
   border-radius: 8px;
   color: black;
@@ -66,4 +66,33 @@ export const ThreadsDiv = styled.div`
   margin: 0.5em;
   box-shadow: 0 3px 10px rgb(0, 0, 0, 0.3);
   border-radius: 8px;
+`;
+
+export const DeleteThreadButton = styled.button`
+  align-self: center;
+  margin: 0;
+  height: 2em;
+  background: black;
+  color: lightgrey;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
+
+  &:hover {
+    background: darkred;
+    color: red;
+
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    color: pink;
+    transform: translateY(2px);
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.25);
+
+  }
+`;
+
+export const ThreadRow = styled.span`
+  display: flex;
 `;
