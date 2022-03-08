@@ -17,6 +17,8 @@ import {
   DeleteThreadButton,
   ThreadRow,
 } from './threads.style';
+import { notify } from '../notification/Notification';
+import threadService from '../../services/threadService';
 
 function Threads() {
   const dispatch = useAppDispatch();
@@ -53,6 +55,16 @@ function Threads() {
     navigate(`/thread/${threadId}`);
   };
 
+  const handleDelete = async (threadId: number) => {
+    try {
+      await threadService.remove({ token: auth.token, id: threadId });
+      dispatch(setThreads(threads.filter((t) => t.id !== threadId)));
+      notify('Thread', 'Deleted a thread.', 4);
+    } catch (error: unknown) {
+      notify('error', 'Error while deleting thread.', 4);
+    }
+  };
+
   return (
     <ThreadsDiv>
       <ThreadsTitle>{topic?.title}</ThreadsTitle>
@@ -71,7 +83,13 @@ function Threads() {
                 {new Date(thread.dateCreated).toDateString()}
               </LeftVerticalLine>
             </ThreadItemWrapper>
-            {auth.id === thread.userId && <DeleteThreadButton>Delete</DeleteThreadButton>}
+            {auth.id === thread.userId && (
+              <DeleteThreadButton
+                onClick={() => handleDelete(thread.id)}
+              >
+                Delete
+              </DeleteThreadButton>
+            )}
           </ThreadRow>
         ))}
       </ThreadListWrapper>
