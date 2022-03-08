@@ -14,6 +14,8 @@ import {
   ThreadItemWrapper,
   ThreadTitle,
   LeftVerticalLine,
+  DeleteThreadButton,
+  ThreadRow,
 } from './threads.style';
 
 function Threads() {
@@ -58,16 +60,19 @@ function Threads() {
       <ThreadForm />
       <ThreadListWrapper>
         {threads.map((thread) => (
-          <ThreadItemWrapper
-            key={thread.id}
-            onClick={() => openThread(thread.id)}
-            author={auth.id === thread.userId}
-          >
-            <ThreadTitle>{thread.title}</ThreadTitle>
-            <LeftVerticalLine>
-              {new Date(thread.dateCreated).toDateString()}
-            </LeftVerticalLine>
-          </ThreadItemWrapper>
+          <ThreadRow key={thread.id}>
+            <ThreadItemWrapper
+              key={thread.id}
+              onClick={() => openThread(thread.id)}
+              author={auth.id === thread.userId}
+            >
+              <ThreadTitle>{thread.title}</ThreadTitle>
+              <LeftVerticalLine>
+                {new Date(thread.dateCreated).toDateString()}
+              </LeftVerticalLine>
+            </ThreadItemWrapper>
+            <DeleteThreadButton>Delete</DeleteThreadButton>
+          </ThreadRow>
         ))}
       </ThreadListWrapper>
     </ThreadsDiv>
