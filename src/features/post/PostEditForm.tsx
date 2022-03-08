@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import { setPosts } from './posts.slice';
 import { notify } from '../notification/Notification';
+import ErrorMessage from '../../components/ErrorMessage';
 
 interface VisibilityProps {
   readonly visible: boolean;
@@ -16,7 +17,10 @@ const PostEditFormWrapper = styled.form<VisibilityProps>`
   flex-direction: column;
 `;
 
-const TextArea = styled.textarea``;
+const TextArea = styled.textarea`
+  resize: none;
+  height: 10em;
+`;
 
 type Input = {
   content: string;
@@ -42,6 +46,7 @@ function PostEditForm({
   const {
     register,
     handleSubmit,
+    formState: { errors },
   } = useForm<Input>({
     defaultValues: {
       content: '',
@@ -65,9 +70,11 @@ function PostEditForm({
 
   return (
     <PostEditFormWrapper visible={beingEdited} onSubmit={handleSubmit(onSubmit)}>
+      {errors.content && <ErrorMessage>This field is required</ErrorMessage>}
       <TextArea
         id="edited-content"
         {...register('content', { required: true })}
+        defaultValue={postContent}
       />
       <FormSubmitButton primary type="submit">Confirm Edit</FormSubmitButton>
     </PostEditFormWrapper>
