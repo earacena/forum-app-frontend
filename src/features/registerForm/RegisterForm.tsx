@@ -64,7 +64,7 @@ function RegisterForm() {
   return (
     <RegisterFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <RegisterFormTitle>Register</RegisterFormTitle>
-      <FormLabel htmlFor="name">Name</FormLabel>
+      <FormLabel htmlFor="name">Display Name</FormLabel>
       {errors.name?.type === 'maxLength' && (
         <ErrorMessage>Name is too long</ErrorMessage>
       )}
