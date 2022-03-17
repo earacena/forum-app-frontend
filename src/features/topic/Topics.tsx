@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import topicService from '../../services/topicService';
 import { Topic } from '../../types';
 import { setCurrentTopic, setTopics } from './topic.slice';
+import TopicForm from './TopicForm';
 import {
   TopicListWrapper,
   TopicListItem,
@@ -15,6 +16,7 @@ import {
 function Topics() {
   const dispatch = useAppDispatch();
   const topics = useAppSelector((state) => state.topics.allTopics);
+  const auth = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,6 +40,7 @@ function Topics() {
   return (
     <div>
       <TopicListWrapper>
+        {auth.role === 'admin' && <TopicForm />}
         {topics.map((topic) => (
           <TopicListItem key={topic.id} onClick={() => handleClick(topic)}>
             <TopicTitle>
