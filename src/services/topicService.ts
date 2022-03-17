@@ -10,6 +10,12 @@ interface TopicThreadsFields {
   id: number;
 }
 
+interface TopicCreateFields {
+  token: string;
+  title: string;
+  description: string;
+}
+
 const getAll = async () => {
   const response = await fetch(baseUrl);
   const fetchedTopics = TopicArray.check(await response.json());
@@ -35,8 +41,31 @@ const getThreadsOfTopic = async ({ id }: TopicThreadsFields) => {
   return threads;
 };
 
+const create = async ({ token, title, description }: TopicCreateFields) => {
+  if (!token) {
+    throw new Error('Cannot perform this action if not signed in');
+  }
+
+  const response = await fetch(baseUrl, {
+    method: 'POST',
+    headers: {
+      Authorization: `bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ title, description }),
+  });
+
+  if (response.status === 400) {
+    throw new Error('Bad Request while sending POST request for thread');
+  }
+
+  const createdThread = Topic.check(await response.json());
+  return createdThread;
+};
+
 export default {
   getAll,
   getTopicById,
   getThreadsOfTopic,
+  create,
 };
