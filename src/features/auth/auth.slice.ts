@@ -5,6 +5,7 @@ const initialState: UserAuthentication = {
   token: '',
   username: '',
   name: '',
+  role: '',
 };
 
 const authSlice = createSlice({
@@ -21,6 +22,7 @@ export interface UserAuthentication {
   token: string;
   username: string;
   name: string;
+  role: string;
 }
 
 export const {
