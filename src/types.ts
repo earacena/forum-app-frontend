@@ -54,6 +54,7 @@ export const TokenResponse = RtRecord({
   id: RtNumber,
   username: RtString,
   name: RtString,
+  role: RtString,
 });
 
 export const User = RtRecord({
