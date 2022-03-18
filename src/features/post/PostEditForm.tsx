@@ -49,7 +49,7 @@ function PostEditForm({
     formState: { errors },
   } = useForm<Input>({
     defaultValues: {
-      content: '',
+      content: postContent,
     },
   });
 
@@ -72,9 +72,8 @@ function PostEditForm({
     <PostEditFormWrapper visible={beingEdited} onSubmit={handleSubmit(onSubmit)}>
       {errors.content && <ErrorMessage>This field is required</ErrorMessage>}
       <TextArea
-        id="edited-content"
+        id="content"
         {...register('content', { required: true })}
-        defaultValue={postContent}
       />
       <FormSubmitButton primary type="submit">Confirm Edit</FormSubmitButton>
     </PostEditFormWrapper>
