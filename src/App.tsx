@@ -10,6 +10,7 @@ import Topics from './features/topic/Topics';
 import { useAppDispatch } from './hooks';
 import RegisterForm from './features/registerForm/RegisterForm';
 import NavBar from './components/NavBar';
+import AdminPanel from './features/adminPanel/AdminPanel';
 
 const AppHeader = styled.h1`
   text-align: center;
@@ -39,6 +40,7 @@ function App() {
         <Route path="/thread/:id" element={<Thread />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
+        <Route path="/admin" element={<AdminPanel />} />
       </Routes>
     </div>
   );
