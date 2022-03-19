@@ -68,6 +68,7 @@ const CreateButton = styled.button<VisibilityProps>`
 `;
 
 const CenteredDiv = styled.div`
+  display: flex;
   justify-content: center;
 `;
 
@@ -112,7 +113,7 @@ function TopicForm() {
 
   return (
     <div>
-      {auth.role === 'admin' && (
+      {auth.token && auth.role === 'admin' && (
         <CenteredDiv>
           <CreateButton
             visible={!topicFormVisible}
