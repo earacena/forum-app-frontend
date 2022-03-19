@@ -74,6 +74,8 @@ export const User = RtRecord({
   ),
 });
 
+export const UserArray = RtArray(User);
+
 export const Topic = RtRecord({
   id: RtNumber,
   userId: RtNumber,
