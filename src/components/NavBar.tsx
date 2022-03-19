@@ -17,6 +17,11 @@ function NavBar() {
 
   return (
     <nav style={{ margin: '1em' }}>
+      {auth.token && auth.role === 'admin' && (
+        <Link to="/admin">
+          <NavButton>Admin Panel</NavButton>
+        </Link>
+      )}
       <Link to="/">
         <NavButton>Topics</NavButton>
       </Link>
