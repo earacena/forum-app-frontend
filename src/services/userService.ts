@@ -1,4 +1,4 @@
-import { User } from '../types';
+import { User, UserArray } from '../types';
 
 const baseUrl = 'http://localhost:3001/api/users';
 
@@ -11,6 +11,12 @@ interface CreateUserFields {
   username: string;
   password: string;
 }
+
+const getAll = async () => {
+  const response = await fetch(`${baseUrl}/`);
+  const users = UserArray.check(await response.json());
+  return users;
+};
 
 const getUserById = async ({ id }: GetUserByIdFields) => {
   const response = await fetch(`${baseUrl}/${id}`);
@@ -31,6 +37,7 @@ const create = async ({ name, username, password }: CreateUserFields) => {
 };
 
 export default {
+  getAll,
   getUserById,
   create,
 };
