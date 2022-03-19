@@ -7,6 +7,7 @@ import { Topic } from '../../types';
 import { setCurrentTopic, setTopics } from './topic.slice';
 import TopicForm from './TopicForm';
 import {
+  TopicsWrapper,
   TopicListWrapper,
   TopicListItem,
   TopicTitle,
@@ -38,9 +39,9 @@ function Topics() {
   };
 
   return (
-    <div>
+    <TopicsWrapper>
+      <TopicForm />
       <TopicListWrapper>
-        {auth.role === 'admin' && <TopicForm />}
         {topics.map((topic) => (
           <TopicListItem key={topic.id} onClick={() => handleClick(topic)}>
             <TopicTitle>
@@ -52,7 +53,7 @@ function Topics() {
           </TopicListItem>
         ))}
       </TopicListWrapper>
-    </div>
+    </TopicsWrapper>
   );
 }
 
