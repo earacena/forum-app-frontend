@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useMemo, createContext, Dispatch, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Routes, Route } from 'react-router-dom';
 import { setAuthenticatedUser } from './features/auth/auth.slice';
@@ -12,13 +12,21 @@ import RegisterForm from './features/registerForm/RegisterForm';
 import NavBar from './components/NavBar';
 import AdminPanel from './features/adminPanel/AdminPanel';
 
+type ThemeContextProps = {
+  theme: string,
+  setTheme: Dispatch<string>,
+};
+
+export const ThemeContext = createContext<ThemeContextProps>({ theme: '', setTheme: () => null });
+
 const AppHeader = styled.h1`
   text-align: center;
 `;
 
 function App() {
   const dispatch = useAppDispatch();
-
+  const [theme, setTheme] = useState<string>('');
+  const themeValues = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
   // Check if user session already exists
   useEffect(() => {
     const forumAppUserJSON = window.localStorage.getItem('forumAppUser');
@@ -29,20 +37,22 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="App">
-      <AppHeader>Forum App</AppHeader>
-      <NavBar />
-      <Notification />
+    <ThemeContext.Provider value={themeValues}>
+      <div className="App">
+        <AppHeader>Forum App</AppHeader>
+        <NavBar />
+        <Notification />
 
-      <Routes>
-        <Route path="/" element={<Topics />} />
-        <Route path="/topic/:id" element={<Threads />} />
-        <Route path="/thread/:id" element={<Thread />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
-        <Route path="/admin" element={<AdminPanel />} />
-      </Routes>
-    </div>
+        <Routes>
+          <Route path="/" element={<Topics />} />
+          <Route path="/topic/:id" element={<Threads />} />
+          <Route path="/thread/:id" element={<Thread />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/admin" element={<AdminPanel />} />
+        </Routes>
+      </div>
+    </ThemeContext.Provider> 
   );
 }
 
