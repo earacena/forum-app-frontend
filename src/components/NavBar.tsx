@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { Link } from 'react-router-dom';
+import { BsMoonStars, BsSunFill } from 'react-icons/bs';
 import { notify } from '../features/notification/Notification';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { removeAuthenticatedUser } from '../features/auth/auth.slice';
 import NavButton from './NavButton';
+import ThemeSwitcher from './ThemeSwitcher';
 
-function NavBar() {
+type NavBarProps = {
+  themeMode: string,
+  setThemeMode: Dispatch<string>,
+};
+
+function NavBar({ themeMode, setThemeMode }: NavBarProps) {
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.auth);
 
@@ -41,6 +48,9 @@ function NavBar() {
           <NavButton onClick={handleLogOut}>Log Out</NavButton>
         </span>
       )}
+      <ThemeSwitcher onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}>
+        {themeMode === 'light' ? <BsMoonStars /> : <BsSunFill />}
+      </ThemeSwitcher>
     </nav>
   );
 }
