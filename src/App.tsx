@@ -1,7 +1,5 @@
-import React, {
-  useMemo, createContext, Dispatch, useState, useEffect,
-} from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled, { ThemeProvider } from 'styled-components';
 import { Routes, Route } from 'react-router-dom';
 import { setAuthenticatedUser } from './features/auth/auth.slice';
 import LoginForm from './features/loginForm/LoginForm';
@@ -14,12 +12,16 @@ import RegisterForm from './features/registerForm/RegisterForm';
 import NavBar from './components/NavBar';
 import AdminPanel from './features/adminPanel/AdminPanel';
 
-type ThemeContextProps = {
-  theme: string,
-  setTheme: Dispatch<string>,
+type ThemeProps = {
+  light: {
+    fg: string,
+    bg: string,
+  },
+  dark: {
+    fg: string,
+    bg: string
+  },
 };
-
-export const ThemeContext = createContext<ThemeContextProps>({ theme: '', setTheme: () => null });
 
 const AppHeader = styled.h1`
   text-align: center;
@@ -28,13 +30,23 @@ const AppHeader = styled.h1`
 
 function App() {
   const dispatch = useAppDispatch();
-  const [theme, setTheme] = useState<string>('');
-  const themeValues = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
+  const [themeMode, setThemeMode] = useState<string>('');
+
+  const themes: ThemeProps = {
+    light: {
+      fg: 'black',
+      bg: 'white',
+    },
+    dark: {
+      fg: 'white',
+      bg: 'black',
+    },
+  };
 
   // Set the App wide background color
   useEffect(() => {
-    document.body.style.backgroundColor = theme === 'light' ? 'white' : 'lightgray';
-  }, [theme]);
+    document.body.style.backgroundColor = themeMode === 'light' ? themes.light.bg : themes.dark.bg;
+  }, [themeMode, themes.dark.bg, themes.light.bg]);
 
   // Check if user session already exists
   useEffect(() => {
@@ -46,10 +58,13 @@ function App() {
   }, [dispatch]);
 
   return (
-    <ThemeContext.Provider value={themeValues}>
-      <div className="App">
+    <ThemeProvider theme={themeMode === 'light' ? themes.light : themes.dark}>
+      <div>
         <AppHeader>Forum App</AppHeader>
-        <NavBar />
+        <NavBar
+          themeMode={themeMode}
+          setThemeMode={setThemeMode}
+        />
         <Notification />
 
         <Routes>
@@ -61,7 +76,7 @@ function App() {
           <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </div>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   );
 }
 
