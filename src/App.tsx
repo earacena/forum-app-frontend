@@ -1,4 +1,6 @@
-import React, { useMemo, createContext, Dispatch, useState, useEffect } from 'react';
+import React, {
+  useMemo, createContext, Dispatch, useState, useEffect,
+} from 'react';
 import styled from 'styled-components';
 import { Routes, Route } from 'react-router-dom';
 import { setAuthenticatedUser } from './features/auth/auth.slice';
@@ -21,12 +23,19 @@ export const ThemeContext = createContext<ThemeContextProps>({ theme: '', setThe
 
 const AppHeader = styled.h1`
   text-align: center;
+  margin: 0;
 `;
 
 function App() {
   const dispatch = useAppDispatch();
   const [theme, setTheme] = useState<string>('');
   const themeValues = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
+
+  // Set the App wide background color
+  useEffect(() => {
+    document.body.style.backgroundColor = theme === 'light' ? 'white' : 'lightgray';
+  }, [theme]);
+
   // Check if user session already exists
   useEffect(() => {
     const forumAppUserJSON = window.localStorage.getItem('forumAppUser');
@@ -52,7 +61,7 @@ function App() {
           <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </div>
-    </ThemeContext.Provider> 
+    </ThemeContext.Provider>
   );
 }
 
