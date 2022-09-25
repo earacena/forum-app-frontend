@@ -14,14 +14,19 @@ import AdminPanel from './features/adminPanel/AdminPanel';
 import AppWrapper from './components/AppWrapper';
 
 type ThemeProps = {
-  light: {
+  fg: string,
+  bg: string,
+  button: {
     fg: string,
     bg: string,
-  },
-  dark: {
-    fg: string,
-    bg: string
-  },
+    border: string,
+    borderRadius: string,
+  }
+};
+
+type ThemesProps = {
+  light: ThemeProps,
+  dark: ThemeProps,
 };
 
 const AppHeader = styled.h1`
@@ -33,14 +38,26 @@ function App() {
   const dispatch = useAppDispatch();
   const [themeMode, setThemeMode] = useState<string>('');
 
-  const themes: ThemeProps = {
+  const themes: ThemesProps = {
     light: {
       fg: 'black',
       bg: 'white',
+      button: {
+        fg: 'white',
+        bg: 'black',
+        border: '1px black solid',
+        borderRadius: '8px',
+      },
     },
     dark: {
       fg: 'white',
       bg: 'black',
+      button: {
+        fg: 'white',
+        bg: 'gray',
+        border: '1px black solid',
+        borderRadius: '8px',
+      },
     },
   };
 
