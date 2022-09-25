@@ -11,6 +11,7 @@ import { useAppDispatch } from './hooks';
 import RegisterForm from './features/registerForm/RegisterForm';
 import NavBar from './components/NavBar';
 import AdminPanel from './features/adminPanel/AdminPanel';
+import AppWrapper from './components/AppWrapper';
 
 type ThemeProps = {
   light: {
@@ -58,8 +59,8 @@ function App() {
   }, [dispatch]);
 
   return (
-    <ThemeProvider theme={themeMode === 'light' ? themes.light : themes.dark}>
-      <div>
+    <AppWrapper>
+      <ThemeProvider theme={themeMode === 'light' ? themes.light : themes.dark}>
         <AppHeader>Forum App</AppHeader>
         <NavBar
           themeMode={themeMode}
@@ -75,8 +76,8 @@ function App() {
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/admin" element={<AdminPanel />} />
         </Routes>
-      </div>
-    </ThemeProvider>
+      </ThemeProvider>
+    </AppWrapper>
   );
 }
 
