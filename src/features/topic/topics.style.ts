@@ -6,12 +6,11 @@ export const TopicTitle = styled.span`
 
 export const TopicListWrapper = styled.ul`
   list-style-type: none;
-  padding: 1em;
+  padding: 0;
 `;
 
 export const TopicListItem = styled.li`
   cursor: pointer;
-  padding: 1em;
   border: 1px lightgrey solid;
   border-radius: 8px;
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.17);
@@ -26,23 +25,36 @@ export const TopicListItem = styled.li`
     box-shadow: 0 3px 10px rgb(0, 0, 0, 0.2);
     transform: translateY(1px);
   }
+
+  @media only screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const LeftVerticalLine = styled.span`
   border-left: 1px solid black;
   padding: 0.5em;
   margin-left: 1em;
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const TopicsWrapper = styled.div`
-  padding: 1em;
   border: 1px lightgrey solid;
   border-radius: 8px;
   margin: 1em;
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
+  min-width: 300px;
+  width: 90vw;
+  max-width: 800px;
 `;
 
 export const CenteredDiv = styled.div`
-display: block;
-margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 `;
