@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-interface ThreadItemWrapperProps {
+type ThreadItemWrapperProps = {
   readonly author: boolean;
-}
+};
 
 export const ThreadsTitle = styled.h2`
   text-align: center;
@@ -66,6 +66,7 @@ export const ThreadsDiv = styled.div`
   margin: 0.5em;
   box-shadow: 0 3px 10px rgb(0, 0, 0, 0.3);
   border-radius: 8px;
+  min-width: 850px;
 `;
 
 export const DeleteThreadButton = styled.button`
