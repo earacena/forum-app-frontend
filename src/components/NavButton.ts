@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 const NavButton = styled.button`
   cursor: pointer;
-  border-radius: 15px;
   padding: 0.6em;
   margin-left: 0.1em;
-  color: lightgrey;
-  background: black;
-  border: 1px black solid;
+  color: ${(props) => props.theme.button.fg};
+  background: ${(props) => props.theme.button.bg};
+  border: ${(props) => props.theme.button.border};
+  border-radius: ${(props) => props.theme.button.borderRadius};
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
   &:hover {
     box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
