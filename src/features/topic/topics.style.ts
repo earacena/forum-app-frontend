@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const TopicTitle = styled.span`
   font-size: 20px;
+  color: ${(props) => props.theme.topic.title};
 `;
 
 export const TopicListWrapper = styled.ul`
@@ -11,10 +12,12 @@ export const TopicListWrapper = styled.ul`
 
 export const TopicListItem = styled.li`
   cursor: pointer;
-  border: 1px lightgrey solid;
   border-radius: 8px;
+  background: ${(props) => props.theme.topic.bg};
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.17);
   margin: 0.4em;
+
+  padding: 12px;
 
   &:hover {
     border: 1px lightgrey solid;
@@ -35,7 +38,8 @@ export const TopicListItem = styled.li`
 `;
 
 export const LeftVerticalLine = styled.span`
-  border-left: 1px solid black;
+  border-left: 1px solid ${(props) => props.theme.topic.seperator};
+  color: ${(props) => props.theme.topic.description};
   padding: 0.5em;
   margin-left: 1em;
 
@@ -45,10 +49,9 @@ export const LeftVerticalLine = styled.span`
 `;
 
 export const TopicsWrapper = styled.div`
-  border: 1px lightgrey solid;
+  background: transparent;
   border-radius: 8px;
   margin: 1em;
-  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
   min-width: 300px;
   width: 90vw;
   max-width: 800px;
