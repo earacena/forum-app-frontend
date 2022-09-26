@@ -17,6 +17,13 @@ type ThemeProps = {
   header: string,
   fg: string,
   bg: string,
+  topic: {
+    bg: string,
+    fg: string,
+    title: string,
+    description: string,
+    seperator: string,
+  },
   button: {
     fg: string,
     bg: string,
@@ -43,6 +50,13 @@ function App() {
       header: 'dark',
       fg: 'black',
       bg: 'white',
+      topic: {
+        bg: 'white',
+        fg: 'white',
+        title: 'black',
+        description: 'darkgray',
+        seperator: 'darkgray',
+      },
       button: {
         fg: 'white',
         bg: 'black',
@@ -52,8 +66,15 @@ function App() {
     },
     dark: {
       header: 'white',
-      fg: 'white',
-      bg: 'black',
+      fg: '#303030',
+      bg: '#141414',
+      topic: {
+        bg: '#303030',
+        fg: 'white',
+        title: 'white',
+        description: 'lightgray',
+        seperator: 'lightgray',
+      },
       button: {
         fg: 'white',
         bg: 'gray',
