@@ -14,6 +14,7 @@ import AdminPanel from './features/adminPanel/AdminPanel';
 import AppWrapper from './components/AppWrapper';
 
 type ThemeProps = {
+  header: string,
   fg: string,
   bg: string,
   button: {
@@ -30,8 +31,7 @@ type ThemesProps = {
 };
 
 const AppHeader = styled.h1`
-  text-align: center;
-  margin: 0;
+  color: ${(props) => props.theme.header}
 `;
 
 function App() {
@@ -40,6 +40,7 @@ function App() {
 
   const themes: ThemesProps = {
     light: {
+      header: 'dark',
       fg: 'black',
       bg: 'white',
       button: {
@@ -50,6 +51,7 @@ function App() {
       },
     },
     dark: {
+      header: 'white',
       fg: 'white',
       bg: 'black',
       button: {
