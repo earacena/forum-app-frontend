@@ -1,6 +1,7 @@
 import React, { Dispatch } from 'react';
 import { Link } from 'react-router-dom';
 import { BsMoonStars, BsSunFill } from 'react-icons/bs';
+import styled from 'styled-components';
 import { notify } from '../features/notification/Notification';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { removeAuthenticatedUser } from '../features/auth/auth.slice';
@@ -11,6 +12,14 @@ type NavBarProps = {
   themeMode: string,
   setThemeMode: Dispatch<string>,
 };
+
+const NavBarWrapper = styled.nav`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+`;
 
 function NavBar({ themeMode, setThemeMode }: NavBarProps) {
   const dispatch = useAppDispatch();
@@ -23,7 +32,7 @@ function NavBar({ themeMode, setThemeMode }: NavBarProps) {
   };
 
   return (
-    <nav style={{ margin: '1em' }}>
+    <NavBarWrapper>
       {auth.token && auth.role === 'admin' && (
         <Link to="/admin">
           <NavButton>Admin Panel</NavButton>
@@ -49,9 +58,9 @@ function NavBar({ themeMode, setThemeMode }: NavBarProps) {
         </span>
       )}
       <ThemeSwitcher onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}>
-        {themeMode === 'light' ? <BsMoonStars /> : <BsSunFill />}
+        {themeMode === 'light' ? <BsMoonStars style={{ margin: 0 }} /> : <BsSunFill style={{ margin: 0 }} />}
       </ThemeSwitcher>
-    </nav>
+    </NavBarWrapper>
   );
 }
 
