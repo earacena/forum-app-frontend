@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const NavButton = styled.button`
   cursor: pointer;
   padding: 0.6em;
-  margin-left: 0.1em;
+  margin: 10px;
   color: ${(props) => props.theme.button.fg};
   background: ${(props) => props.theme.button.bg};
   border: ${(props) => props.theme.button.border};
