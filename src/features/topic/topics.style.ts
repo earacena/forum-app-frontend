@@ -6,6 +6,9 @@ export const TopicTitle = styled.span`
 `;
 
 export const TopicListWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   list-style-type: none;
   padding: 0;
 `;
@@ -16,11 +19,11 @@ export const TopicListItem = styled.li`
   background: ${(props) => props.theme.topic.bg};
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.17);
   margin: 0.4em;
-
+  border: 1px solid transparent;
   padding: 12px;
 
   &:hover {
-    border: 1px lightgrey solid;
+    border: 1px solid ${(props) => props.theme.colorAccent};
     box-shadow: 0 3px 10px rgb(0, 0, 0, 0.3);
   }
   
@@ -57,7 +60,7 @@ export const TopicsWrapper = styled.div`
   border-radius: 8px;
   margin: 1em;
   min-width: 300px;
-  width: 90vw;
+  width: 100%;
   max-width: 800px;
 `;
 
@@ -79,4 +82,9 @@ export const SpinAnimation = keyframes`
 export const Spin = styled.div`
   display: flex; 
   animation: ${SpinAnimation} 1s infinite linear;
+`;
+
+export const AddTopicButton = styled.div`
+  background: 'teal',
+  color: 'black',
 `;
