@@ -17,6 +17,7 @@ type ThemeProps = {
   header: string,
   fg: string,
   bg: string,
+  colorAccent: string,
   topic: {
     bg: string,
     fg: string,
@@ -50,6 +51,7 @@ function App() {
       header: 'dark',
       fg: 'black',
       bg: 'white',
+      colorAccent: 'hsla(1, 83%, 63%, 1)',
       topic: {
         bg: 'white',
         fg: 'white',
@@ -66,10 +68,11 @@ function App() {
     },
     dark: {
       header: 'white',
-      fg: '#303030',
+      fg: 'white',
       bg: '#141414',
+      colorAccent: 'hsla(1, 83%, 63%, 1)',
       topic: {
-        bg: '#303030',
+        bg: '#1c1c1c',
         fg: 'white',
         title: 'white',
         description: 'lightgray',
@@ -77,7 +80,7 @@ function App() {
       },
       button: {
         fg: 'white',
-        bg: '#303030',
+        bg: '#1c1c1c',
         border: '1px black solid',
         borderRadius: '8px',
       },
