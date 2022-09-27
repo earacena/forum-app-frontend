@@ -5,18 +5,19 @@ type ThreadItemWrapperProps = {
 };
 
 export const ThreadsTitle = styled.h2`
-  text-align: center;
   margin-bottom: 0;
+  color: ${(props) => props.theme.fg};
 `;
 
 export const ThreadsDescription = styled.p`
   margin-top: 0;
-  text-align: center;
   font-size: 15px;
-  color: #404040;
+  color: ${(props) => props.theme.topic.description};
+  font-weight: 300;
 `;
 
 export const ThreadListWrapper = styled.ul`
+  width: 100%;
   padding: 1em;
   border-radius: 5px;
   margin: 1em;
@@ -31,13 +32,13 @@ export const ThreadItemWrapper = styled.li<ThreadItemWrapperProps>`
   width: 100%;
   padding: 0.5em;
   border-radius: 8px;
-  color: black;
-  border: 1px lightgrey solid;
-  background: ${(props) => (props.author ? 'papayawhip' : '')};
+  color: ${(props) => props.theme.thread.fg};
+  border: 1px transparent solid;
+  background: ${(props) => props.theme.thread.bg};
   box-shadow: 0 3px 10px rgb(0, 0, 0, 0.17);
 
   &:hover {
-    border: 1px lightgrey solid;
+    border: 1px ${(props) => props.theme.colorAccent} solid;
     box-shadow: 0 3px 10px rgb(0, 0, 0, 0.3);
   }
 
@@ -54,19 +55,26 @@ export const ThreadTitle = styled.p`
 `;
 
 export const LeftVerticalLine = styled.span`
-  border-left: 1px solid black;
+  border-left: 1px solid ${(props) => props.theme.thread.separater};
   padding: 0.5em;
   min-width: 110px;
+  color: ${(props) => props.theme.thread.description};
+  font-weight: 300;
 `;
 
 export const ThreadsDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
   padding: 1em;
   padding-left: 0;
   padding-right: 0;
   margin: 0.5em;
-  box-shadow: 0 3px 10px rgb(0, 0, 0, 0.3);
   border-radius: 8px;
-  min-width: 850px;
+  min-width: 300px;
+  width: 100%;
+  max-width: 800px;
 `;
 
 export const DeleteThreadButton = styled.button`
