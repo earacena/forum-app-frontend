@@ -58,16 +58,6 @@ function NavBar({ themeMode, setThemeMode }: NavBarProps) {
       <Link to="/">
         <NavButton>Topics</NavButton>
       </Link>
-      {!auth.token && (
-        <Link to="/login">
-          <NavButton>Log In</NavButton>
-        </Link>
-      )}
-      {!auth.token && (
-        <Link to="/register">
-          <NavButton>Register</NavButton>
-        </Link>
-      )}
       <ThemeSwitcher
         onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}
       >
@@ -78,6 +68,16 @@ function NavBar({ themeMode, setThemeMode }: NavBarProps) {
         )}
       </ThemeSwitcher>
       <Spacer />
+      {!auth.token && (
+        <Link to="/login">
+          <NavButton>Log In</NavButton>
+        </Link>
+      )}
+      {!auth.token && (
+        <Link to="/register">
+          <NavButton>Register</NavButton>
+        </Link>
+      )}
       {auth.token && (
         <UserActions>
           <UserName>{` ${auth.name} `}</UserName>
