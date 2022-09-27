@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { BsPlusLg } from 'react-icons/bs';
 import FormLabel from '../../components/FormLabel';
 import FormInput from '../../components/FormInput';
 import FormSubmitButton from '../../components/FormSubmitButton';
@@ -48,14 +49,14 @@ const CloseButton = styled.button<VisibilityProps>`
 const CreateButton = styled.button<VisibilityProps>`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
   cursor: pointer;
-  border-radius: 20px;
+  border-radius: 50%;
   padding: 0.6em;
-  color: lightgrey;
-  background: black;
-  border: 1px black solid;
+  color: black;
+  background: hsla(1, 83%, 63%, 1);
+  border: none;
   width: auto;
   height: auto;
-  font-size: 16px;
+  font-size: 20px;
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
 
   &:hover {
@@ -96,15 +97,17 @@ function TopicForm() {
 
   const onSubmit: SubmitHandler<Inputs> = async (topicData) => {
     try {
-      const newTopic = {
-        token: auth.token,
-        title: topicData.title,
-        description: topicData.description,
-      };
+      if (topics) {
+        const newTopic = {
+          token: auth.token,
+          title: topicData.title,
+          description: topicData.description,
+        };
 
-      const createdTopic = await topicService.create(newTopic);
-      dispatch(setTopics(topics.concat(createdTopic)));
-      notify('message', 'Created topic successfully.', 4);
+        const createdTopic = await topicService.create(newTopic);
+        dispatch(setTopics(topics.concat(createdTopic)));
+        notify('message', 'Created topic successfully.', 4);
+      }
     } catch (error) {
       console.error(error);
       notify('error', 'Error creating topic', 4);
@@ -119,7 +122,7 @@ function TopicForm() {
             visible={!topicFormVisible}
             onClick={() => setTopicFormVisible(!topicFormVisible)}
           >
-            Start new topic
+            <BsPlusLg />
           </CreateButton>
         </CenteredDiv>
       )}
