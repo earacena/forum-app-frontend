@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Static as RtStatic } from 'runtypes';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { ThemeContext } from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import topicService from '../../services/topicService';
 import { Topic } from '../../types';
@@ -12,12 +14,13 @@ import {
   TopicListItem,
   TopicTitle,
   LeftVerticalLine,
+  Spin,
 } from './topics.style';
 
 function Topics() {
   const dispatch = useAppDispatch();
   const topics = useAppSelector((state) => state.topics.allTopics);
-  const auth = useAppSelector((state) => state.auth);
+  const theme = useContext(ThemeContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,9 +43,10 @@ function Topics() {
 
   return (
     <TopicsWrapper>
-      <TopicForm />
+      {topics === undefined && <Spin><AiOutlineLoading3Quarters style={{ color: theme.fg, fontSize: '40px' }} /></Spin>}
+      {topics?.length === 0 && <span>There are no topics for discussion.</span>}
       <TopicListWrapper>
-        {topics.map((topic) => (
+        {topics?.map((topic) => (
           <TopicListItem key={topic.id} onClick={() => handleClick(topic)}>
             <TopicTitle>
               {topic.title}
@@ -53,6 +57,7 @@ function Topics() {
           </TopicListItem>
         ))}
       </TopicListWrapper>
+      <TopicForm />
     </TopicsWrapper>
   );
 }
