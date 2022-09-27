@@ -23,7 +23,7 @@ type ThemeProps = {
     fg: string,
     title: string,
     description: string,
-    seperator: string,
+    separator: string,
   },
   button: {
     fg: string,
@@ -57,7 +57,7 @@ function App() {
         fg: 'white',
         title: 'black',
         description: 'darkgray',
-        seperator: 'darkgray',
+        separator: 'darkgray',
       },
       button: {
         fg: 'white',
@@ -76,7 +76,7 @@ function App() {
         fg: 'white',
         title: 'white',
         description: 'lightgray',
-        seperator: 'lightgray',
+        separator: 'lightgray',
       },
       button: {
         fg: 'white',

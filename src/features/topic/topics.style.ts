@@ -41,7 +41,7 @@ export const TopicListItem = styled.li`
 `;
 
 export const LeftVerticalLine = styled.span`
-  border-left: 1px solid ${(props) => props.theme.topic.seperator};
+  border-left: 1px solid ${(props) => props.theme.topic.separator};
   color: ${(props) => props.theme.topic.description};
   padding: 0.5em;
   margin-left: 1em;
