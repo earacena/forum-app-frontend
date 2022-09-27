@@ -9,8 +9,8 @@ import NavButton from './NavButton';
 import ThemeSwitcher from './ThemeSwitcher';
 
 type NavBarProps = {
-  themeMode: string,
-  setThemeMode: Dispatch<string>,
+  themeMode: string;
+  setThemeMode: Dispatch<string>;
 };
 
 const NavBarWrapper = styled.nav`
@@ -19,6 +19,23 @@ const NavBarWrapper = styled.nav`
   align-items: center;
   justify-content: center;
   margin: 10px;
+  width: 100%;
+  max-width: 800px;
+`;
+
+const Spacer = styled.span`
+  flex: 1;
+`;
+
+const UserName = styled.span`
+  color: ${(props) => props.theme.fg}
+`;
+
+const UserActions = styled.span`
+  display: 'flex',
+  flex-direction: 'row',
+  align-items: 'center',
+  justify-content: 'center',
 `;
 
 function NavBar({ themeMode, setThemeMode }: NavBarProps) {
@@ -51,15 +68,22 @@ function NavBar({ themeMode, setThemeMode }: NavBarProps) {
           <NavButton>Register</NavButton>
         </Link>
       )}
-      {auth.token && (
-        <span>
-          {` ${auth.name} `}
-          <NavButton onClick={handleLogOut}>Log Out</NavButton>
-        </span>
-      )}
-      <ThemeSwitcher onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}>
-        {themeMode === 'light' ? <BsMoonStars style={{ margin: 0 }} /> : <BsSunFill style={{ margin: 0 }} />}
+      <ThemeSwitcher
+        onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}
+      >
+        {themeMode === 'light' ? (
+          <BsMoonStars style={{ margin: 0 }} />
+        ) : (
+          <BsSunFill style={{ margin: 0 }} />
+        )}
       </ThemeSwitcher>
+      <Spacer />
+      {auth.token && (
+        <UserActions>
+          <UserName>{` ${auth.name} `}</UserName>
+          <NavButton onClick={handleLogOut}>Log Out</NavButton>
+        </UserActions>
+      )}
     </NavBarWrapper>
   );
 }
