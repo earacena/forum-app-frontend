@@ -77,7 +77,7 @@ function App() {
       },
       button: {
         fg: 'white',
-        bg: 'gray',
+        bg: '#303030',
         border: '1px black solid',
         borderRadius: '8px',
       },
