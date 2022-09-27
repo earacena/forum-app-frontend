@@ -4,12 +4,13 @@ const ThemeSwitcher = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
+  border: 1px solid black;
   padding: 10px;
+  margin: 10px;
   font-size: 20px;
   border-radius: 50%;
   color: ${(props) => props.theme.button.fg};
-  background: black;
+  background: ${(props) => props.theme.button.bg};
   cursor: pointer;
 
   &:hover {
