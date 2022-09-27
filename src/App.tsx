@@ -25,6 +25,13 @@ type ThemeProps = {
     description: string,
     separator: string,
   },
+  thread: {
+    bg: string,
+    fg: string,
+    title: string,
+    description: string,
+    separator: string,
+  },
   button: {
     fg: string,
     bg: string,
@@ -59,6 +66,13 @@ function App() {
         description: 'darkgray',
         separator: 'darkgray',
       },
+      thread: {
+        bg: 'white',
+        fg: 'white',
+        title: 'black',
+        description: 'darkgray',
+        separator: 'darkgray',
+      },
       button: {
         fg: 'white',
         bg: 'black',
@@ -72,6 +86,13 @@ function App() {
       bg: '#141414',
       colorAccent: 'hsla(1, 83%, 63%, 1)',
       topic: {
+        bg: '#1c1c1c',
+        fg: 'white',
+        title: 'white',
+        description: 'lightgray',
+        separator: 'lightgray',
+      },
+      thread: {
         bg: '#1c1c1c',
         fg: 'white',
         title: 'white',
