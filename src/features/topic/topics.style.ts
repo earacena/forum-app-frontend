@@ -45,7 +45,7 @@ export const LeftVerticalLine = styled.span`
   color: ${(props) => props.theme.topic.description};
   padding: 0.5em;
   margin-left: 1em;
-
+  font-weight: 300;
   @media only screen and (max-width: 600px) {
     display: none;
   }
