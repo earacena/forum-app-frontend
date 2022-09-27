@@ -3,12 +3,12 @@ import { Static as RtStatic } from 'runtypes';
 import { TopicArray, Topic } from '../../types';
 
 interface TopicsState {
-  allTopics: RtStatic<typeof TopicArray>,
+  allTopics: RtStatic<typeof TopicArray> | undefined,
   currentTopic: RtStatic<typeof Topic> | undefined,
 }
 
 const initialState: TopicsState = {
-  allTopics: [],
+  allTopics: undefined,
   currentTopic: undefined,
 };
 
