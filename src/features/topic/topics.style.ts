@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const TopicTitle = styled.span`
   font-size: 20px;
@@ -49,6 +49,10 @@ export const LeftVerticalLine = styled.span`
 `;
 
 export const TopicsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: transparent;
   border-radius: 8px;
   margin: 1em;
@@ -60,4 +64,19 @@ export const TopicsWrapper = styled.div`
 export const CenteredDiv = styled.div`
   display: block;
   margin: 0 auto;
+`;
+
+export const SpinAnimation = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+`;
+
+export const Spin = styled.div`
+  display: flex; 
+  animation: ${SpinAnimation} 1s infinite linear;
 `;
