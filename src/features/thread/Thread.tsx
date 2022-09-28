@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Number as RtNumber } from 'runtypes';
 import styled from 'styled-components';
+import { BiArrowBack } from 'react-icons/bi';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import threadService from '../../services/threadService';
 import { setPosts } from '../post/posts.slice';
@@ -12,21 +13,28 @@ import { setCurrentTopic } from '../topic/topic.slice';
 import { setCurrentThread } from './thread.slice';
 
 const ThreadTitle = styled.h3`
-  align-self: center; 
+  color: ${(props) => props.theme.fg};
+  font-weight: 400;
 `;
 
 const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  border-radius: 15px;
-  color: lightgrey;
-  background: black;
+  border-radius: 50%;
+  color: ${(props) => props.theme.button.fg};
+  background: ${(props) => props.theme.button.bg};
   border: 1px black solid;
   border-radius: 20px;
-  padding: 0.6em;
+  padding: 12px;
   margin: 0.5em;
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
+  font-size: 20px;
+
   &:hover {
     box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
+    border: 1px solid ${(props) => props.theme.colorAccent};
   }
   &:active {
     box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.1);
@@ -36,7 +44,13 @@ const BackButton = styled.button`
 
 const TopOfThread = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Spacer = styled.span`
+  flex: 1;
 `;
 
 function Thread() {
@@ -102,9 +116,13 @@ function Thread() {
   return (
     <div>
       <TopOfThread>
-        <BackButton onClick={handleBackClick}>Back</BackButton>
+        <Spacer>
+          <BackButton onClick={handleBackClick}>
+            <BiArrowBack />
+          </BackButton>
+        </Spacer>
         <ThreadTitle>{thread?.title}</ThreadTitle>
-        <BackButton style={{ visibility: 'hidden' }}>Back</BackButton>
+        <Spacer />
       </TopOfThread>
       <Posts posts={posts} threadAuthorId={thread?.userId} />
       <PostForm threadId={threadId} />
