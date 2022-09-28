@@ -3,12 +3,12 @@ import { Static as RtStatic } from 'runtypes';
 import { Thread, ThreadArray, Threads } from '../../types';
 
 interface ThreadsState {
-  allThreads: RtStatic<typeof ThreadArray>;
+  allThreads: RtStatic<typeof ThreadArray> | undefined;
   currentThread: RtStatic<typeof Thread> | undefined;
 }
 
 const initialState: ThreadsState = {
-  allThreads: [],
+  allThreads: undefined,
   currentThread: undefined,
 };
 
