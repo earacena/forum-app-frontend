@@ -10,10 +10,9 @@ import { notify } from '../notification/Notification';
 import userService from '../../services/userService';
 import loginService from '../../services/loginService';
 import { setAuthenticatedUser } from '../auth/auth.slice';
-import FormSubmitButton from '../../components/FormSubmitButton';
-import FormInput from '../../components/FormInput';
-import ErrorMessage from '../../components/ErrorMessage';
-import FormLabel from '../../components/FormLabel';
+import {
+  FormSubmitButton, FormInput, ErrorMessage, FormLabel,
+} from '../../components';
 
 type Inputs = {
   name: string;
