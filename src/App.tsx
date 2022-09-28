@@ -9,9 +9,8 @@ import Threads from './features/thread/Threads';
 import Topics from './features/topic/Topics';
 import { useAppDispatch } from './hooks';
 import RegisterForm from './features/registerForm/RegisterForm';
-import NavBar from './components/NavBar';
+import { NavBar, AppWrapper } from './components';
 import AdminPanel from './features/adminPanel/AdminPanel';
-import AppWrapper from './components/AppWrapper';
 
 type ThemeProps = {
   header: string,
