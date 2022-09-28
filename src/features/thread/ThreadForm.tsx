@@ -55,25 +55,27 @@ function ThreadForm() {
 
       // POST new thread, get id
       const createdThread = await threadService.create(newThread);
-      dispatch(setThreads(threads.concat(createdThread)));
+      if (threads) {
+        dispatch(setThreads(threads.concat(createdThread)));
 
-      // Prepare new post for thread
-      const newPost = {
-        token: auth.token,
-        content: threadData.content,
-        threadId: createdThread.id,
-        isOriginalPost: true,
-      };
+        // Prepare new post for thread
+        const newPost = {
+          token: auth.token,
+          content: threadData.content,
+          threadId: createdThread.id,
+          isOriginalPost: true,
+        };
 
-      // POST new post
-      await postService.create(newPost);
+        // POST new post
+        await postService.create(newPost);
 
-      notify('message', 'Thread created.', 4);
-      reset({
-        title: '',
-        content: '',
-      });
-      setThreadFormVisible(!threadFormVisible);
+        notify('message', 'Thread created.', 4);
+        reset({
+          title: '',
+          content: '',
+        });
+        setThreadFormVisible(!threadFormVisible);
+      }
     } catch (error: unknown) {
       notify('error', 'Error while creating thread.', 4);
     }
