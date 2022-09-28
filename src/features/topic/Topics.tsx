@@ -14,8 +14,8 @@ import {
   TopicListItem,
   TopicTitle,
   LeftVerticalLine,
-  Spin,
 } from './topics.style';
+import { Spin } from '../../components';
 
 function Topics() {
   const dispatch = useAppDispatch();
