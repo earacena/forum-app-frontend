@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 export const TopicTitle = styled.span`
   font-size: 20px;
@@ -67,21 +67,6 @@ export const TopicsWrapper = styled.div`
 export const CenteredDiv = styled.div`
   display: block;
   margin: 0 auto;
-`;
-
-export const SpinAnimation = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(-360deg);
-  }
-`;
-
-export const Spin = styled.div`
-  display: flex; 
-  animation: ${SpinAnimation} 1s infinite linear;
 `;
 
 export const AddTopicButton = styled.div`
