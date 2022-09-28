@@ -9,10 +9,9 @@ import {
   LoginFormWrapper,
   LoginFormTitle,
 } from './loginFormStyle';
-import FormSubmitButton from '../../components/FormSubmitButton';
-import FormInput from '../../components/FormInput';
-import ErrorMessage from '../../components/ErrorMessage';
-import FormLabel from '../../components/FormLabel';
+import {
+  FormSubmitButton, FormInput, ErrorMessage, FormLabel,
+} from '../../components';
 
 type Inputs = {
   username: string;
