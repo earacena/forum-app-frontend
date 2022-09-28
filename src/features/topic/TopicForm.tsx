@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { BsPlusLg } from 'react-icons/bs';
-import FormLabel from '../../components/FormLabel';
-import FormInput from '../../components/FormInput';
-import FormSubmitButton from '../../components/FormSubmitButton';
-import ErrorMessage from '../../components/ErrorMessage';
+import {
+  FormLabel, FormInput, FormSubmitButton, ErrorMessage,
+} from '../../components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { notify } from '../notification/Notification';
 import topicService from '../../services/topicService';
