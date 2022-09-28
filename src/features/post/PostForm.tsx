@@ -12,9 +12,7 @@ import {
   PostFormWrapper,
   TextArea,
 } from './postForm.style';
-import FormSubmitButton from '../../components/FormSubmitButton';
-import ErrorMessage from '../../components/ErrorMessage';
-import FormLabel from '../../components/FormLabel';
+import { FormSubmitButton, ErrorMessage, FormLabel } from '../../components';
 
 type Input = {
   content: string;
