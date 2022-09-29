@@ -11,6 +11,7 @@ import PostForm from '../post/PostForm';
 import topicService from '../../services/topicService';
 import { setCurrentTopic } from '../topic/topic.slice';
 import { setCurrentThread } from './thread.slice';
+import { ThreadWrapper } from './threads.style';
 
 const ThreadTitle = styled.h3`
   color: ${(props) => props.theme.fg};
@@ -114,7 +115,7 @@ function Thread() {
   };
 
   return (
-    <div>
+    <ThreadWrapper>
       <TopOfThread>
         <Spacer>
           <BackButton onClick={handleBackClick}>
@@ -126,7 +127,7 @@ function Thread() {
       </TopOfThread>
       <Posts posts={posts} threadAuthorId={thread?.userId} />
       <PostForm threadId={threadId} />
-    </div>
+    </ThreadWrapper>
   );
 }
 
