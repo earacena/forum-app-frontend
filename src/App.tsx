@@ -12,7 +12,7 @@ import RegisterForm from './features/registerForm/RegisterForm';
 import { NavBar, AppWrapper } from './components';
 import AdminPanel from './features/adminPanel/AdminPanel';
 
-type ThemeProps = {
+export type ThemeProps = {
   header: string,
   fg: string,
   bg: string,
@@ -29,7 +29,16 @@ type ThemeProps = {
     fg: string,
     title: string,
     description: string,
+    descriptionWeight: string,
     separator: string,
+  },
+  post: {
+    bg: string,
+    fg: string,
+    title: string,
+    description: string,
+    separator: string,
+    postAuthorFg: string,
   },
   button: {
     fg: string,
@@ -44,6 +53,79 @@ type ThemesProps = {
   dark: ThemeProps,
 };
 
+const themes: ThemesProps = {
+  light: {
+    header: 'dark',
+    fg: 'black',
+    bg: 'white',
+    colorAccent: 'hsla(1, 83%, 63%, 1)',
+    topic: {
+      bg: 'white',
+      fg: 'white',
+      title: 'black',
+      description: 'darkgray',
+      separator: 'darkgray',
+    },
+    thread: {
+      bg: 'white',
+      fg: 'white',
+      title: 'black',
+      description: 'black',
+      descriptionWeight: '300',
+      separator: 'darkgray',
+    },
+    post: {
+      bg: 'white',
+      fg: 'white',
+      title: 'black',
+      description: 'darkgray',
+      separator: 'darkgray',
+      postAuthorFg: 'white',
+    },
+    button: {
+      fg: 'white',
+      bg: 'black',
+      border: '1px black solid',
+      borderRadius: '8px',
+    },
+  },
+  dark: {
+    header: 'white',
+    fg: 'white',
+    bg: '#141414',
+    colorAccent: 'hsla(1, 83%, 63%, 1)',
+    topic: {
+      bg: '#1c1c1c',
+      fg: 'white',
+      title: 'white',
+      description: 'lightgray',
+      separator: 'lightgray',
+    },
+    thread: {
+      bg: '#1c1c1c',
+      fg: 'white',
+      title: 'white',
+      description: 'lightgray',
+      descriptionWeight: '300',
+      separator: 'lightgray',
+    },
+    post: {
+      bg: '#1c1c1c',
+      fg: 'white',
+      title: 'white',
+      description: 'lightgray',
+      separator: 'lightgray',
+      postAuthorFg: '#454545',
+    },
+    button: {
+      fg: 'white',
+      bg: '#1c1c1c',
+      border: '1px black solid',
+      borderRadius: '8px',
+    },
+  },
+};
+
 const AppHeader = styled.h1`
   color: ${(props) => props.theme.header}
 `;
@@ -52,65 +134,10 @@ function App() {
   const dispatch = useAppDispatch();
   const [themeMode, setThemeMode] = useState<string>('');
 
-  const themes: ThemesProps = {
-    light: {
-      header: 'dark',
-      fg: 'black',
-      bg: 'white',
-      colorAccent: 'hsla(1, 83%, 63%, 1)',
-      topic: {
-        bg: 'white',
-        fg: 'white',
-        title: 'black',
-        description: 'darkgray',
-        separator: 'darkgray',
-      },
-      thread: {
-        bg: 'white',
-        fg: 'white',
-        title: 'black',
-        description: 'darkgray',
-        separator: 'darkgray',
-      },
-      button: {
-        fg: 'white',
-        bg: 'black',
-        border: '1px black solid',
-        borderRadius: '8px',
-      },
-    },
-    dark: {
-      header: 'white',
-      fg: 'white',
-      bg: '#141414',
-      colorAccent: 'hsla(1, 83%, 63%, 1)',
-      topic: {
-        bg: '#1c1c1c',
-        fg: 'white',
-        title: 'white',
-        description: 'lightgray',
-        separator: 'lightgray',
-      },
-      thread: {
-        bg: '#1c1c1c',
-        fg: 'white',
-        title: 'white',
-        description: 'lightgray',
-        separator: 'lightgray',
-      },
-      button: {
-        fg: 'white',
-        bg: '#1c1c1c',
-        border: '1px black solid',
-        borderRadius: '8px',
-      },
-    },
-  };
-
   // Set the App wide background color
   useEffect(() => {
     document.body.style.backgroundColor = themeMode === 'light' ? themes.light.bg : themes.dark.bg;
-  }, [themeMode, themes.dark.bg, themes.light.bg]);
+  }, [themeMode]);
 
   // Check if user session already exists
   useEffect(() => {
