@@ -105,3 +105,12 @@ export const DeleteThreadButton = styled.button`
 export const ThreadRow = styled.span`
   display: flex;
 `;
+
+export const ThreadWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 1em;
+  min-width: 300px;
+  max-width: 800px;
+`;
