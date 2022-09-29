@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Static } from 'runtypes';
 import styled from 'styled-components';
+import { GrUser } from 'react-icons/gr';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import { Post as PostType } from '../../types';
@@ -14,11 +15,11 @@ interface PostWrapperProps {
 }
 
 const PostWrapper = styled.div<PostWrapperProps>`
+  display: flex;
+
   border: ${(props) => (props.threadAuthor ? '2px grey dotted' : '')};
   border-radius: 8px;
   padding: 1em;
-  margin: 1em auto;
-  width: 60vw;
   background: ${(props) => (props.author ? 'papayawhip' : '')};
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
 `;
@@ -68,6 +69,30 @@ const EditButton = styled.button`
   }
 `;
 
+const ProfileCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+`;
+
+const PostContent = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+  margin: 1em;
+`;
+
+const UserAvatar = styled.div`
+  border: 2px solid gray;
+  color: ${(props) => props.theme.fg};
+  border-radius: 50%;
+  padding: 10px;
+  overflow: hidden;
+  margin: 10px;
+`;
+
 interface PostProps {
   post: Static<typeof PostType>;
   isThreadAuthor: boolean;
@@ -93,19 +118,26 @@ function Post({ post, isThreadAuthor, isAuthor }: PostProps) {
 
   return (
     <PostWrapper threadAuthor={isThreadAuthor} author={isAuthor}>
-      {`${post?.authorName} ${isThreadAuthor ? '[Author]' : ''} on ${new Date(
-        post.datePosted,
-      ).toDateString()}`}
-      { isAuthor
-        && !post.isOriginalPost
-        && (
-          <span>
-            <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
-            <EditButton onClick={() => setBeingEdited(!beingEdited)}>Edit</EditButton>
-          </span>
-        )}
+      <ProfileCard>
+        <UserAvatar>
+          <GrUser style={{ fontSize: '50px' }} />
+        </UserAvatar>
+        {`${post?.authorName} ${isThreadAuthor ? '[Author]' : ''} on ${new Date(
+          post.datePosted,
+        ).toDateString()}`}
+        { isAuthor
+          && !post.isOriginalPost
+          && (
+            <span>
+              <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
+              <EditButton onClick={() => setBeingEdited(!beingEdited)}>Edit</EditButton>
+            </span>
+          )}
+      </ProfileCard>
       <hr />
-      {!beingEdited && post.content}
+      <PostContent>
+        {!beingEdited && post.content}
+      </PostContent>
       {beingEdited && (
         <PostEditForm
           postId={post.id}
