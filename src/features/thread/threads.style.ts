@@ -12,8 +12,8 @@ export const ThreadsTitle = styled.h2`
 export const ThreadsDescription = styled.p`
   margin-top: 0;
   font-size: 15px;
-  color: ${(props) => props.theme.topic.description};
-  font-weight: 300;
+  color: ${(props) => props.theme.thread.description};
+  font-weight: ${(props) => props.theme.thread.descriptionWeight};
 `;
 
 export const ThreadListWrapper = styled.ul`
