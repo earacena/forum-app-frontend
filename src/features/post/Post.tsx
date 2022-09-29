@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Static } from 'runtypes';
-import styled from 'styled-components';
-import { GrUser } from 'react-icons/gr';
+import styled, { ThemeContext } from 'styled-components';
+import { HiUser } from 'react-icons/hi';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import { Post as PostType } from '../../types';
 import { notify } from '../notification/Notification';
 import { setPosts } from './posts.slice';
 import PostEditForm from './PostEditForm';
+import type { ThemeProps } from '../../App';
 
 interface PostWrapperProps {
   readonly threadAuthor: boolean;
   readonly author: boolean;
+  readonly theme: ThemeProps;
 }
 
 const PostWrapper = styled.div<PostWrapperProps>`
   display: flex;
-
-  border: ${(props) => (props.threadAuthor ? '2px grey dotted' : '')};
+  border: ${(props) => (props.author ? `2px solid ${props.theme.colorAccent}` : '')};
   border-radius: 8px;
   padding: 1em;
-  background: ${(props) => (props.author ? 'papayawhip' : '')};
+  background: ${(props) => props.theme.post.bg};
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
+  margin-top: 5px;
 `;
 
 const DeleteButton = styled.button`
@@ -82,15 +84,25 @@ const PostContent = styled.div`
   justify-content: flex-start;
   flex: 1;
   margin: 1em;
+  color: ${(props) => props.theme.fg};
 `;
 
-const UserAvatar = styled.div`
-  border: 2px solid gray;
-  color: ${(props) => props.theme.fg};
+const UserAvatar = styled.span`
+  border: 2px solid ${(props) => props.theme.fg};
   border-radius: 50%;
   padding: 10px;
   overflow: hidden;
   margin: 10px;
+`;
+
+const UserName = styled.span`
+  font-size: 20px;
+  color: ${(props) => props.theme.fg};
+`;
+
+const AuthorStatus = styled.span`
+  color: ${(props) => props.theme.colorAccent};
+  font-weight: 300;
 `;
 
 interface PostProps {
@@ -103,6 +115,7 @@ function Post({ post, isThreadAuthor, isAuthor }: PostProps) {
   const dispatch = useAppDispatch();
   const posts = useAppSelector((state) => state.posts);
   const auth = useAppSelector((state) => state.auth);
+  const theme = useContext(ThemeContext);
 
   const [beingEdited, setBeingEdited] = useState(false);
 
@@ -117,14 +130,18 @@ function Post({ post, isThreadAuthor, isAuthor }: PostProps) {
   };
 
   return (
-    <PostWrapper threadAuthor={isThreadAuthor} author={isAuthor}>
+    <PostWrapper threadAuthor={isThreadAuthor} author={isAuthor} theme={theme}>
       <ProfileCard>
         <UserAvatar>
-          <GrUser style={{ fontSize: '50px' }} />
+          <HiUser size={50} color={theme.fg} />
         </UserAvatar>
-        {`${post?.authorName} ${isThreadAuthor ? '[Author]' : ''} on ${new Date(
-          post.datePosted,
-        ).toDateString()}`}
+        <UserName>
+          {`${post?.authorName}`}
+        </UserName>
+        <br />
+        <AuthorStatus>
+          {`${isThreadAuthor ? 'Author' : ''}`}
+        </AuthorStatus>
         { isAuthor
           && !post.isOriginalPost
           && (
