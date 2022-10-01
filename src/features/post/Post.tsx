@@ -71,7 +71,7 @@ const EditButton = styled.button`
   }
 `;
 
-const ProfileCard = styled.div`
+export const ProfileCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,7 +79,7 @@ const ProfileCard = styled.div`
   margin-right: 10px;
 `;
 
-const PostContent = styled.div`
+export const PostContent = styled.div`
   display: flex;
   justify-content: flex-start;
   flex: 1;
@@ -87,7 +87,7 @@ const PostContent = styled.div`
   color: ${(props) => props.theme.fg};
 `;
 
-const UserAvatar = styled.span`
+export const UserAvatar = styled.span`
   border: 2px solid ${(props) => props.theme.fg};
   border-radius: 50%;
   padding: 10px;
@@ -95,7 +95,7 @@ const UserAvatar = styled.span`
   margin: 10px;
 `;
 
-const UserName = styled.span`
+export const UserName = styled.span`
   font-size: 20px;
   color: ${(props) => props.theme.fg};
 `;
