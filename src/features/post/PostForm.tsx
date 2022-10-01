@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import styled, { ThemeContext } from 'styled-components';
+import { HiUser } from 'react-icons/hi';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import threadService from '../../services/threadService';
@@ -13,6 +15,7 @@ import {
   TextArea,
 } from './postForm.style';
 import { FormSubmitButton, ErrorMessage, FormLabel } from '../../components';
+import { ProfileCard, UserAvatar, UserName } from './Post';
 
 type Input = {
   content: string;
@@ -22,10 +25,20 @@ interface PostFormProps {
   threadId: number | undefined;
 }
 
+const ComponentWrapper = styled.div`
+  display: flex;
+`;
+
+const InputWrapper = styled.span`
+  display: flex;
+  flex-direction: column;
+`;
+
 function PostForm({ threadId }: PostFormProps) {
   const [postFormVisible, setPostFormVisible] = useState(false);
   const auth = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
+  const theme = useContext(ThemeContext);
 
   const {
     register,
@@ -67,7 +80,7 @@ function PostForm({ threadId }: PostFormProps) {
   };
 
   return (
-    <div>
+    <ComponentWrapper>
       {auth.token && (
         <CenteredDiv>
           <AddPostButton
@@ -83,22 +96,39 @@ function PostForm({ threadId }: PostFormProps) {
         visible={auth.token ? postFormVisible : false}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <CloseFormButton
-          visible={postFormVisible}
-          onClick={() => setPostFormVisible(!postFormVisible)}
+        <ProfileCard>
+          <UserAvatar>
+            <HiUser size={50} color={theme.fg} />
+          </UserAvatar>
+          <UserName>
+            {`${auth.name}`}
+          </UserName>
+        </ProfileCard>
+        <hr style={{ height: '100%' }} />
+        <InputWrapper style={{
+          flex: 1, marginLeft: '10px', color: theme.fg, height: '100%',
+        }}
         >
-          Close
-        </CloseFormButton>
-        <FormLabel htmlFor="post-content">Post body</FormLabel>
-        {errors.content && <ErrorMessage>This field is required</ErrorMessage>}
-        <TextArea
-          id="content"
-          placeholder="What would you like to say?"
-          {...register('content', { required: true })}
-        />
-        <FormSubmitButton primary>Post</FormSubmitButton>
+          <FormLabel htmlFor="post-content" style={{ borderLeft: '1px', margin: 0 }}>Post body</FormLabel>
+          {errors.content && <ErrorMessage>This field is required</ErrorMessage>}
+          <TextArea
+            id="content"
+            placeholder="What would you like to say?"
+            {...register('content', { required: true })}
+          />
+        </InputWrapper>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <FormSubmitButton primary>Post</FormSubmitButton>
+          <CloseFormButton
+            visible={postFormVisible}
+            onClick={() => setPostFormVisible(!postFormVisible)}
+          >
+            Cancel
+          </CloseFormButton>
+
+        </div>
       </PostFormWrapper>
-    </div>
+    </ComponentWrapper>
   );
 }
 

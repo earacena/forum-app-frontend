@@ -5,22 +5,30 @@ interface VisibilityProps {
 }
 
 export const PostFormWrapper = styled.form<VisibilityProps>`
-  display: ${(props) => (props.visible ? 'flex' : 'none')};
-  flex-direction: column;
+  display: flex;
+  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
+  background: ${(props) => (props.theme.post.bg)};
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
   border: 1px lightgrey solid;
   border-radius: 8px;
   padding: 1em;
-  width: 500px;
+  width: 100%;
   margin: 0 auto;
   margin-top: 1em;
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
+  min-width: 300px;
+  max-width: 800px;
 `;
 
 export const TextArea = styled.textarea`
   resize: none;
-  border: 1px black solid;
+  border: 3px black solid;
+  border-radius: 8px;
   padding: 1em;
-  height: 150px;
+  height: 200px;
+  flex: 1;
 `;
 
 export const PostButton = styled.button`
@@ -33,6 +41,7 @@ export const PostButton = styled.button`
   margin: auto;
   margin-top: 1em;
   border-radius: 30px;
+  
 `;
 
 export const AddPostButton = styled.button<VisibilityProps>`
@@ -59,15 +68,16 @@ export const AddPostButton = styled.button<VisibilityProps>`
 `;
 
 export const CloseFormButton = styled.button<VisibilityProps>`
-  display: ${(props) => (props.visible ? '' : 'none')};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
   cursor: pointer;
   font-size: 15px;
-  background: darkred;
+  background: ${(props) => (props.theme.post.bg)};
   color: red;
-  border: none;
+  border: 2px solid ${(props) => props.theme.colorAccent};
   padding: 1em;
-  margin: auto;
-  margin-top: 1em;
   border-radius: 30px;
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
 
