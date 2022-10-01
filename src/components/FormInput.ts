@@ -5,7 +5,12 @@ const FormInput = styled.input`
   margin-top: 0;
   margin: 1em;
   border: 1px black solid;
-  border-radius: 3px;
+  border-radius: 7px;
+  background: ${(props) => props.theme.form.inputBg};
+
+  ::placeholder {
+    color: ${(props) => props.theme.fg}
+  }
 `;
 
 export default FormInput;
