@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { useAppDispatch } from '../../hooks';
 import { setAuthenticatedUser } from '../auth/auth.slice';
 import loginService from '../../services/loginService';
@@ -12,6 +13,13 @@ import {
 import {
   FormSubmitButton, FormInput, ErrorMessage, FormLabel,
 } from '../../components';
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-bottom: 30px;
+`;
 
 type Inputs = {
   username: string;
@@ -62,23 +70,25 @@ function LoginForm() {
   return (
     <LoginFormWrapper onSubmit={handleSubmit(onSubmit)}>
       <LoginFormTitle>Login</LoginFormTitle>
-      <FormLabel htmlFor="username">Username</FormLabel>
-      {errors.username && <ErrorMessage>This field is required</ErrorMessage>}
-      <FormInput
-        id="username"
-        type="text"
-        placeholder="Username"
-        {...register('username', { required: true })}
-      />
+      <InputWrapper>
+        <FormLabel htmlFor="username">Username</FormLabel>
+        {errors.username && <ErrorMessage>This field is required</ErrorMessage>}
+        <FormInput
+          id="username"
+          type="text"
+          placeholder="Username"
+          {...register('username', { required: true })}
+        />
 
-      <FormLabel htmlFor="password">Password</FormLabel>
-      {errors.password && <ErrorMessage>This field is required</ErrorMessage>}
-      <FormInput
-        id="password"
-        type="password"
-        placeholder="Password"
-        {...register('password', { required: true })}
-      />
+        <FormLabel htmlFor="password">Password</FormLabel>
+        {errors.password && <ErrorMessage>This field is required</ErrorMessage>}
+        <FormInput
+          id="password"
+          type="password"
+          placeholder="Password"
+          {...register('password', { required: true })}
+        />
+      </InputWrapper>
 
       <FormSubmitButton primary type="submit">Log In</FormSubmitButton>
     </LoginFormWrapper>
