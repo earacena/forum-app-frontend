@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const LoginFormTitle = styled.h2`
+  color: ${(props) => props.theme.fg};
   font-size: 1.5em;
   text-align: center;
 `;
@@ -8,7 +9,10 @@ export const LoginFormTitle = styled.h2`
 export const LoginFormWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  border: 1px lightgrey solid;
+  align-items: center;
+  justify-content: center;
+  background: ${(props) => props.theme.form.bg};
+  border: 1px solid black;
   border-radius: 10px;
   padding: 2em;
   padding-top: 0.4em;
