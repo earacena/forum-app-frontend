@@ -45,6 +45,10 @@ export type ThemeProps = {
     bg: string,
     border: string,
     borderRadius: string,
+  },
+  form: {
+    bg: string,
+    inputBg: string,
   }
 };
 
@@ -88,6 +92,10 @@ const themes: ThemesProps = {
       border: '1px black solid',
       borderRadius: '8px',
     },
+    form: {
+      bg: 'white',
+      inputBg: 'white',
+    },
   },
   dark: {
     header: 'white',
@@ -122,6 +130,10 @@ const themes: ThemesProps = {
       bg: '#1c1c1c',
       border: '1px black solid',
       borderRadius: '8px',
+    },
+    form: {
+      bg: '#1c1c1c',
+      inputBg: '#0d0d0d',
     },
   },
 };
