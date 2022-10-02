@@ -41,6 +41,11 @@ function ThreadForm() {
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (threadData) => {
+    // Prevent submission happening while form is closed
+    if (!threadFormVisible) {
+      return;
+    }
+
     try {
       // Prepare new thread
       if (!currentTopic) {
