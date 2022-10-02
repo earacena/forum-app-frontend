@@ -7,7 +7,7 @@ const FormInput = styled.input`
   border: 1px black solid;
   border-radius: 7px;
   background: ${(props) => props.theme.form.inputBg};
-
+  color: ${(props) => props.theme.fg};
   ::placeholder {
     color: ${(props) => props.theme.fg}
   }
