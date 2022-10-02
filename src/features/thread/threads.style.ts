@@ -52,6 +52,7 @@ export const ThreadTitle = styled.p`
   margin: 0;
   align-self: center;
   font-size: 120%;
+  color: ${(props) => props.theme.fg};
 `;
 
 export const LeftVerticalLine = styled.span`
