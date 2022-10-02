@@ -29,6 +29,12 @@ export const TextArea = styled.textarea`
   padding: 1em;
   height: 200px;
   flex: 1;
+  margin-right: 10px;
+  background: ${(props) => props.theme.form.inputBg};
+  color: ${(props) => props.theme.fg};
+  ::placeholder {
+    color: ${(props) => props.theme.fg}
+  }
 `;
 
 export const PostButton = styled.button`
