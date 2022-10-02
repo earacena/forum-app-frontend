@@ -64,7 +64,7 @@ function Threads() {
       await threadService.remove({ token: auth.token, id: threadId });
       if (threads) {
         dispatch(setThreads(threads.filter((t) => t.id !== threadId)));
-        notify('Thread', 'Deleted a thread.', 4);
+        notify('message', 'Deleted a thread.', 4);
       }
     } catch (error: unknown) {
       notify('error', 'Error while deleting thread.', 4);
