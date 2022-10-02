@@ -5,6 +5,10 @@ interface ButtonProps {
 }
 
 const FormSubmitButton = styled.button<ButtonProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   background: ${(props) => (props.theme.colorAccent)};
   color: ${(props) => (props.theme.form.inputBg)};
@@ -13,7 +17,7 @@ const FormSubmitButton = styled.button<ButtonProps>`
   padding: 1em;
   border: 1px black solid;
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
-  width: 70%;
+  width: 100%;
   &:hover {
     box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
     background: ${(props) => (props.primary ? 'black' : 'lightgrey')};
