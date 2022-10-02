@@ -14,8 +14,9 @@ export const ThreadFormWrapper = styled.form<VisibilityProps>`
   flex-direction: column;
   padding: 1em;
   margin: 1em auto;
-  width: clamp(400px, 50vw, 700px);
-  border: 1px lightgrey solid;
+  width: 600px;
+  border: 1px black solid;
+  background: ${(props) => props.theme.form.bg};
   border-radius: 8px;
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
 `;
@@ -26,6 +27,13 @@ export const TextArea = styled.textarea`
   margin-top: 0em;
   resize: none;
   height: 300px;
+  border-radius: 8px;
+  border: 3px black solid;
+  background: ${(props) => props.theme.form.inputBg};
+  color: ${(props) => props.theme.fg};
+  ::placeholder {
+    color: ${(props) => props.theme.fg}
+  }
 `;
 
 export const Label = styled.label`
@@ -42,7 +50,7 @@ export const CreateButton = styled.button<VisibilityProps>`
   color: lightgrey;
   background: black;
   border: 1px black solid;
-  width: auto;
+  width: 80%;
   height: auto;
   font-size: 16px;
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
@@ -57,7 +65,7 @@ export const CreateButton = styled.button<VisibilityProps>`
 `;
 
 export const CloseButton = styled.button<VisibilityProps>`
-  display: ${(props) => (props.visible ? '' : 'none')};
+  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
   cursor: pointer;
   border-radius: 30px;
   padding: 0.5em;
