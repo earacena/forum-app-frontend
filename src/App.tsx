@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { setAuthenticatedUser } from './features/auth/auth.slice';
 import LoginForm from './features/loginForm/LoginForm';
-import Notification from './features/notification/Notification';
+// import Notification from './features/notification/Notification';
 import Thread from './features/thread/Thread';
 import Threads from './features/thread/Threads';
 import Topics from './features/topic/Topics';
@@ -171,7 +172,7 @@ function App() {
           themeMode={themeMode}
           setThemeMode={setThemeMode}
         />
-        <Notification />
+        <Toaster />
 
         <Routes>
           <Route path="/" element={<Topics />} />
