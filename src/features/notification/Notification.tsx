@@ -1,11 +1,12 @@
 import React from 'react';
+import { toast } from 'react-hot-toast';
 import styled from 'styled-components';
-import store from '../../app/store';
+// import store from '../../app/store';
 import { useAppSelector } from '../../hooks';
-import {
-  removeNotificationMessage,
-  setNotificationMessage,
-} from './notification.slice';
+// import {
+//   removeNotificationMessage,
+//   setNotificationMessage,
+// } from './notification.slice';
 
 interface NotificationWrapperProps {
   readonly error?: boolean;
@@ -39,11 +40,15 @@ export const notify = (
   message: string,
   durationInSeconds: number,
 ) => {
-  const { dispatch } = store;
-  const newTimeoutId = setTimeout(() => {
-    dispatch(removeNotificationMessage());
-  }, durationInSeconds * 1000);
-  dispatch(setNotificationMessage({ type, message, newTimeoutId }));
+  // const { dispatch } = store;
+  // const newTimeoutId = setTimeout(() => {
+  //   dispatch(removeNotificationMessage());
+  // }, durationInSeconds * 1000);
+  // dispatch(setNotificationMessage({ type, message, newTimeoutId }));
+  toast(message, {
+    duration: durationInSeconds * 1000,
+    icon: type === 'error' ? '❌' : '✅',
+  });
 };
 
 export default Notification;
