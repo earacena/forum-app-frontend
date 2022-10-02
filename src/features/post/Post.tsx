@@ -81,9 +81,11 @@ export const ProfileCard = styled.div`
 
 export const PostContent = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   flex: 1;
   margin: 1em;
+  margin-top: 0;
   color: ${(props) => props.theme.fg};
 `;
 
@@ -102,6 +104,13 @@ export const UserName = styled.span`
 
 const AuthorStatus = styled.span`
   color: ${(props) => props.theme.colorAccent};
+  font-weight: 300;
+`;
+
+const PostDate = styled.span`
+  display: flex;
+  justify-content: flex-end;
+  color: gray;
   font-weight: 300;
 `;
 
@@ -153,6 +162,9 @@ function Post({ post, isThreadAuthor, isAuthor }: PostProps) {
       </ProfileCard>
       <hr />
       <PostContent>
+        <PostDate>
+          {new Date(post.datePosted).toDateString()}
+        </PostDate>
         {!beingEdited && post.content}
       </PostContent>
       {beingEdited && (
