@@ -52,6 +52,11 @@ function PostForm({ threadId }: PostFormProps) {
   });
 
   const onSubmit: SubmitHandler<Input> = async (postData) => {
+    // Prevent submission happening while form is closed
+    if (!postFormVisible) {
+      return;
+    }
+
     try {
       if (!threadId) {
         throw new Error('Cannot reply to this thread');
