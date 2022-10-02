@@ -39,6 +39,7 @@ export type ThemeProps = {
     description: string,
     separator: string,
     postAuthorFg: string,
+    postDate: string,
   },
   button: {
     fg: string,
@@ -85,6 +86,7 @@ const themes: ThemesProps = {
       description: 'darkgray',
       separator: 'darkgray',
       postAuthorFg: 'white',
+      postDate: 'gray',
     },
     button: {
       fg: 'white',
@@ -124,6 +126,7 @@ const themes: ThemesProps = {
       description: 'lightgray',
       separator: 'lightgray',
       postAuthorFg: '#454545',
+      postDate: '#8c8c8c',
     },
     button: {
       fg: 'white',
