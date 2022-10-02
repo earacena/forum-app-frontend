@@ -117,7 +117,10 @@ function PostForm({ threadId }: PostFormProps) {
             {...register('content', { required: true })}
           />
         </InputWrapper>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        }}
+        >
           <FormSubmitButton primary>Post</FormSubmitButton>
           <CloseFormButton
             visible={postFormVisible}
