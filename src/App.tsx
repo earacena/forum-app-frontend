@@ -12,6 +12,7 @@ import { useAppDispatch } from './hooks';
 import RegisterForm from './features/registerForm/RegisterForm';
 import { NavBar, AppWrapper } from './components';
 import AdminPanel from './features/adminPanel/AdminPanel';
+import ForumBuilder from './features/forumBuilder';
 
 export type ThemeProps = {
   header: string,
@@ -164,26 +165,87 @@ function App() {
     }
   }, [dispatch]);
 
+  const headerAndNavBar = () => (
+    <>
+      <AppHeader>Forum App</AppHeader>
+      <NavBar
+        themeMode={themeMode}
+        setThemeMode={setThemeMode}
+      />
+    </>
+  );
+
   return (
-    <AppWrapper>
+    <div>
       <ThemeProvider theme={themeMode === 'light' ? themes.light : themes.dark}>
-        <AppHeader>Forum App</AppHeader>
-        <NavBar
-          themeMode={themeMode}
-          setThemeMode={setThemeMode}
-        />
         <Toaster />
 
         <Routes>
-          <Route path="/" element={<Topics />} />
-          <Route path="/topic/:id" element={<Threads />} />
-          <Route path="/thread/:id" element={<Thread />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/admin" element={<AdminPanel />} />
+          <Route
+            path="/"
+            element={(
+              <AppWrapper>
+                {headerAndNavBar()}
+                <Topics />
+              </AppWrapper>
+            )}
+          />
+          <Route
+            path="/topic/:id"
+            element={(
+              <AppWrapper>
+                {headerAndNavBar()}
+                <Threads />
+              </AppWrapper>
+            )}
+          />
+          <Route
+            path="/thread/:id"
+            element={(
+              <AppWrapper>
+                {headerAndNavBar()}
+                <Thread />
+              </AppWrapper>
+            )}
+          />
+          <Route
+            path="/login"
+            element={(
+              <AppWrapper>
+                {headerAndNavBar()}
+                <LoginForm />
+              </AppWrapper>
+            )}
+          />
+          <Route
+            path="/register"
+            element={(
+              <AppWrapper>
+                {headerAndNavBar()}
+                <RegisterForm />
+              </AppWrapper>
+            )}
+          />
+          <Route
+            path="/admin"
+            element={(
+              <AppWrapper>
+                {headerAndNavBar()}
+                <AdminPanel />
+              </AppWrapper>
+            )}
+          />
+          <Route
+            path="/builder"
+            element={(
+              <AppWrapper>
+                <ForumBuilder />
+              </AppWrapper>
+            )}
+          />
         </Routes>
       </ThemeProvider>
-    </AppWrapper>
+    </div>
   );
 }
 
