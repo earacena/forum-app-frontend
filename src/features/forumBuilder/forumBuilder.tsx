@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { GrAdd } from 'react-icons/gr';
+import { ImCheckmark, ImCross } from 'react-icons/im';
+import { BiColorFill } from 'react-icons/bi';
 
 const ForumBuilderWrapper = styled.div`
   display: flex;
@@ -33,15 +35,41 @@ const AddTopicButton = styled.button`
 `;
 
 function ForumBuilder() {
-  const topics = useState<string[]>([]);
+  const [topics, setTopics] = useState<string[]>([]);
+  const [topicFormVisible, setTopicFormVisible] = useState<boolean>(false);
+  const theme = useContext(ThemeContext);
+
+  const handleClick = () => {
+    setTopicFormVisible(!topicFormVisible);
+  };
 
   return (
     <ForumBuilderWrapper>
       <ForumBuilderHeader>Add the topics you would like to see in the forum.</ForumBuilderHeader>
-      {!topics && <span>Use the button below to add a topic.</span>}
+      {
+        topics.length === 0
+        && !topicFormVisible
+        && <span style={{ color: theme.fg }}>Use the button below to add a topic.</span>
+      }
+      {topics && topics.map((t) => t)}
+      {topicFormVisible
+        && (
+        <div>
+          <input />
+          <button type="button">
+            <ImCheckmark />
+          </button>
+          <button type="button" onClick={handleClick}>
+            <ImCross />
+          </button>
+        </div>
+        )}
+
+      {!topicFormVisible && (
       <AddTopicButton onClick={handleClick}>
         <GrAdd />
       </AddTopicButton>
+      )}
     </ForumBuilderWrapper>
   );
 }
