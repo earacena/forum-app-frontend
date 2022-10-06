@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { setAuthenticatedUser } from './features/auth/auth.slice';
+import { setAuthenticatedUser } from './features/auth';
 import LoginForm from './features/loginForm/LoginForm';
 // import Notification from './features/notification/Notification';
-import Thread from './features/thread/Thread';
-import Threads from './features/thread/Threads';
+import { Thread, Threads } from './features/thread';
 import Topics from './features/topic/Topics';
 import { useAppDispatch } from './hooks';
-import RegisterForm from './features/registerForm/RegisterForm';
+import RegisterForm from './features/registerForm';
 import { NavBar, AppWrapper } from './components';
-import AdminPanel from './features/adminPanel/AdminPanel';
+import AdminPanel from './features/adminPanel';
 import ForumBuilder from './features/forumBuilder';
 
 export type ThemeProps = {
