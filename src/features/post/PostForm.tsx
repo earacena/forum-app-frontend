@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import threadService from '../../services/threadService';
 import { setPosts } from './posts.slice';
-import { notify } from '../notification/Notification';
+import { notify } from '../notification';
 import {
   CenteredDiv,
   AddPostButton,
