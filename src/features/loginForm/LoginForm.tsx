@@ -3,9 +3,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../hooks';
-import { setAuthenticatedUser } from '../auth/auth.slice';
+import { setAuthenticatedUser } from '../auth';
 import loginService from '../../services/loginService';
-import { notify } from '../notification/Notification';
+import { notify } from '../notification';
 import {
   LoginFormWrapper,
   LoginFormTitle,
