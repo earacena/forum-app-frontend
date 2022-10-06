@@ -6,7 +6,7 @@ import {
   FormLabel, FormInput, FormSubmitButton, ErrorMessage,
 } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { notify } from '../notification/Notification';
+import { notify } from '../notification';
 import topicService from '../../services/topicService';
 import { setTopics } from './topic.slice';
 
