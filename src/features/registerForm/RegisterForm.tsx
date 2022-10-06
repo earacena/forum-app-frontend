@@ -7,10 +7,10 @@ import {
   RegisterFormTitle,
   RegisterFormWrapper,
 } from './registerForm.style';
-import { notify } from '../notification/Notification';
+import { notify } from '../notification';
 import userService from '../../services/userService';
 import loginService from '../../services/loginService';
-import { setAuthenticatedUser } from '../auth/auth.slice';
+import { setAuthenticatedUser } from '../auth';
 import {
   FormSubmitButton, FormInput, ErrorMessage, FormLabel,
 } from '../../components';
