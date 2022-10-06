@@ -4,13 +4,11 @@ import { Number as RtNumber } from 'runtypes';
 import styled from 'styled-components';
 import { BiArrowBack } from 'react-icons/bi';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import threadService from '../../services/threadService';
-import { setPosts } from '../post/posts.slice';
-import Posts from '../post/Posts';
-import PostForm from '../post/PostForm';
-import topicService from '../../services/topicService';
-import { setCurrentTopic } from '../topic/topic.slice';
+import { Posts, PostForm, setPosts } from '../post';
 import { setCurrentThread } from './thread.slice';
+import { setCurrentTopic } from '../topic/topic.slice';
+import threadService from '../../services/threadService';
+import topicService from '../../services/topicService';
 import { ThreadWrapper } from './threads.style';
 
 const ThreadTitle = styled.h3`
