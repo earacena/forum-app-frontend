@@ -6,7 +6,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import threadService from '../../services/threadService';
-import { notify } from '../notification/Notification';
+import { notify } from '../notification';
 import { setThreads } from './thread.slice';
 import {
   ThreadFormTitle,
