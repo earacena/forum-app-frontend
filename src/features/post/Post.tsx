@@ -5,7 +5,7 @@ import { HiUser } from 'react-icons/hi';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import postService from '../../services/postService';
 import { Post as PostType } from '../../types';
-import { notify } from '../notification/Notification';
+import { notify } from '../notification';
 import { setPosts } from './posts.slice';
 import PostEditForm from './PostEditForm';
 import type { ThemeProps } from '../../App';
