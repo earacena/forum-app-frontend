@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import { GrAdd } from 'react-icons/gr';
 import { ImCheckmark, ImCross } from 'react-icons/im';
-import { BiColorFill } from 'react-icons/bi';
 
 const ForumBuilderWrapper = styled.div`
   display: flex;
@@ -39,6 +38,24 @@ function ForumBuilder() {
   const [topicFormVisible, setTopicFormVisible] = useState<boolean>(false);
   const theme = useContext(ThemeContext);
 
+  const [topicName, setTopicName] = useState<string>('');
+
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTopicName(event.target.value);
+  };
+
+  const handleAcceptClick = () => {
+    if (!topics.includes(topicName)) {
+      setTopics((t) => t.concat(topicName));
+    }
+    setTopicName('');
+    setTopicFormVisible(!topicFormVisible);
+  };
+
+  const handleCancelClick = () => {
+    setTopicFormVisible(!topicFormVisible);
+  };
+
   const handleClick = () => {
     setTopicFormVisible(!topicFormVisible);
   };
@@ -51,15 +68,21 @@ function ForumBuilder() {
         && !topicFormVisible
         && <span style={{ color: theme.fg }}>Use the button below to add a topic.</span>
       }
-      {topics && topics.map((t) => t)}
+      <ul>
+        {topics && topics.map((t) => (
+          <li key={t}>
+            {t}
+          </li>
+        ))}
+      </ul>
       {topicFormVisible
         && (
         <div>
-          <input />
-          <button type="button">
+          <input value={topicName} onChange={handleOnChange} />
+          <button type="button" onClick={handleAcceptClick}>
             <ImCheckmark />
           </button>
-          <button type="button" onClick={handleClick}>
+          <button type="button" onClick={handleCancelClick}>
             <ImCross />
           </button>
         </div>
