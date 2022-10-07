@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import { GrAdd } from 'react-icons/gr';
 import { ImCheckmark, ImCross } from 'react-icons/im';
+import { TopicListWrapper, TopicListItem, TopicTitle } from '../topic/topics.style';
 
 const ForumBuilderWrapper = styled.div`
   display: flex;
@@ -33,8 +34,18 @@ const AddTopicButton = styled.button`
   }
 `;
 
+const TopicNameInput = styled.input`
+  border-radius: '8px';
+  border: 2px solid black;
+`;
+
+type TopicItem = {
+  topicName: string,
+  topicDescription: string,
+};
+
 function ForumBuilder() {
-  const [topics, setTopics] = useState<string[]>([]);
+  const [topics, setTopics] = useState<TopicItem[]>([]);
   const [topicFormVisible, setTopicFormVisible] = useState<boolean>(false);
   const theme = useContext(ThemeContext);
 
@@ -45,8 +56,8 @@ function ForumBuilder() {
   };
 
   const handleAcceptClick = () => {
-    if (!topics.includes(topicName)) {
-      setTopics((t) => t.concat(topicName));
+    if (!topics.map((t) => t.topicName).includes(topicName)) {
+      setTopics((t) => t.concat({ topicName, topicDescription: '' }));
     }
     setTopicName('');
     setTopicFormVisible(!topicFormVisible);
@@ -68,17 +79,20 @@ function ForumBuilder() {
         && !topicFormVisible
         && <span style={{ color: theme.fg }}>Use the button below to add a topic.</span>
       }
-      <ul>
+      <TopicListWrapper>
         {topics && topics.map((t) => (
-          <li key={t}>
-            {t}
-          </li>
+          <TopicListItem key={t.topicName}>
+            <TopicTitle>
+              {t.topicName}
+              {t.topicDescription}
+            </TopicTitle>
+          </TopicListItem>
         ))}
-      </ul>
+      </TopicListWrapper>
       {topicFormVisible
         && (
         <div>
-          <input value={topicName} onChange={handleOnChange} />
+          <TopicNameInput value={topicName} onChange={handleOnChange} />
           <button type="button" onClick={handleAcceptClick}>
             <ImCheckmark />
           </button>
