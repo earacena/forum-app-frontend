@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setAuthenticatedUser } from '../auth';
 import loginService from '../../services/loginService';
 import { notify } from '../notification';
@@ -34,6 +34,8 @@ type Inputs = {
 function LoginForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const auth = useAppSelector((state) => state.auth);
+
   const {
     register,
     handleSubmit,
@@ -45,6 +47,12 @@ function LoginForm() {
       password: '',
     },
   });
+
+  useEffect(() => {
+    if (!auth.token) {
+      navigate(-1);
+    }
+  }, [navigate, auth.token]);
 
   const onSubmit: SubmitHandler<Inputs> = async (credentials) => {
     try {
