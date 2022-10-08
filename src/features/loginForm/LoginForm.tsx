@@ -21,6 +21,11 @@ const InputWrapper = styled.div`
   margin-bottom: 30px;
 `;
 
+const LoginFormDescription = styled.span`
+  color: ${(props) => props.theme.fg};
+  margin: 0;
+`;
+
 type Inputs = {
   username: string;
   password: string;
@@ -69,7 +74,10 @@ function LoginForm() {
 
   return (
     <LoginFormWrapper onSubmit={handleSubmit(onSubmit)}>
-      <LoginFormTitle>Login</LoginFormTitle>
+      <LoginFormTitle>Sign in</LoginFormTitle>
+      <LoginFormDescription>
+        to continue
+      </LoginFormDescription>
       <InputWrapper>
         <FormLabel htmlFor="username">Username</FormLabel>
         {errors.username && <ErrorMessage>This field is required</ErrorMessage>}

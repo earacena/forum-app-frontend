@@ -4,6 +4,7 @@ export const LoginFormTitle = styled.h2`
   color: ${(props) => props.theme.fg};
   font-size: 1.5em;
   text-align: center;
+  margin-bottom: 0;
 `;
 
 export const LoginFormWrapper = styled.form`
