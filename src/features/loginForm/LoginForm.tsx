@@ -49,7 +49,8 @@ function LoginForm() {
   });
 
   useEffect(() => {
-    if (!auth.token) {
+    // If user is already logged in, and they go to login page, redirect the user to previous page
+    if (auth.token) {
       navigate(-1);
     }
   }, [navigate, auth.token]);
