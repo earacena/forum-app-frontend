@@ -65,7 +65,7 @@ function LoginForm() {
           password: '',
         });
         notify('message', message, 4);
-        navigate('/');
+        navigate(-1);
       }
     } catch (error) {
       notify('error', 'Incorrect username or password, try again.', 4);
