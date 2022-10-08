@@ -1,8 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import { GrAdd } from 'react-icons/gr';
 import { ImCheckmark, ImCross } from 'react-icons/im';
+import { useNavigate } from 'react-router-dom';
 import { TopicListWrapper, TopicListItem, TopicTitle } from '../topic/topics.style';
+import { useAppSelector } from '../../hooks';
 
 const ForumBuilderWrapper = styled.div`
   display: flex;
@@ -45,11 +47,20 @@ type TopicItem = {
 };
 
 function ForumBuilder() {
+  const auth = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
+
   const [topics, setTopics] = useState<TopicItem[]>([]);
   const [topicFormVisible, setTopicFormVisible] = useState<boolean>(false);
   const theme = useContext(ThemeContext);
 
   const [topicName, setTopicName] = useState<string>('');
+
+  useEffect(() => {
+    if (!auth.token) {
+      navigate('/login');
+    }
+  }, [navigate, auth.token]);
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTopicName(event.target.value);
