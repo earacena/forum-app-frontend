@@ -55,6 +55,7 @@ function ForumBuilder() {
   const theme = useContext(ThemeContext);
 
   const [topicName, setTopicName] = useState<string>('');
+  const isUserLoggedIn = auth.token !== '';
 
   useEffect(() => {
     if (!auth.token) {
@@ -83,7 +84,7 @@ function ForumBuilder() {
   };
 
   return (
-    <ForumBuilderWrapper>
+    <ForumBuilderWrapper style={{ visibility: isUserLoggedIn ? 'visible' : 'hidden' }}>
       <ForumBuilderHeader>Add the topics you would like to see in the forum.</ForumBuilderHeader>
       {
         topics.length === 0
