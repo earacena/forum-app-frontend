@@ -11,7 +11,7 @@ import { useAppDispatch } from './hooks';
 import RegisterForm from './features/registerForm';
 import { NavBar, AppWrapper } from './components';
 import AdminPanel from './features/adminPanel';
-import ForumBuilder from './features/forumBuilder';
+import ForumBuilder from './features/ForumBuilder';
 
 export type ThemeProps = {
   header: string,
