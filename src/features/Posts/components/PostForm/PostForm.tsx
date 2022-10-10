@@ -2,20 +2,20 @@ import React, { useContext, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled, { ThemeContext } from 'styled-components';
 import { HiUser } from 'react-icons/hi';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import postService from '../../services/postService';
-import threadService from '../../services/threadService';
-import { setPosts } from './posts.slice';
-import { notify } from '../notification';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import postService from '../../../../services/postService';
+import threadService from '../../../../services/threadService';
+import { setPosts } from '../../stores/posts.slice';
+import { notify } from '../../../Notification';
 import {
   CenteredDiv,
   AddPostButton,
   CloseFormButton,
   PostFormWrapper,
   TextArea,
-} from './postForm.style';
-import { FormSubmitButton, ErrorMessage, FormLabel } from '../../components';
-import { ProfileCard, UserAvatar, UserName } from './Post';
+} from './styles/postForm.style';
+import { FormSubmitButton, ErrorMessage, FormLabel } from '../../../../components';
+import { ProfileCard, UserAvatar, UserName } from '../../Post';
 
 type Input = {
   content: string;

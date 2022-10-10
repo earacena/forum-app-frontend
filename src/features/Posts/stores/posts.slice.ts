@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Posts } from '../../types';
+import { Posts } from '../../../types';
 
 const initialState: Posts = [];
 

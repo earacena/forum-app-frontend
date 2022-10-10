@@ -1,11 +1,11 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import postService from '../../services/postService';
-import { setPosts } from './posts.slice';
-import { notify } from '../notification';
-import { FormSubmitButton, ErrorMessage } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import postService from '../../../../services/postService';
+import { setPosts } from '../../stores/posts.slice';
+import { notify } from '../../../Notification';
+import { FormSubmitButton, ErrorMessage } from '../../../../components';
 
 interface VisibilityProps {
   readonly visible: boolean;
