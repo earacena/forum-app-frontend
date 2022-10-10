@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Static as RtStatic } from 'runtypes';
-import { Thread, ThreadArray, Threads } from '../../types';
+import { Thread, ThreadArray, Threads } from '../../../types';
 
 interface ThreadsState {
   allThreads: RtStatic<typeof ThreadArray> | undefined;

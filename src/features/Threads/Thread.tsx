@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { BiArrowBack } from 'react-icons/bi';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { Posts, PostForm, setPosts } from '../Posts';
-import { setCurrentThread } from './thread.slice';
+import { setCurrentThread } from './stores/thread.slice';
 import { setCurrentTopic } from '../topic';
 import threadService from '../../services/threadService';
 import topicService from '../../services/topicService';
