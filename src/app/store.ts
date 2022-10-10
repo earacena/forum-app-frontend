@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import notificationReducer from '../features/notification/notification.slice';
-import authReducer from '../features/auth/auth.slice';
-import threadsReducer from '../features/thread/thread.slice';
-import postsReducer from '../features/post/posts.slice';
-import topicsReducer from '../features/topic/topic.slice';
+import notificationReducer from '../features/Notification/stores/notification.slice';
+import authReducer from '../features/auth/stores/auth.slice';
+import threadsReducer from '../features/Threads/thread.slice';
+import postsReducer from '../features/Posts/stores/posts.slice';
+import topicsReducer from '../features/topic/stores/topic.slice';
 
 const store = configureStore({
   reducer: {
