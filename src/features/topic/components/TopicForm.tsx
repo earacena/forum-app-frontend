@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { BsPlusLg } from 'react-icons/bs';
 import {
   FormLabel, FormInput, FormSubmitButton, ErrorMessage,
-} from '../../components';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { notify } from '../notification';
-import topicService from '../../services/topicService';
-import { setTopics } from './topic.slice';
+} from '../../../components';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { notify } from '../../Notification';
+import topicService from '../../../services/topicService';
+import { setTopics } from '../stores/topic.slice';
 
 interface VisibilityProps {
   readonly visible: boolean;

@@ -6,15 +6,15 @@ import { ThemeContext } from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import topicService from '../../services/topicService';
 import { Topic } from '../../types';
-import { setCurrentTopic, setTopics } from './topic.slice';
-import TopicForm from './TopicForm';
+import { setCurrentTopic, setTopics } from './stores/topic.slice';
+import TopicForm from './components/TopicForm';
 import {
   TopicsWrapper,
   TopicListWrapper,
   TopicListItem,
   TopicTitle,
   LeftVerticalLine,
-} from './topics.style';
+} from './styles/topics.style';
 import { Spin } from '../../components';
 
 function Topics() {

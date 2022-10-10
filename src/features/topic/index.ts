@@ -4,6 +4,6 @@ export {
   setCurrentTopic,
   resetTopics,
   resetCurrentTopic,
-} from './topic.slice';
+} from './stores/topic.slice';
 export { default as Topics } from './Topics';
-export { default as TopicForm } from './TopicForm';
+export { default as TopicForm } from './components/TopicForm';
