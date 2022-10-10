@@ -3,7 +3,7 @@ import styled, { ThemeContext } from 'styled-components';
 import { GrAdd } from 'react-icons/gr';
 import { ImCheckmark, ImCross } from 'react-icons/im';
 import { useNavigate } from 'react-router-dom';
-import { TopicListWrapper, TopicListItem, TopicTitle } from '../topic/topics.style';
+import { TopicListWrapper, TopicListItem, TopicTitle } from '../topic/styles/topics.style';
 import { useAppSelector } from '../../hooks';
 
 const ForumBuilderWrapper = styled.div`
