@@ -6,8 +6,8 @@ import { useAppDispatch } from '../../hooks';
 import {
   RegisterFormTitle,
   RegisterFormWrapper,
-} from './registerForm.style';
-import { notify } from '../notification';
+} from './styles/registerForm.style';
+import { notify } from '../Notification';
 import userService from '../../services/userService';
 import loginService from '../../services/loginService';
 import { setAuthenticatedUser } from '../auth';
