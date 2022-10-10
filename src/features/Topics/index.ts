@@ -1,5 +1,5 @@
 export {
-  default as TopicsReducer,
+  default as topicsReducer,
   setTopics,
   setCurrentTopic,
   resetTopics,
