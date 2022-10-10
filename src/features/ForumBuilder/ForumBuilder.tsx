@@ -37,19 +37,6 @@ const AddTopicButton = styled.button`
   }
 `;
 
-const ForumNameInput = styled.input`
-  padding: 10px;
-  border-radius: 8px;
-  border: 2px black solid;
-  background-color: ${(props) => props.theme.bg};
-  color: ${(props) => props.theme.fg};
-`;
-
-const TopicNameInput = styled.input`
-  border-radius: '8px';
-  border: 2px solid black;
-`;
-
 type TopicItem = {
   topicName: string,
   topicDescription: string,
@@ -122,7 +109,7 @@ function ForumBuilder() {
       {topicFormVisible
         && (
         <div>
-          <TopicNameInput value={topicName} onChange={handleTopicNameChange} />
+          <FormInput value={topicName} onChange={handleTopicNameChange} />
           <button type="button" onClick={handleAcceptClick}>
             <ImCheckmark />
           </button>
