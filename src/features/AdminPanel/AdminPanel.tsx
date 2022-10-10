@@ -3,7 +3,7 @@ import { Static as RtStatic } from 'runtypes';
 import { useAppSelector } from '../../hooks';
 import userService from '../../services/userService';
 import { UserArray } from '../../types';
-import { notify } from '../notification';
+import { notify } from '../Notification';
 
 function AdminPanel() {
   const auth = useAppSelector((state) => state.auth);
