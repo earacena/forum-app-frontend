@@ -1,1 +1,1 @@
-export { default as authReducer, setAuthenticatedUser, removeAuthenticatedUser } from './auth.slice';
+export { default as authReducer, setAuthenticatedUser, removeAuthenticatedUser } from './stores/auth.slice';
