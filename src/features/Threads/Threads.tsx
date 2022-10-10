@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import ThreadForm from './components/ThreadForm/ThreadForm';
 import { setThreads } from './stores/thread.slice';
 import topicService from '../../services/topicService';
-import { setCurrentTopic } from '../topic';
+import { setCurrentTopic } from '../Topics';
 import {
   ThreadsDiv,
   ThreadListWrapper,
