@@ -9,7 +9,7 @@ import { setCurrentThread } from './thread.slice';
 import { setCurrentTopic } from '../topic';
 import threadService from '../../services/threadService';
 import topicService from '../../services/topicService';
-import { ThreadWrapper } from './threads.style';
+import { ThreadWrapper } from './styles/threads.style';
 
 const ThreadTitle = styled.h3`
   color: ${(props) => props.theme.fg};

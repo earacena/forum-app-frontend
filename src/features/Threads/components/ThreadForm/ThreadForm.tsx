@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import {
   FormInput, FormSubmitButton, ErrorMessage, FormLabel,
-} from '../../components';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import postService from '../../services/postService';
-import threadService from '../../services/threadService';
-import { notify } from '../Notification';
+} from '../../../../components';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import postService from '../../../../services/postService';
+import threadService from '../../../../services/threadService';
+import { notify } from '../../../Notification';
 import { setThreads } from './thread.slice';
 import {
   ThreadFormTitle,
@@ -15,7 +15,7 @@ import {
   CreateButton,
   CloseButton,
   CenteredDiv,
-} from './threadForm.style';
+} from './styles/threadForm.style';
 
 type Inputs = {
   title: string;

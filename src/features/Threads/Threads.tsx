@@ -4,7 +4,7 @@ import { Number as RtNumber } from 'runtypes';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { ThemeContext } from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import ThreadForm from './ThreadForm';
+import ThreadForm from './components/ThreadForm/ThreadForm';
 import { setThreads } from './thread.slice';
 import topicService from '../../services/topicService';
 import { setCurrentTopic } from '../topic';
@@ -18,7 +18,7 @@ import {
   LeftVerticalLine,
   DeleteThreadButton,
   ThreadRow,
-} from './threads.style';
+} from './styles/threads.style';
 import { notify } from '../Notification';
 import threadService from '../../services/threadService';
 import { Spin } from '../../components';
