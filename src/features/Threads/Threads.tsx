@@ -19,7 +19,7 @@ import {
   DeleteThreadButton,
   ThreadRow,
 } from './threads.style';
-import { notify } from '../notification';
+import { notify } from '../Notification';
 import threadService from '../../services/threadService';
 import { Spin } from '../../components';
 

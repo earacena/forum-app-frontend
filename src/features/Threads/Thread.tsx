@@ -4,7 +4,7 @@ import { Number as RtNumber } from 'runtypes';
 import styled from 'styled-components';
 import { BiArrowBack } from 'react-icons/bi';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { Posts, PostForm, setPosts } from '../post';
+import { Posts, PostForm, setPosts } from '../Posts';
 import { setCurrentThread } from './thread.slice';
 import { setCurrentTopic } from '../topic';
 import threadService from '../../services/threadService';
