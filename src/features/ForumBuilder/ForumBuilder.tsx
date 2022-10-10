@@ -3,8 +3,9 @@ import styled, { ThemeContext } from 'styled-components';
 import { GrAdd } from 'react-icons/gr';
 import { ImCheckmark, ImCross } from 'react-icons/im';
 import { useNavigate } from 'react-router-dom';
-import { TopicListWrapper, TopicListItem, TopicTitle } from '../topic/styles/topics.style';
+import { TopicListWrapper, TopicListItem, TopicTitle } from '../Topics/styles/topics.style';
 import { useAppSelector } from '../../hooks';
+import { FormInput } from '../../components';
 
 const ForumBuilderWrapper = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ const ForumBuilderWrapper = styled.div`
   justify-content: center;
 `;
 
-const ForumBuilderHeader = styled.h2`
+const ForumBuilderHeader = styled.h3`
   color: ${(props) => props.theme.fg};
 `;
 
@@ -36,6 +37,14 @@ const AddTopicButton = styled.button`
   }
 `;
 
+const ForumNameInput = styled.input`
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px black solid;
+  background-color: ${(props) => props.theme.bg};
+  color: ${(props) => props.theme.fg};
+`;
+
 const TopicNameInput = styled.input`
   border-radius: '8px';
   border: 2px solid black;
@@ -55,6 +64,7 @@ function ForumBuilder() {
   const theme = useContext(ThemeContext);
 
   const [topicName, setTopicName] = useState<string>('');
+  const [forumName, setForumName] = useState<string>('');
   const isUserLoggedIn = auth.token !== '';
 
   useEffect(() => {
@@ -63,8 +73,12 @@ function ForumBuilder() {
     }
   }, [navigate, auth.token]);
 
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTopicNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTopicName(event.target.value);
+  };
+
+  const handleForumNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setForumName(event.target.value);
   };
 
   const handleAcceptClick = () => {
@@ -85,6 +99,10 @@ function ForumBuilder() {
 
   return (
     <ForumBuilderWrapper style={{ visibility: isUserLoggedIn ? 'visible' : 'hidden' }}>
+      <ForumBuilderHeader>Choose a name for the forum.</ForumBuilderHeader>
+
+      <FormInput value={forumName} onChange={handleForumNameChange} />
+
       <ForumBuilderHeader>Add the topics you would like to see in the forum.</ForumBuilderHeader>
       {
         topics.length === 0
@@ -104,7 +122,7 @@ function ForumBuilder() {
       {topicFormVisible
         && (
         <div>
-          <TopicNameInput value={topicName} onChange={handleOnChange} />
+          <TopicNameInput value={topicName} onChange={handleTopicNameChange} />
           <button type="button" onClick={handleAcceptClick}>
             <ImCheckmark />
           </button>
