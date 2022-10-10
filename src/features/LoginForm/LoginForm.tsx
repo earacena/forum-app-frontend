@@ -5,11 +5,11 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setAuthenticatedUser } from '../auth';
 import loginService from '../../services/loginService';
-import { notify } from '../notification';
+import { notify } from '../Notification';
 import {
   LoginFormWrapper,
   LoginFormTitle,
-} from './loginFormStyle';
+} from './styles/loginFormStyle';
 import {
   FormSubmitButton, FormInput, ErrorMessage, FormLabel,
 } from '../../components';
