@@ -2,9 +2,9 @@ import React, { Dispatch } from 'react';
 import { Link } from 'react-router-dom';
 import { BsMoonStars, BsSunFill } from 'react-icons/bs';
 import styled from 'styled-components';
-import { notify } from '../features/notification/Notification';
+import { notify } from '../features/Notification/Notification';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { removeAuthenticatedUser } from '../features/auth/auth.slice';
+import { removeAuthenticatedUser } from '../features/auth/stores/auth.slice';
 import NavButton from './NavButton';
 import ThemeSwitcher from './ThemeSwitcher';
 
