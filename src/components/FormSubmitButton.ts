@@ -14,8 +14,9 @@ const FormSubmitButton = styled.button<ButtonProps>`
   color: ${(props) => (props.theme.form.inputBg)};
   border-radius: 30px;
   font-size: 1em;
-  padding: 1em;
-  border: 1px black solid;
+  font-weight: 500;
+  padding: 10px;
+  border: 3px transparent solid;
   box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
   width: 100%;
   &:hover {
