@@ -3,18 +3,16 @@ import styled, { ThemeContext } from 'styled-components';
 import { GrAdd } from 'react-icons/gr';
 import { ImCheckmark, ImCross } from 'react-icons/im';
 import { useNavigate } from 'react-router-dom';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { TopicListWrapper, TopicListItem, TopicTitle } from '../Topics/styles/topics.style';
 import { useAppSelector } from '../../hooks';
-import { FormInput } from '../../components';
+import { FormInput, FormLabel } from '../../components';
 
-const ForumBuilderWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+const ForumBuilderWrapper = styled.form`
 `;
 
-const ForumBuilderHeader = styled.h3`
+const ForumBuilderHeader = styled.h2`
+  font-size: 30px;
   color: ${(props) => props.theme.fg};
 `;
 
@@ -37,12 +35,30 @@ const AddTopicButton = styled.button`
   }
 `;
 
+const TopicDescriptionInput = styled.textarea`
+  padding: 1em;
+  margin-top: 0;
+  margin: 1em;
+  border: 3px black solid;
+  border-radius: 7px;
+  background: ${(props) => props.theme.form.inputBg};
+  color: ${(props) => props.theme.fg};
+  ::placeholder {
+    color: ${(props) => props.theme.fg}
+  }
+`;
+
 type TopicItem = {
   topicName: string,
   topicDescription: string,
 };
 
-function ForumBuilder() {
+type Inputs = {
+  forumName: string,
+  topics: TopicItem[],
+};
+
+function ForumBuilderForm() {
   const auth = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
 
@@ -50,9 +66,27 @@ function ForumBuilder() {
   const [topicFormVisible, setTopicFormVisible] = useState<boolean>(false);
   const theme = useContext(ThemeContext);
 
-  const [topicName, setTopicName] = useState<string>('');
   const [forumName, setForumName] = useState<string>('');
+  const [topicName, setTopicName] = useState<string>('');
+  const [topicDescription, setTopicDescription] = useState<string>('');
+
   const isUserLoggedIn = auth.token !== '';
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {
+      forumName: '',
+      topics: [],
+    },
+  });
+
+  const onSubmit: SubmitHandler<Inputs> = async (forumData) => {
+    console.log(forumData);
+  };
 
   useEffect(() => {
     if (!auth.token) {
@@ -66,6 +100,10 @@ function ForumBuilder() {
 
   const handleForumNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForumName(event.target.value);
+  };
+
+  const handleTopicDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTopicDescription(event.target.value);
   };
 
   const handleAcceptClick = () => {
@@ -85,12 +123,16 @@ function ForumBuilder() {
   };
 
   return (
-    <ForumBuilderWrapper style={{ visibility: isUserLoggedIn ? 'visible' : 'hidden' }}>
-      <ForumBuilderHeader>Choose a name for the forum.</ForumBuilderHeader>
+    <ForumBuilderWrapper
+      onSubmit={handleSubmit(onSubmit)}
+      style={{ visibility: isUserLoggedIn ? 'visible' : 'hidden' }}
+    >
+      <ForumBuilderHeader>Forum Builder</ForumBuilderHeader>
+      <FormLabel htmlFor="forumName">Forum Name</FormLabel>
+      <FormInput id="forumName" value={forumName} onChange={handleForumNameChange} />
 
-      <FormInput value={forumName} onChange={handleForumNameChange} />
-
-      <ForumBuilderHeader>Add the topics you would like to see in the forum.</ForumBuilderHeader>
+      <p>Add topics to the forum</p>
+      <FormLabel>Topics</FormLabel>
       {
         topics.length === 0
         && !topicFormVisible
@@ -109,7 +151,9 @@ function ForumBuilder() {
       {topicFormVisible
         && (
         <div>
+          <FormLabel>Topic Name</FormLabel>
           <FormInput value={topicName} onChange={handleTopicNameChange} />
+          <TopicDescriptionInput value={topicDescription} onChange={handleTopicDescriptionChange} />
           <button type="button" onClick={handleAcceptClick}>
             <ImCheckmark />
           </button>
@@ -128,4 +172,4 @@ function ForumBuilder() {
   );
 }
 
-export default ForumBuilder;
+export default ForumBuilderForm;
