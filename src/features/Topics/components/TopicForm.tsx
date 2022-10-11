@@ -16,9 +16,13 @@ interface VisibilityProps {
 
 const TopicFormWrapper = styled.form<VisibilityProps>`
   display: ${((props) => (props.visible ? 'flex' : 'none'))};
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   justify-content: center;
   padding: 1em;
+  min-width: 300px;
+  width: 100%;
+  max-width: 800px;
 `;
 const TopicFormTitle = styled.title``;
 
@@ -27,7 +31,7 @@ const CloseButton = styled.button<VisibilityProps>`
   cursor: pointer;
   border-radius: 30px;
   padding: 0.5em;
-  color: red;
+  color: ${(props) => props.theme.colorAccent};
   background: darkred;
   border: 1px darkred solid;
   width: auto;
@@ -72,6 +76,11 @@ const CenteredDiv = styled.div`
   justify-content: center;
 `;
 
+const ColumnDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 type Inputs = {
   title: string,
   description: string,
@@ -96,7 +105,7 @@ function TopicForm() {
 
   const onSubmit: SubmitHandler<Inputs> = async (topicData) => {
     try {
-      if (topics) {
+      if (topics && !topics.map((t) => t.title).includes(topicData.title) && topicFormVisible) {
         const newTopic = {
           token: auth.token,
           title: topicData.title,
@@ -126,41 +135,49 @@ function TopicForm() {
         </CenteredDiv>
       )}
       <TopicFormWrapper visible={topicFormVisible} onSubmit={handleSubmit(onSubmit)}>
-        <CloseButton
-          visible={topicFormVisible}
-          onClick={() => setTopicFormVisible(!topicFormVisible)}
-        >
-          X
-        </CloseButton>
         <TopicFormTitle>Start a new topic</TopicFormTitle>
 
-        <FormLabel htmlFor="title">Title</FormLabel>
-        {errors.title?.type === 'required' && (
-          <ErrorMessage>This field is required</ErrorMessage>
-        )}
-        {errors.title?.type === 'maxLength' && (
-          <ErrorMessage>Title is too long</ErrorMessage>
-        )}
-        <FormInput
-          type="text"
-          placeholder="General Discussion"
-          {...register('title', { required: true, maxLength: 50 })}
-        />
+        <ColumnDiv>
+          <FormLabel htmlFor="title">Title</FormLabel>
+          {errors.title?.type === 'required' && (
+            <ErrorMessage>This field is required</ErrorMessage>
+          )}
+          {errors.title?.type === 'maxLength' && (
+            <ErrorMessage>Title is too long</ErrorMessage>
+          )}
+          <FormInput
+            type="text"
+            placeholder="General Discussion"
+            {...register('title', { required: true, maxLength: 50 })}
+          />
+        </ColumnDiv>
 
-        <FormLabel htmlFor="content">Content</FormLabel>
-        {errors.description?.type === 'required' && (
-          <ErrorMessage>This field is required</ErrorMessage>
-        )}
-        {errors.description?.type === 'maxLength' && (
-          <ErrorMessage>Description is too long</ErrorMessage>
-        )}
-        <FormInput
-          type="text"
-          placeholder="Discussions about any topic."
-          {...register('description', { required: true, maxLength: 50 })}
-        />
+        <ColumnDiv>
+          <FormLabel htmlFor="topicDescription">Description</FormLabel>
+          {errors.description?.type === 'required' && (
+            <ErrorMessage>This field is required</ErrorMessage>
+          )}
+          {errors.description?.type === 'maxLength' && (
+            <ErrorMessage>Description is too long</ErrorMessage>
+          )}
+          <FormInput
+            id="topicDescription"
+            type="text"
+            placeholder="Discussions about any topic."
+            {...register('description', { required: true, maxLength: 50 })}
+          />
+        </ColumnDiv>
 
-        <FormSubmitButton primary type="submit">Create Topic</FormSubmitButton>
+        <span>
+          <FormSubmitButton primary type="submit">Create</FormSubmitButton>
+          <CloseButton
+            visible={topicFormVisible}
+            onClick={() => setTopicFormVisible(!topicFormVisible)}
+          >
+            Cancel
+          </CloseButton>
+
+        </span>
       </TopicFormWrapper>
     </div>
   );
