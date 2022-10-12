@@ -9,6 +9,10 @@ import { useAppSelector } from '../../hooks';
 import { FormInput, FormLabel } from '../../components';
 
 const ForumBuilderWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 const ForumBuilderHeader = styled.h2`
@@ -37,8 +41,8 @@ const AddTopicButton = styled.button`
 
 const TopicDescriptionInput = styled.textarea`
   padding: 1em;
-  margin-top: 0;
   margin: 1em;
+  margin-top: 0;
   border: 3px black solid;
   border-radius: 7px;
   background: ${(props) => props.theme.form.inputBg};
@@ -46,6 +50,23 @@ const TopicDescriptionInput = styled.textarea`
   ::placeholder {
     color: ${(props) => props.theme.fg}
   }
+`;
+
+const LeftVerticalLine = styled.span`
+  border-left: 1px solid ${(props) => props.theme.topic.separator};
+  color: ${(props) => props.theme.topic.description};
+  padding: 0.5em;
+  margin-left: 1em;
+  font-weight: 300;
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+`;
+
+const AddTopicForm = styled.div`
+  display: flex;
+  flex-direction: column;
+
 `;
 
 type TopicItem = {
@@ -107,10 +128,11 @@ function ForumBuilderForm() {
   };
 
   const handleAcceptClick = () => {
-    if (!topics.map((t) => t.topicName).includes(topicName)) {
-      setTopics((t) => t.concat({ topicName, topicDescription: '' }));
+    if (topicName && !topics.map((t) => t.topicName).includes(topicName)) {
+      setTopics((t) => t.concat({ topicName, topicDescription }));
     }
     setTopicName('');
+    setTopicDescription('');
     setTopicFormVisible(!topicFormVisible);
   };
 
@@ -131,8 +153,8 @@ function ForumBuilderForm() {
       <FormLabel htmlFor="forumName">Forum Name</FormLabel>
       <FormInput id="forumName" value={forumName} onChange={handleForumNameChange} />
 
+      <p>Topics</p>
       <p>Add topics to the forum</p>
-      <FormLabel>Topics</FormLabel>
       {
         topics.length === 0
         && !topicFormVisible
@@ -143,24 +165,28 @@ function ForumBuilderForm() {
           <TopicListItem key={t.topicName}>
             <TopicTitle>
               {t.topicName}
-              {t.topicDescription}
+              <LeftVerticalLine>
+                {t.topicDescription}
+              </LeftVerticalLine>
             </TopicTitle>
           </TopicListItem>
         ))}
       </TopicListWrapper>
       {topicFormVisible
         && (
-        <div>
-          <FormLabel>Topic Name</FormLabel>
-          <FormInput value={topicName} onChange={handleTopicNameChange} />
-          <TopicDescriptionInput value={topicDescription} onChange={handleTopicDescriptionChange} />
+        <AddTopicForm>
+          <FormLabel htmlFor="topicName">Topic Name</FormLabel>
+          <FormInput id="topicName" value={topicName} onChange={handleTopicNameChange} />
+
+          <FormLabel htmlFor="topicDescription">Topic Description</FormLabel>
+          <TopicDescriptionInput id="topicDescription" value={topicDescription} onChange={handleTopicDescriptionChange} />
           <button type="button" onClick={handleAcceptClick}>
             <ImCheckmark />
           </button>
           <button type="button" onClick={handleCancelClick}>
             <ImCross />
           </button>
-        </div>
+        </AddTopicForm>
         )}
 
       {!topicFormVisible && (
