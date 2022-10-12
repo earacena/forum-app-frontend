@@ -1,18 +1,20 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import { GrAdd } from 'react-icons/gr';
-import { ImCheckmark, ImCross } from 'react-icons/im';
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { TopicListWrapper, TopicListItem, TopicTitle } from '../Topics/styles/topics.style';
 import { useAppSelector } from '../../hooks';
-import { FormInput, FormLabel } from '../../components';
+import { FormInput, FormLabel, FormSubmitButton } from '../../components';
 
 const ForumBuilderWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: flex-start;
+  margin: '';
+  width: 80%;
+  min-width: 300px;
+  max-width: 800px;
 `;
 
 const ForumBuilderHeader = styled.h2`
@@ -39,7 +41,7 @@ const AddTopicButton = styled.button`
   }
 `;
 
-const TopicDescriptionInput = styled.textarea`
+const TopicDescriptionInput = styled.input`
   padding: 1em;
   margin: 1em;
   margin-top: 0;
@@ -50,6 +52,7 @@ const TopicDescriptionInput = styled.textarea`
   ::placeholder {
     color: ${(props) => props.theme.fg}
   }
+
 `;
 
 const LeftVerticalLine = styled.span`
@@ -63,10 +66,64 @@ const LeftVerticalLine = styled.span`
   }
 `;
 
-const AddTopicForm = styled.div`
+const AddTopicInputs = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+`;
+
+const SectionTitle = styled.div`
+  color: ${(props) => props.theme.fg};
+  font-size: 25px;
+`;
+
+type ButtonProps = {
+  readonly primary: boolean,
+};
+
+const Button = styled.button<ButtonProps>`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: ${(props) => (props.primary ? (props.theme.colorAccent) : props.theme.bg)};
+  color: ${(props) => (props.primary ? (props.theme.form.inputBg) : (props.theme.colorAccent))};
+  border-radius: 10px;
+  font-size: 1em;
+  font-weight: 500;
+  padding: 12px;
+  border: ${(props) => ((props.primary) ? '2px transparent solid' : '2px transparent solid')};
+  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
+  width: auto;
+  &:hover {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
+    background: ${(props) => (props.primary ? 'black' : 'black')};
+    border: ${(props) => (props.primary ? '2px transparent solid' : `2px ${props.theme.colorAccent} solid`)};
+    color: ${(props) => (props.primary ? 'white' : 'white')};
+  }
 
+  &:active {
+    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
+    transform: translateY(2px);
+    color: ${(props) => (props.primary ? 'lightgrey' : 'black')};
+  }
+`;
+
+const TopicNameField = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TopicDescriptionField = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1
 `;
 
 type TopicItem = {
@@ -123,7 +180,7 @@ function ForumBuilderForm() {
     setForumName(event.target.value);
   };
 
-  const handleTopicDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTopicDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTopicDescription(event.target.value);
   };
 
@@ -150,11 +207,10 @@ function ForumBuilderForm() {
       style={{ visibility: isUserLoggedIn ? 'visible' : 'hidden' }}
     >
       <ForumBuilderHeader>Forum Builder</ForumBuilderHeader>
-      <FormLabel htmlFor="forumName">Forum Name</FormLabel>
-      <FormInput id="forumName" value={forumName} onChange={handleForumNameChange} />
+      <FormLabel htmlFor="forumName" style={{ margin: 0 }}>Forum Name</FormLabel>
+      <FormInput id="forumName" value={forumName} onChange={handleForumNameChange} style={{ margin: 0, marginBottom: '10px' }} />
 
-      <p>Topics</p>
-      <p>Add topics to the forum</p>
+      <SectionTitle>Topics</SectionTitle>
       {
         topics.length === 0
         && !topicFormVisible
@@ -174,19 +230,23 @@ function ForumBuilderForm() {
       </TopicListWrapper>
       {topicFormVisible
         && (
-        <AddTopicForm>
-          <FormLabel htmlFor="topicName">Topic Name</FormLabel>
-          <FormInput id="topicName" value={topicName} onChange={handleTopicNameChange} />
+        <AddTopicInputs>
+          <TopicNameField>
+            <FormLabel htmlFor="topicName">Topic Name</FormLabel>
+            <FormInput id="topicName" value={topicName} onChange={handleTopicNameChange} />
+          </TopicNameField>
 
-          <FormLabel htmlFor="topicDescription">Topic Description</FormLabel>
-          <TopicDescriptionInput id="topicDescription" value={topicDescription} onChange={handleTopicDescriptionChange} />
-          <button type="button" onClick={handleAcceptClick}>
-            <ImCheckmark />
-          </button>
-          <button type="button" onClick={handleCancelClick}>
-            <ImCross />
-          </button>
-        </AddTopicForm>
+          <TopicDescriptionField>
+            <FormLabel htmlFor="topicDescription">Topic Description</FormLabel>
+            <TopicDescriptionInput id="topicDescription" value={topicDescription} onChange={handleTopicDescriptionChange} style={{ flex: 1 }} />
+          </TopicDescriptionField>
+          <Button primary type="button" onClick={handleAcceptClick}>
+            Add
+          </Button>
+          <Button primary={false} type="button" onClick={handleCancelClick}>
+            Cancel
+          </Button>
+        </AddTopicInputs>
         )}
 
       {!topicFormVisible && (
@@ -194,6 +254,8 @@ function ForumBuilderForm() {
         <GrAdd />
       </AddTopicButton>
       )}
+
+      <FormSubmitButton type="submit">Create</FormSubmitButton>
     </ForumBuilderWrapper>
   );
 }
