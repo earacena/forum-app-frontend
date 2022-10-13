@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   RegisterFormTitle,
   RegisterFormWrapper,
@@ -30,6 +30,7 @@ type Inputs = {
 
 function RegisterForm() {
   const dispatch = useAppDispatch();
+  const auth = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const {
@@ -44,6 +45,15 @@ function RegisterForm() {
       password: '',
     },
   });
+
+  const isUserLoggedIn = auth.token !== '';
+
+  useEffect(() => {
+    // If user is already logged in, and they go to login page, redirect the user to previous page
+    if (auth.token) {
+      navigate(-1);
+    }
+  }, [navigate, auth.token]);
 
   const onSubmit: SubmitHandler<Inputs> = async (credentials) => {
     try {
@@ -69,7 +79,7 @@ function RegisterForm() {
   };
 
   return (
-    <RegisterFormWrapper onSubmit={handleSubmit(onSubmit)}>
+    <RegisterFormWrapper onSubmit={handleSubmit(onSubmit)} style={{ visibility: isUserLoggedIn ? 'visible' : 'hidden' }}>
       <RegisterFormTitle>Register</RegisterFormTitle>
       <InputWrapper>
         <FormLabel htmlFor="name">Display Name</FormLabel>
