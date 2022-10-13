@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const FormInput = styled.input`
   padding: 1em;
-  margin: 1em;
+  margin: 10px;
   margin-top: 0;
   border: 3px black solid;
   border-radius: 7px;
