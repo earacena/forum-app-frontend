@@ -2,10 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import { GrAdd } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { TopicListWrapper, TopicListItem, TopicTitle } from '../Topics/styles/topics.style';
 import { useAppSelector } from '../../hooks';
-import { FormInput, FormLabel, FormSubmitButton } from '../../components';
+import { FormInput, FormLabel } from '../../components';
 
 const ForumBuilderWrapper = styled.form`
   display: flex;
@@ -41,90 +39,38 @@ const AddTopicButton = styled.button`
   }
 `;
 
-const TopicDescriptionInput = styled.input`
-  padding: 1em;
-  margin: 1em;
-  margin-top: 0;
-  border: 3px black solid;
-  border-radius: 7px;
-  background: ${(props) => props.theme.form.inputBg};
-  color: ${(props) => props.theme.fg};
-  ::placeholder {
-    color: ${(props) => props.theme.fg}
-  }
-
-`;
-
-const LeftVerticalLine = styled.span`
-  border-left: 1px solid ${(props) => props.theme.topic.separator};
-  color: ${(props) => props.theme.topic.description};
-  padding: 0.5em;
-  margin-left: 1em;
-  font-weight: 300;
-  @media only screen and (max-width: 600px) {
-    display: none;
-  }
-`;
-
-const AddTopicInputs = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  @media only screen and (max-width: 600px) {
-    flex-direction: column;
-  }
-`;
-
 const SectionTitle = styled.div`
   color: ${(props) => props.theme.fg};
   font-size: 25px;
+  margin-left: 10px;
 `;
 
-type ButtonProps = {
-  readonly primary: boolean,
-};
-
-const Button = styled.button<ButtonProps>`
+const FormField = styled.span`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background: ${(props) => (props.primary ? (props.theme.colorAccent) : props.theme.bg)};
-  color: ${(props) => (props.primary ? (props.theme.form.inputBg) : (props.theme.colorAccent))};
-  border-radius: 10px;
-  font-size: 1em;
-  font-weight: 500;
-  padding: 12px;
-  border: ${(props) => ((props.primary) ? '2px transparent solid' : '2px transparent solid')};
-  box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.2);
-  width: auto;
-  &:hover {
-    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.4);
-    background: ${(props) => (props.primary ? 'black' : 'black')};
-    border: ${(props) => (props.primary ? '2px transparent solid' : `2px ${props.theme.colorAccent} solid`)};
-    color: ${(props) => (props.primary ? 'white' : 'white')};
-  }
+`;
 
-  &:active {
-    box-shadow: 0px 3px 10px rgb(0, 0, 0, 0.3);
-    transform: translateY(2px);
-    color: ${(props) => (props.primary ? 'lightgrey' : 'black')};
+const TopicFieldsListItem = styled.div`
+  display: flex;
+  width: 100%;
+  
+  border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+  &:last-child {
+    border-bottom: none;
   }
 `;
 
-const TopicNameField = styled.div`
-  display: flex;
-  flex-direction: column;
+const TopicFieldsListWrapper = styled.ul`
+  padding: 0;
+  width: 100%;
 `;
 
-const TopicDescriptionField = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1
-`;
 interface ObjectKeys {
   [key: string]: string | number;
 }
@@ -135,29 +81,12 @@ interface TopicItem extends ObjectKeys {
   topicDescription: string,
 }
 
-type Inputs = {
-  forumName: string,
-  topicFields: TopicItem[],
-};
-
 function ForumBuilderForm() {
   const auth = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const [forumName, setForumName] = useState<string>('');
   const [topicFields, setTopicFields] = useState<TopicItem[]>([]);
   const isUserLoggedIn = auth.token !== '';
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<Inputs>({
-    defaultValues: {
-      forumName: '',
-      topicFields: [],
-    },
-  });
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -190,19 +119,43 @@ function ForumBuilderForm() {
       onSubmit={onSubmit}
     >
       <ForumBuilderHeader>Forum Builder</ForumBuilderHeader>
-      <FormLabel htmlFor="forumName" style={{ margin: 0 }}>Forum Name</FormLabel>
-      <FormInput id="forumName" value={forumName} onChange={handleForumNameChange} style={{ margin: 0, marginBottom: '10px' }} />
+
+      <SectionTitle>Forum Details</SectionTitle>
+      <FormLabel htmlFor="forumName">Forum Name</FormLabel>
+      <FormInput id="forumName" value={forumName} onChange={handleForumNameChange} />
 
       <SectionTitle>Topics</SectionTitle>
-      {
-        topicFields.map((topic, index) => (
-          <div key={topic.topicId}>
-            <FormInput name="topicTitle" placeholder="General Discussions" onChange={(event) => handleFormChange(index, event)} />
-            <FormInput name="topicDescription" placeholder="Discussions about everything and anything." onChange={(event) => handleFormChange(index, event)} />
-          </div>
-        ))
-      }
+      <TopicFieldsListWrapper>
+        {
+          topicFields.map((topic, index) => (
+            <TopicFieldsListItem
+              key={topic.topicId}
+            >
+              <FormField>
+                <FormLabel htmlFor={`topicName-${topic.topicId}`}>Topic Name</FormLabel>
+                <FormInput
+                  id={`topicName-${topic.topicId}`}
+                  name="topicTitle"
+                  placeholder="General Discussions"
+                  onChange={(event) => handleFormChange(index, event)}
+                />
+              </FormField>
+              <FormField style={{ flex: 1 }}>
+                <FormLabel htmlFor={`topicDescription-${topic.topicId}`}>Topic Description</FormLabel>
+                <FormInput
+                  id={`topicDescription-${topic.topicId}`}
+                  name="topicDescription"
+                  placeholder="Discussions about everything and anything."
+                  onChange={(event) => handleFormChange(index, event)}
+                />
+              </FormField>
+            </TopicFieldsListItem>
+          ))
+        }
+      </TopicFieldsListWrapper>
+
       <AddTopicButton type="button" onClick={handleAddTopic}><GrAdd /></AddTopicButton>
+
       <button type="submit">Sumbit</button>
     </ForumBuilderWrapper>
   );
