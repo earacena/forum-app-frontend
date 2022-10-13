@@ -125,29 +125,26 @@ const TopicDescriptionField = styled.div`
   flex-direction: column;
   flex: 1
 `;
+interface ObjectKeys {
+  [key: string]: string | number;
+}
 
-type TopicItem = {
+interface TopicItem extends ObjectKeys {
+  topicId: number,
   topicName: string,
   topicDescription: string,
-};
+}
 
 type Inputs = {
   forumName: string,
-  topics: TopicItem[],
+  topicFields: TopicItem[],
 };
 
 function ForumBuilderForm() {
   const auth = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
-
-  const [topics, setTopics] = useState<TopicItem[]>([]);
-  const [topicFormVisible, setTopicFormVisible] = useState<boolean>(false);
-  const theme = useContext(ThemeContext);
-
   const [forumName, setForumName] = useState<string>('');
-  const [topicName, setTopicName] = useState<string>('');
-  const [topicDescription, setTopicDescription] = useState<string>('');
-
+  const [topicFields, setTopicFields] = useState<TopicItem[]>([]);
   const isUserLoggedIn = auth.token !== '';
 
   const {
@@ -158,12 +155,27 @@ function ForumBuilderForm() {
   } = useForm<Inputs>({
     defaultValues: {
       forumName: '',
-      topics: [],
+      topicFields: [],
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = async (forumData) => {
-    console.log(forumData);
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log({ forumName, topicFields });
+  };
+
+  const handleForumNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setForumName(event.target.value);
+  };
+
+  const handleFormChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    const prevTopicFields = [...topicFields];
+    prevTopicFields[index][event.target.name] = event.target.value;
+    setTopicFields(prevTopicFields);
+  };
+
+  const handleAddTopic = () => {
+    setTopicFields((prevTopicFields) => [...prevTopicFields, { topicId: topicFields.length + 1, topicName: '', topicDescription: '' }]);
   };
 
   useEffect(() => {
@@ -172,39 +184,10 @@ function ForumBuilderForm() {
     }
   }, [navigate, auth.token]);
 
-  const handleTopicNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTopicName(event.target.value);
-  };
-
-  const handleForumNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setForumName(event.target.value);
-  };
-
-  const handleTopicDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTopicDescription(event.target.value);
-  };
-
-  const handleAcceptClick = () => {
-    if (topicName && !topics.map((t) => t.topicName).includes(topicName)) {
-      setTopics((t) => t.concat({ topicName, topicDescription }));
-    }
-    setTopicName('');
-    setTopicDescription('');
-    setTopicFormVisible(!topicFormVisible);
-  };
-
-  const handleCancelClick = () => {
-    setTopicFormVisible(!topicFormVisible);
-  };
-
-  const handleClick = () => {
-    setTopicFormVisible(!topicFormVisible);
-  };
-
   return (
     <ForumBuilderWrapper
-      onSubmit={handleSubmit(onSubmit)}
       style={{ visibility: isUserLoggedIn ? 'visible' : 'hidden' }}
+      onSubmit={onSubmit}
     >
       <ForumBuilderHeader>Forum Builder</ForumBuilderHeader>
       <FormLabel htmlFor="forumName" style={{ margin: 0 }}>Forum Name</FormLabel>
@@ -212,50 +195,15 @@ function ForumBuilderForm() {
 
       <SectionTitle>Topics</SectionTitle>
       {
-        topics.length === 0
-        && !topicFormVisible
-        && <span style={{ color: theme.fg }}>Use the button below to add a topic.</span>
+        topicFields.map((topic, index) => (
+          <div key={topic.topicId}>
+            <FormInput name="topicTitle" placeholder="General Discussions" onChange={(event) => handleFormChange(index, event)} />
+            <FormInput name="topicDescription" placeholder="Discussions about everything and anything." onChange={(event) => handleFormChange(index, event)} />
+          </div>
+        ))
       }
-      <TopicListWrapper>
-        {topics && topics.map((t) => (
-          <TopicListItem key={t.topicName}>
-            <TopicTitle>
-              {t.topicName}
-              <LeftVerticalLine>
-                {t.topicDescription}
-              </LeftVerticalLine>
-            </TopicTitle>
-          </TopicListItem>
-        ))}
-      </TopicListWrapper>
-      {topicFormVisible
-        && (
-        <AddTopicInputs>
-          <TopicNameField>
-            <FormLabel htmlFor="topicName">Topic Name</FormLabel>
-            <FormInput id="topicName" value={topicName} onChange={handleTopicNameChange} />
-          </TopicNameField>
-
-          <TopicDescriptionField>
-            <FormLabel htmlFor="topicDescription">Topic Description</FormLabel>
-            <TopicDescriptionInput id="topicDescription" value={topicDescription} onChange={handleTopicDescriptionChange} style={{ flex: 1 }} />
-          </TopicDescriptionField>
-          <Button primary type="button" onClick={handleAcceptClick}>
-            Add
-          </Button>
-          <Button primary={false} type="button" onClick={handleCancelClick}>
-            Cancel
-          </Button>
-        </AddTopicInputs>
-        )}
-
-      {!topicFormVisible && (
-      <AddTopicButton onClick={handleClick}>
-        <GrAdd />
-      </AddTopicButton>
-      )}
-
-      <FormSubmitButton type="submit">Create</FormSubmitButton>
+      <AddTopicButton type="button" onClick={handleAddTopic}><GrAdd /></AddTopicButton>
+      <button type="submit">Sumbit</button>
     </ForumBuilderWrapper>
   );
 }
