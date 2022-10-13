@@ -36,6 +36,8 @@ function LoginForm() {
   const navigate = useNavigate();
   const auth = useAppSelector((state) => state.auth);
 
+  const isUserLoggedIn = auth.token !== '';
+
   const {
     register,
     handleSubmit,
@@ -82,7 +84,7 @@ function LoginForm() {
   };
 
   return (
-    <LoginFormWrapper onSubmit={handleSubmit(onSubmit)}>
+    <LoginFormWrapper onSubmit={handleSubmit(onSubmit)} style={{ visibility: isUserLoggedIn ? 'visible' : 'hidden' }}>
       <LoginFormTitle>Sign in</LoginFormTitle>
       <LoginFormDescription>
         to continue
