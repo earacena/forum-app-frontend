@@ -56,7 +56,7 @@ function NavBar({ themeMode, setThemeMode }: NavBarProps) {
         </Link>
       )}
       <Link to="/">
-        <NavButton>Topics</NavButton>
+        <NavButton>Home</NavButton>
       </Link>
       <ThemeSwitcher
         onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}
