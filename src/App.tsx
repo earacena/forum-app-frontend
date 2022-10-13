@@ -238,6 +238,7 @@ function App() {
             path="/builder"
             element={(
               <AppWrapper>
+                {headerAndNavBar()}
                 <ForumBuilder />
               </AppWrapper>
             )}
