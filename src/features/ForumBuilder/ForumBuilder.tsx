@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
-import styled, { ThemeContext } from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { GrAdd } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
-import { FormInput, FormLabel } from '../../components';
+import { FormInput, FormLabel, FormSubmitButton } from '../../components';
 
 const ForumBuilderWrapper = styled.form`
   display: flex;
@@ -108,6 +108,7 @@ function ForumBuilderForm() {
   };
 
   useEffect(() => {
+    // If user is not logged in, redirect use to login
     if (!auth.token) {
       navigate('/login');
     }
@@ -156,7 +157,7 @@ function ForumBuilderForm() {
 
       <AddTopicButton type="button" onClick={handleAddTopic}><GrAdd /></AddTopicButton>
 
-      <button type="submit">Sumbit</button>
+      <FormSubmitButton style={{ margin: '30px', marginLeft: 0 }}>Create</FormSubmitButton>
     </ForumBuilderWrapper>
   );
 }
