@@ -99,3 +99,19 @@ export const Topic = RtRecord({
 });
 
 export const TopicArray = RtArray(Topic);
+
+export const Forum = RtRecord({
+  id: RtNumber,
+  userId: RtNumber,
+  title: RtString,
+  dateCreated: RtUnion(
+    RtInstanceOf(Date),
+    RtString.withConstraint((x: string) => {
+      // Must be parsable into a Date object
+      if (!x || x === null || typeof x !== 'string' || Number.isNaN(Date.parse(x))) {
+        return false;
+      }
+      return true;
+    }),
+  ),
+});
