@@ -4,6 +4,8 @@ import { GrAdd } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { FormInput, FormLabel, FormSubmitButton } from '../../components';
+import { notify } from '../Notification';
+import forumService from '../../services/forumService';
 
 const ForumBuilderWrapper = styled.form`
   display: flex;
@@ -88,9 +90,20 @@ function ForumBuilderForm() {
   const [topicFields, setTopicFields] = useState<TopicItem[]>([]);
   const isUserLoggedIn = auth.token !== '';
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log({ forumName, topicFields });
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    try {
+      event.preventDefault();
+
+      const newForum = await forumService.create({
+        token: auth.token,
+        forumTitle: forumName,
+        forumTopics: topicFields,
+      });
+
+      navigate(`/forum/${newForum.id}`);
+    } catch (error: unknown) {
+      notify('error', 'Error processing given forum details.', 4);
+    }
   };
 
   const handleForumNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,7 +130,7 @@ function ForumBuilderForm() {
   return (
     <ForumBuilderWrapper
       style={{ visibility: isUserLoggedIn ? 'visible' : 'hidden' }}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
     >
       <ForumBuilderHeader>Forum Builder</ForumBuilderHeader>
 
