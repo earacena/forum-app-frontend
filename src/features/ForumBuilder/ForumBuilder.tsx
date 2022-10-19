@@ -75,7 +75,7 @@ interface ObjectKeys {
   [key: string]: string | number;
 }
 
-interface TopicItem extends ObjectKeys {
+export interface TopicItem extends ObjectKeys {
   topicId: number,
   topicName: string,
   topicDescription: string,
