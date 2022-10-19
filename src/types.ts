@@ -1,3 +1,4 @@
+
 import {
   Record as RtRecord,
   Number as RtNumber,
@@ -115,3 +116,13 @@ export const Forum = RtRecord({
     }),
   ),
 });
+
+interface ObjectKeys {
+  [key: string]: string | number;
+}
+
+export interface TopicItem extends ObjectKeys {
+  topicId: number,
+  topicName: string,
+  topicDescription: string,
+}

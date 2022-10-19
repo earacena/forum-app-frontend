@@ -6,6 +6,7 @@ import { useAppSelector } from '../../hooks';
 import { FormInput, FormLabel, FormSubmitButton } from '../../components';
 import { notify } from '../Notification';
 import forumService from '../../services/forumService';
+import type { TopicItem } from '../../types';
 
 const ForumBuilderWrapper = styled.form`
   display: flex;
@@ -72,16 +73,6 @@ const TopicFieldsListWrapper = styled.ul`
   padding: 0;
   width: 100%;
 `;
-
-interface ObjectKeys {
-  [key: string]: string | number;
-}
-
-export interface TopicItem extends ObjectKeys {
-  topicId: number,
-  topicName: string,
-  topicDescription: string,
-}
 
 function ForumBuilderForm() {
   const auth = useAppSelector((state) => state.auth);
