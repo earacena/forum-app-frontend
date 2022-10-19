@@ -16,6 +16,10 @@ interface TopicCreateFields {
   description: string;
 }
 
+type GetTopicsOfForumProps = {
+  forumId: number;
+}
+
 const getAll = async () => {
   const response = await fetch(baseUrl);
   const fetchedTopics = TopicArray.check(await response.json());
@@ -63,9 +67,16 @@ const create = async ({ token, title, description }: TopicCreateFields) => {
   return createdThread;
 };
 
+const getTopicsOfForum = async({ forumId }: GetTopicsOfForumProps) => {
+  const response = await fetch(`http://localhost:3001/api/${forumId}/topics`);
+  const topics = TopicArray.check(await response.json());
+  return topics;
+};
+
 export default {
   getAll,
   getTopicById,
   getThreadsOfTopic,
+  getTopicsOfForum,
   create,
 };
