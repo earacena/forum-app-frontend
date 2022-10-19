@@ -18,7 +18,7 @@ interface TopicCreateFields {
 
 type GetTopicsOfForumProps = {
   forumId: number;
-}
+};
 
 const getAll = async () => {
   const response = await fetch(baseUrl);
@@ -67,7 +67,7 @@ const create = async ({ token, title, description }: TopicCreateFields) => {
   return createdThread;
 };
 
-const getTopicsOfForum = async({ forumId }: GetTopicsOfForumProps) => {
+const getTopicsOfForum = async ({ forumId }: GetTopicsOfForumProps) => {
   const response = await fetch(`http://localhost:3001/api/${forumId}/topics`);
   const topics = TopicArray.check(await response.json());
   return topics;
