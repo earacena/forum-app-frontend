@@ -17,7 +17,11 @@ import {
 } from './styles/topics.style';
 import { Spin } from '../../components';
 
-function Topics() {
+type TopicsProps = {
+  forumId: number;
+};
+
+function Topics({ forumId }: TopicsProps) {
   const dispatch = useAppDispatch();
   const topics = useAppSelector((state) => state.topics.allTopics);
   const theme = useContext(ThemeContext);
@@ -26,7 +30,7 @@ function Topics() {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const fetchedTopics = await topicService.getAll();
+        const fetchedTopics = await topicService.getTopicsOfForum({ forumId });
         dispatch(setTopics(fetchedTopics));
       } catch (error) {
         console.error(error);
@@ -34,7 +38,7 @@ function Topics() {
     };
 
     fetchTopics();
-  }, [dispatch]);
+  }, [dispatch, forumId]);
 
   const handleClick = (topic: RtStatic<typeof Topic>) => {
     dispatch(setCurrentTopic(topic));
