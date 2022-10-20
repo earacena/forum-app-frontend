@@ -1,2 +1,3 @@
-export { default as ForumBuilder } from './ForumBuilder';
-export type { TopicItem } from './ForumBuilder';
+import ForumBuilder from './ForumBuilder';
+
+export default ForumBuilder;
