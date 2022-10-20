@@ -1,5 +1,5 @@
-import { TopicItem } from '../features/ForumBuilder';
 import { Forum as ForumType } from '../types';
+import type { TopicItem } from '../types';
 
 const baseUrl = 'http://localhost:3001/api/forum';
 
