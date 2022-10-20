@@ -1,12 +1,15 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { Number as RtNumber } from 'runtypes';
 import { Topics } from '../Topics';
 
 function Forum() {
-  const forumId = useParams();
+  const { id } = useParams();
+  const forumId = RtNumber.check(Number(id));
+
   return (
     <div>
-      <Topics forumId={Number(forumId)} />
+      <Topics forumId={forumId} />
     </div>
   );
 }
