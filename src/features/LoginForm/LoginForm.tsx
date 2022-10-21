@@ -84,7 +84,7 @@ function LoginForm() {
   };
 
   return (
-    <LoginFormWrapper onSubmit={handleSubmit(onSubmit)} style={{ visibility: isUserLoggedIn ? 'visible' : 'hidden' }}>
+    <LoginFormWrapper onSubmit={handleSubmit(onSubmit)} style={{ visibility: isUserLoggedIn ? 'hidden' : 'visible' }}>
       <LoginFormTitle>Sign in</LoginFormTitle>
       <LoginFormDescription>
         to continue

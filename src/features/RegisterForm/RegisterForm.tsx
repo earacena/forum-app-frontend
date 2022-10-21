@@ -79,7 +79,7 @@ function RegisterForm() {
   };
 
   return (
-    <RegisterFormWrapper onSubmit={handleSubmit(onSubmit)} style={{ visibility: isUserLoggedIn ? 'visible' : 'hidden' }}>
+    <RegisterFormWrapper onSubmit={handleSubmit(onSubmit)} style={{ visibility: isUserLoggedIn ? 'hidden' : 'visible' }}>
       <RegisterFormTitle>Register</RegisterFormTitle>
       <InputWrapper>
         <FormLabel htmlFor="name">Display Name</FormLabel>
