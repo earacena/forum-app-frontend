@@ -100,7 +100,7 @@ export const Topic = RtRecord({
 
 export const TopicArray = RtArray(Topic);
 
-export const Forum = RtRecord({
+export const ForumType = RtRecord({
   id: RtNumber,
   userId: RtNumber,
   title: RtString,
@@ -115,6 +115,10 @@ export const Forum = RtRecord({
     }),
   ),
 });
+
+export const ForumArray = RtArray(ForumType);
+export type Forum = RtStatic<typeof ForumType>;
+export type Forums = RtStatic<typeof ForumArray>;
 
 interface ObjectKeys {
   [key: string]: string | number;
