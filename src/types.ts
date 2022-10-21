@@ -54,7 +54,13 @@ export const TokenResponse = RtRecord({
   id: RtNumber,
   username: RtString,
   name: RtString,
-  role: RtString,
+  roles: RtArray(
+    RtRecord({
+      userId: RtNumber,
+      forumId: RtNumber,
+      role: RtString,
+    }),
+  ),
 });
 
 export const User = RtRecord({
