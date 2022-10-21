@@ -11,7 +11,7 @@ import RegisterForm from './features/RegisterForm';
 import { NavBar, AppWrapper } from './components';
 import AdminPanel from './features/AdminPanel';
 import ForumBuilder from './features/ForumBuilder';
-import Forum from './features/Forum';
+import { Forum, Forums } from './features/Forum';
 
 export type ThemeProps = {
   header: string,
@@ -185,6 +185,7 @@ function App() {
             element={(
               <AppWrapper>
                 {headerAndNavBar()}
+                <Forums />
               </AppWrapper>
             )}
           />
