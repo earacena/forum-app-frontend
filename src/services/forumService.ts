@@ -1,12 +1,19 @@
-import { Forum as ForumType } from '../types';
+import { ForumType, ForumArray } from '../types';
 import type { TopicItem } from '../types';
 
-const baseUrl = 'http://localhost:3001/api/forum';
+const baseUrl = 'http://localhost:3001/api/forums';
 
 type ForumCreateProps = {
   token: string,
   forumTitle: string,
   forumTopics: TopicItem[],
+};
+
+const getAll = async () => {
+  const response = await fetch(baseUrl);
+  const fetchedForums = ForumArray.check(await response.json());
+
+  return fetchedForums;
 };
 
 const create = async ({ token, forumTitle, forumTopics }: ForumCreateProps) => {
@@ -22,4 +29,4 @@ const create = async ({ token, forumTitle, forumTopics }: ForumCreateProps) => {
   return createdForum;
 };
 
-export default { create };
+export default { create, getAll };
