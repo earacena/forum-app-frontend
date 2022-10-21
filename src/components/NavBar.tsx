@@ -58,6 +58,11 @@ function NavBar({ themeMode, setThemeMode }: NavBarProps) {
       <Link to="/">
         <NavButton>Home</NavButton>
       </Link>
+      {auth.token && (
+        <Link to="/builder">
+          <NavButton>Builder</NavButton>
+        </Link>
+      )}
       <ThemeSwitcher
         onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}
       >
