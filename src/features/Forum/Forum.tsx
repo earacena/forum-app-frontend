@@ -8,9 +8,7 @@ function Forum() {
   const forumId = RtNumber.check(Number(id));
 
   return (
-    <div>
-      <Topics forumId={forumId} />
-    </div>
+    <Topics forumId={forumId} />
   );
 }
 
