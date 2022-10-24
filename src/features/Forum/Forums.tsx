@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import forumService from '../../services/forumService';
 import { Forums as ForumArray } from '../../types';
@@ -58,8 +59,8 @@ const ForumList = styled.ul`
 `;
 
 function Forums() {
+  const navigate = useNavigate();
   const [forums, setForums] = useState<ForumArray>([]);
-
   useEffect(() => {
     const fetchForums = async () => {
       const fetchedForums = await forumService.getAll();
@@ -69,11 +70,17 @@ function Forums() {
     fetchForums();
   }, []);
 
+  const handleClick = (id: number) => {
+    navigate(`/forum/${id}`);
+  };
+
   return (
     <ForumsWrapper>
       <ForumHeader2>Explore</ForumHeader2>
       <ForumList>
-        {forums.map((f) => <ForumListItem key={f.id}>{f.title}</ForumListItem>)}
+        {forums.map((f) => (
+          <ForumListItem onClick={() => handleClick(f.id)} key={f.id}>{f.title}</ForumListItem>
+        ))}
       </ForumList>
     </ForumsWrapper>
   );
