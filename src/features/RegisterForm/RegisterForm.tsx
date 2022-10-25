@@ -1,26 +1,22 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {
-  RegisterFormTitle,
-  RegisterFormWrapper,
-} from './styles/registerForm.style';
 import { notify } from '../Notification';
 import userService from '../../services/userService';
 import loginService from '../../services/loginService';
 import { setAuthenticatedUser } from '../auth';
 import {
-  FormSubmitButton, FormInput, ErrorMessage, FormLabel,
+  FormSubmitButton,
+  FormInput,
+  ErrorMessage,
+  FormLabel,
 } from '../../components';
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  margin-bottom: 30px;
-`;
+import {
+  RegisterFormTitle,
+  RegisterFormWrapper,
+  InputWrapper,
+} from './styles/registerForm.style';
 
 type Inputs = {
   name: string;

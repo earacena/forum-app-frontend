@@ -26,3 +26,10 @@ export const Label = styled.label`
   margin: 1em;
   margin-bottom: 0;
 `;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-bottom: 30px;
+`;
