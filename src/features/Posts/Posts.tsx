@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAppSelector } from '../../hooks';
 import { Posts as PostsType } from '../../types';
 import Post from './Post';
