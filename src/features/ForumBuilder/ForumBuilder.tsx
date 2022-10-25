@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { GrAdd } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
@@ -7,72 +6,15 @@ import { FormInput, FormLabel, FormSubmitButton } from '../../components';
 import { notify } from '../Notification';
 import forumService from '../../services/forumService';
 import type { TopicItem } from '../../types';
-
-const ForumBuilderWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: '';
-  width: 80%;
-  min-width: 300px;
-  max-width: 800px;
-`;
-
-const ForumBuilderHeader = styled.h2`
-  font-size: 30px;
-  color: ${(props) => props.theme.fg};
-`;
-
-const AddTopicButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: ${(props) => props.theme.colorAccent};
-  font-size: 20px;
-  padding: 10px;
-  border: none;
-  border-radius: 50%;
-
-  &:hover {
-    transform: translate(0, -2px);
-  }
-
-  &:active {
-    transform: translate(0, 1px);
-  }
-`;
-
-const SectionTitle = styled.div`
-  color: ${(props) => props.theme.fg};
-  font-size: 25px;
-  margin-left: 10px;
-`;
-
-const FormField = styled.span`
-  display: flex;
-  flex-direction: column;
-`;
-
-const TopicFieldsListItem = styled.div`
-  display: flex;
-  width: 100%;
-  
-  border-bottom: 1px rgba(255, 255, 255, 0.1) solid;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  
-  @media only screen and (max-width: 600px) {
-    flex-direction: column;
-  }
-  &:last-child {
-    border-bottom: none;
-  }
-`;
-
-const TopicFieldsListWrapper = styled.ul`
-  padding: 0;
-  width: 100%;
-`;
+import {
+  ForumBuilderWrapper,
+  ForumBuilderHeader,
+  SectionTitle,
+  TopicFieldsListItem,
+  TopicFieldsListWrapper,
+  FormField,
+  AddTopicButton,
+} from './styles/forumBuilder.styles';
 
 function ForumBuilderForm() {
   const auth = useAppSelector((state) => state.auth);
