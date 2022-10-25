@@ -9,7 +9,7 @@ import { notify } from '../Notification';
 import {
   LoginFormWrapper,
   LoginFormTitle,
-} from './styles/loginFormStyle';
+} from './styles/loginForm.style';
 import {
   FormSubmitButton, FormInput, ErrorMessage, FormLabel,
 } from '../../components';
