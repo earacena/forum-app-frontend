@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { useAppSelector } from '../../hooks';
 import { Posts as PostsType } from '../../types';
 import Post from './Post';
+import { PostList, PostItem } from './styles/posts.styles';
 
 interface PostsProps {
   posts: PostsType;
   threadAuthorId: number | undefined;
 }
-
-const PostList = styled.ul`
-  list-style-type: none;
-  padding-left: 0;
-  
-`;
-
-const PostItem = styled.li`
-`;
 
 function Posts({ posts, threadAuthorId }: PostsProps) {
   const auth = useAppSelector((state) => state.auth);
