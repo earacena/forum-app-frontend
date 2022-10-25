@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setAuthenticatedUser } from '../auth';
 import loginService from '../../services/loginService';
@@ -9,22 +8,15 @@ import { notify } from '../Notification';
 import {
   LoginFormWrapper,
   LoginFormTitle,
+  InputWrapper,
+  LoginFormDescription,
 } from './styles/loginForm.style';
 import {
-  FormSubmitButton, FormInput, ErrorMessage, FormLabel,
+  FormSubmitButton,
+  FormInput,
+  ErrorMessage,
+  FormLabel,
 } from '../../components';
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  margin-bottom: 30px;
-`;
-
-const LoginFormDescription = styled.span`
-  color: ${(props) => props.theme.fg};
-  margin: 0;
-`;
 
 type Inputs = {
   username: string;
