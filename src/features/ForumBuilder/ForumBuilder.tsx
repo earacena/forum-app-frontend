@@ -19,7 +19,7 @@ import {
 function ForumBuilderForm() {
   const auth = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
-  const [forumName, setForumName] = useState<string>('');
+  const [forumTitle, setForumTitle] = useState<string>('');
   const [topicFields, setTopicFields] = useState<TopicItem[]>([]);
   const isUserLoggedIn = auth.token !== '';
 
@@ -29,7 +29,7 @@ function ForumBuilderForm() {
 
       const newForum = await forumService.create({
         token: auth.token,
-        forumTitle: forumName,
+        forumTitle,
         forumTopics: topicFields,
       });
 
@@ -40,7 +40,7 @@ function ForumBuilderForm() {
   };
 
   const handleForumNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setForumName(event.target.value);
+    setForumTitle(event.target.value);
   };
 
   const handleFormChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +50,10 @@ function ForumBuilderForm() {
   };
 
   const handleAddTopic = () => {
-    setTopicFields((prevTopicFields) => [...prevTopicFields, { topicId: topicFields.length + 1, topicName: '', topicDescription: '' }]);
+    setTopicFields((prevTopicFields) => [
+      ...prevTopicFields,
+      { topicId: topicFields.length + 1, topicTitle: '', topicDescription: '' },
+    ]);
   };
 
   useEffect(() => {
@@ -68,8 +71,8 @@ function ForumBuilderForm() {
       <ForumBuilderHeader>Forum Builder</ForumBuilderHeader>
 
       <SectionTitle>Forum Details</SectionTitle>
-      <FormLabel htmlFor="forumName">Forum Name</FormLabel>
-      <FormInput id="forumName" value={forumName} onChange={handleForumNameChange} />
+      <FormLabel htmlFor="forumTitle">Forum Title</FormLabel>
+      <FormInput id="forumTitle" value={forumTitle} onChange={handleForumNameChange} />
 
       <SectionTitle>Topics</SectionTitle>
       <TopicFieldsListWrapper>
@@ -79,9 +82,9 @@ function ForumBuilderForm() {
               key={topic.topicId}
             >
               <FormField>
-                <FormLabel htmlFor={`topicName-${topic.topicId}`}>Topic Name</FormLabel>
+                <FormLabel htmlFor={`topicTitle-${topic.topicId}`}>Topic Name</FormLabel>
                 <FormInput
-                  id={`topicName-${topic.topicId}`}
+                  id={`topicTitle-${topic.topicId}`}
                   name="topicTitle"
                   placeholder="General Discussions"
                   onChange={(event) => handleFormChange(index, event)}
