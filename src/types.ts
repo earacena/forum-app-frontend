@@ -132,6 +132,6 @@ interface ObjectKeys {
 
 export interface TopicItem extends ObjectKeys {
   topicId: number,
-  topicName: string,
+  topicTitle: string,
   topicDescription: string,
 }
