@@ -15,7 +15,7 @@ import {
   TextArea,
 } from './styles/postForm.style';
 import { FormSubmitButton, ErrorMessage, FormLabel } from '../../../../components';
-import { ProfileCard, UserAvatar, UserName } from '../../Post';
+import { ProfileCard, UserAvatar, UserName } from '../../styles/post.styles';
 
 type Input = {
   content: string;
