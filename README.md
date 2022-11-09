@@ -1,7 +1,16 @@
 # forum-app-frontend 
 
 ## Description
-This is frontend of a forum web application.
+This is the frontend of the forum web application.
+
+### Features
+  * Creating forums
+  * Creating topics (subforums)
+  * Posting threads to topics
+  * Replying to topics (posts)
+  * Registering new accounts
+  * Signing in to accounts
+  * Light/Dark mode
 
 ### Technologies
   * Typescript
