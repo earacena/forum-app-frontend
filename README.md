@@ -1,7 +1,11 @@
-# forum-app-frontend 
+# Forum Web Application Frontend
 
 ## Description
 This is the frontend of the forum web application.
+
+The backend repository can be accessed [here](https://github.com/earacena/forum-app-backend).
+
+The live deployment of the forum app can be accessed [here]()
 
 ### Features
   * Creating forums
