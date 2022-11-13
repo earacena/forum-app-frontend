@@ -4,6 +4,7 @@ import { authReducer } from '../features/auth';
 import { threadsReducer } from '../features/Threads';
 import { postsReducer } from '../features/Posts';
 import { topicsReducer } from '../features/Topics';
+import { forumsReducer } from '../features/Forum';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     topics: topicsReducer,
     threads: threadsReducer,
     posts: postsReducer,
+    forums: forumsReducer,
   },
 });
 
