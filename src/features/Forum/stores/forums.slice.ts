@@ -15,7 +15,7 @@ const forumsSlice = createSlice({
   name: 'forums',
   initialState,
   reducers: {
-    setForums: (state, action) => action.payload.forums,
+    setForums: (state, action) => ({ ...state, allForums: action.payload.forums }),
     setCurrentForum: (state, action) => action.payload.forum,
   },
 });
