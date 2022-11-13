@@ -104,8 +104,14 @@ function TopicForm() {
         </ColumnDiv>
 
         <span>
-          <FormSubmitButton primary type="submit">Create</FormSubmitButton>
+          <FormSubmitButton
+            primary
+            type="submit"
+          >
+            Create
+          </FormSubmitButton>
           <CloseButton
+            type="button"
             visible={topicFormVisible}
             onClick={() => setTopicFormVisible(!topicFormVisible)}
           >

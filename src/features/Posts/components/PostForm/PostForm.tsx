@@ -52,11 +52,6 @@ function PostForm({ threadId }: PostFormProps) {
   });
 
   const onSubmit: SubmitHandler<Input> = async (postData) => {
-    // Prevent submission happening while form is closed
-    if (!postFormVisible) {
-      return;
-    }
-
     try {
       if (!threadId) {
         throw new Error('Cannot reply to this thread');
@@ -126,8 +121,14 @@ function PostForm({ threadId }: PostFormProps) {
           display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
         }}
         >
-          <FormSubmitButton primary>Post</FormSubmitButton>
+          <FormSubmitButton
+            primary
+            type="submit"
+          >
+            Post
+          </FormSubmitButton>
           <CloseFormButton
+            type="button"
             visible={postFormVisible}
             onClick={() => setPostFormVisible(!postFormVisible)}
           >
