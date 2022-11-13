@@ -1,6 +1,6 @@
 import { PostArray, Thread, ThreadArray } from '../types';
 
-const baseUrl = 'http://localhost:3001/api/threads';
+const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/threads`;
 
 interface CreateFields {
   token: string;

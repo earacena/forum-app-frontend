@@ -1,6 +1,6 @@
 import { TokenResponse } from '../types';
 
-const baseUrl = 'http://localhost:3001/api/login';
+const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/login`;
 
 interface Credentials {
   username: string;

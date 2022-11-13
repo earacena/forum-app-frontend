@@ -1,7 +1,7 @@
 import { ForumType, ForumArray } from '../types';
 import type { TopicItem } from '../types';
 
-const baseUrl = 'http://localhost:3001/api/forums';
+const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/forums`;
 
 type ForumCreateProps = {
   token: string,

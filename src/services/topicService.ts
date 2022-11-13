@@ -1,6 +1,6 @@
 import { ThreadArray, Topic, TopicArray } from '../types';
 
-const baseUrl = 'http://localhost:3001/api/topics';
+const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/topics`;
 
 interface TopicIdFields {
   id: number;

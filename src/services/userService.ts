@@ -1,6 +1,6 @@
 import { User, UserArray } from '../types';
 
-const baseUrl = 'http://localhost:3001/api/users';
+const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/users`;
 
 interface GetUserByIdFields {
   id: number;

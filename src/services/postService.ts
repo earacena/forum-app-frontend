@@ -1,6 +1,6 @@
 import { Post, PostArray } from '../types';
 
-const baseUrl = 'http://localhost:3001/api/posts';
+const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/posts`;
 
 interface CreateFields {
   token: string;
