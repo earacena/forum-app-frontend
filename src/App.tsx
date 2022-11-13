@@ -10,8 +10,7 @@ import { useAppDispatch } from './hooks';
 import RegisterForm from './features/RegisterForm';
 import { NavBar, AppWrapper } from './components';
 import AdminPanel from './features/AdminPanel';
-import ForumBuilder from './features/ForumBuilder';
-import { Forum, Forums } from './features/Forum';
+import { Forum, Forums, ForumBuilder } from './features/Forum';
 
 export type ThemeProps = {
   header: string,

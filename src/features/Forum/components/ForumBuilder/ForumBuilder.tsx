@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { GrAdd } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
-import { FormInput, FormLabel, FormSubmitButton } from '../../components';
-import { notify } from '../Notification';
-import forumService from '../../services/forumService';
-import type { TopicItem } from '../../types';
+import { useAppSelector } from '../../../../hooks';
+import { FormInput, FormLabel, FormSubmitButton } from '../../../../components';
+import { notify } from '../../../Notification';
+import forumService from '../../../../services/forumService';
+import type { TopicItem } from '../../../../types';
 import {
   ForumBuilderWrapper,
   ForumBuilderHeader,
