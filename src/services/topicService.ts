@@ -68,7 +68,7 @@ const create = async ({ token, title, description }: TopicCreateFields) => {
 };
 
 const getTopicsOfForum = async ({ forumId }: GetTopicsOfForumProps) => {
-  const response = await fetch(`${baseUrl}/api/forums/${forumId}/topics`);
+  const response = await fetch(`${baseUrl}/${forumId}/topics`);
   const topics = TopicArray.check(await response.json());
   return topics;
 };
