@@ -1,25 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { Static as RtStatic } from 'runtypes';
-import { Thread, ThreadArray, Threads } from '../../../types';
-
-interface ThreadsState {
-  allThreads: RtStatic<typeof ThreadArray> | undefined;
-  currentThread: RtStatic<typeof Thread> | undefined;
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ThreadsState, ThreadPayload, ThreadsPayload } from '../types/thread.types';
 
 const initialState: ThreadsState = {
-  allThreads: undefined,
-  currentThread: undefined,
+  allThreads: null,
+  currentThread: null,
 };
 
 const threadsSlice = createSlice({
   name: 'threads',
   initialState,
   reducers: {
-    setThreads: (state, action) => ({ ...state, allThreads: action.payload }),
-    setCurrentThread: (state, action) => ({ ...state, currentThread: action.payload }),
-    resetThreads: (state) => ({ ...state, allThreads: initialState.allThreads }),
-    resetCurrentThread: (state) => ({ ...state, currentThread: initialState.currentThread }),
+    setThreads: (state: ThreadsState, action: PayloadAction<ThreadsPayload>) => ({
+      ...state,
+      allThreads: action.payload.threads,
+    }),
+    setCurrentThread: (state: ThreadsState, action: PayloadAction<ThreadPayload>) => ({
+      ...state,
+      currentThread: action.payload.thread,
+    }),
+    resetThreads: (state: ThreadsState) => ({
+      ...state,
+      allThreads: initialState.allThreads,
+    }),
+    resetCurrentThread: (state: ThreadsState) => ({
+      ...state,
+      currentThread: initialState.currentThread,
+    }),
   },
 });
 
