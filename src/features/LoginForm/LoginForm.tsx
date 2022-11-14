@@ -34,7 +34,7 @@ function LoginForm() {
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const isUserLoggedIn = auth.token !== '';
+  const isUserLoggedIn = auth.user?.token !== '';
 
   const {
     register,
@@ -50,10 +50,10 @@ function LoginForm() {
 
   useEffect(() => {
     // If user is already logged in, and they go to login page, redirect the user to previous page
-    if (auth.token) {
+    if (auth.user?.token) {
       navigate(-1);
     }
-  }, [navigate, auth.token]);
+  }, [navigate, auth.user]);
 
   const onSubmit: SubmitHandler<Inputs> = async (credentials) => {
     try {
@@ -65,7 +65,7 @@ function LoginForm() {
           ? `Successfully signed in, welcome ${token.name}`
           : `Successfully signed in, welcome ${token.username}`;
 
-        dispatch(setAuthenticatedUser(token));
+        dispatch(setAuthenticatedUser({ user: token }));
 
         // Save user session
         window.localStorage.setItem('forumAppUser', JSON.stringify(token));
