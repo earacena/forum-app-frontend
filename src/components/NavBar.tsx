@@ -50,15 +50,17 @@ function NavBar({ themeMode, setThemeMode }: NavBarProps) {
 
   return (
     <NavBarWrapper>
-      {auth.token && auth.role === 'admin' && (
-        <Link to="/admin">
-          <NavButton>Admin Panel</NavButton>
-        </Link>
-      )}
+      {/*
+        auth.user.token && auth.role === 'admin' && (
+          <Link to="/admin">
+            <NavButton>Admin Panel</NavButton>
+          </Link>
+        )
+      */}
       <Link to="/">
         <NavButton>Home</NavButton>
       </Link>
-      {auth.token && (
+      {auth.user?.token && (
         <Link to="/builder">
           <NavButton>Builder</NavButton>
         </Link>
@@ -73,19 +75,19 @@ function NavBar({ themeMode, setThemeMode }: NavBarProps) {
         )}
       </ThemeSwitcher>
       <Spacer />
-      {!auth.token && (
+      {!auth.user?.token && (
         <Link to="/login">
           <NavButton>Log In</NavButton>
         </Link>
       )}
-      {!auth.token && (
+      {!auth.user?.token && (
         <Link to="/register">
           <NavButton>Register</NavButton>
         </Link>
       )}
-      {auth.token && (
+      {auth.user?.token && (
         <UserActions>
-          <UserName>{` ${auth.name} `}</UserName>
+          <UserName>{` ${auth.user?.name} `}</UserName>
           <NavButton onClick={handleLogOut}>Log Out</NavButton>
         </UserActions>
       )}
