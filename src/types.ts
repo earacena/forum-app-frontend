@@ -29,7 +29,7 @@ export const Post = RtRecord({
   ),
 });
 
-export const Thread = RtRecord({
+export const ThreadType = RtRecord({
   id: RtNumber,
   userId: RtNumber,
   topicId: RtNumber,
@@ -45,9 +45,11 @@ export const Thread = RtRecord({
 });
 
 export const PostArray = RtArray(Post);
-export const ThreadArray = RtArray(Thread);
+export const ThreadArray = RtArray(ThreadType);
 
 export type Posts = RtStatic<typeof PostArray>;
+
+export type Thread = RtStatic<typeof ThreadType>;
 export type Threads = RtStatic<typeof ThreadArray>;
 
 export const UserAuthenticationType = RtRecord({
