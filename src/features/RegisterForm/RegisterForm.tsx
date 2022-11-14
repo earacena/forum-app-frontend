@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { ThemeContext } from 'styled-components';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { notify } from '../Notification';
 import userService from '../../services/userService';
@@ -11,6 +13,7 @@ import {
   FormInput,
   ErrorMessage,
   FormLabel,
+  Spin,
 } from '../../components';
 import {
   RegisterFormTitle,
@@ -28,6 +31,8 @@ function RegisterForm() {
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
+  const theme = useContext(ThemeContext);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const {
     register,
@@ -53,6 +58,7 @@ function RegisterForm() {
 
   const onSubmit: SubmitHandler<Inputs> = async (credentials) => {
     try {
+      setIsSubmitting(true);
       await userService.create(credentials);
 
       const token = await loginService.login({
@@ -71,6 +77,7 @@ function RegisterForm() {
       navigate('/');
     } catch (error) {
       notify('error', 'Error registering user credentials', 4);
+      setIsSubmitting(false);
     }
   };
 
@@ -128,7 +135,9 @@ function RegisterForm() {
         />
       </InputWrapper>
 
-      <FormSubmitButton primary type="submit">Register User</FormSubmitButton>
+      <FormSubmitButton primary type="submit">
+        { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Register' }
+      </FormSubmitButton>
     </RegisterFormWrapper>
   );
 }
