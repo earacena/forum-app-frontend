@@ -87,7 +87,7 @@ export const User = RtRecord({
 
 export const UserArray = RtArray(User);
 
-export const Topic = RtRecord({
+export const TopicType = RtRecord({
   id: RtNumber,
   userId: RtNumber,
   title: RtString,
@@ -109,7 +109,10 @@ export const Topic = RtRecord({
   ),
 });
 
-export const TopicArray = RtArray(Topic);
+export const TopicArray = RtArray(TopicType);
+
+export type Topic = RtStatic<typeof TopicType>;
+export type Topics = RtStatic<typeof TopicArray>;
 
 export const ForumType = RtRecord({
   id: RtNumber,
