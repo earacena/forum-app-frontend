@@ -49,7 +49,8 @@ export const ThreadArray = RtArray(Thread);
 
 export type Posts = RtStatic<typeof PostArray>;
 export type Threads = RtStatic<typeof ThreadArray>;
-export const TokenResponse = RtRecord({
+
+export const UserAuthenticationType = RtRecord({
   token: RtString,
   id: RtNumber,
   username: RtString,
@@ -62,6 +63,8 @@ export const TokenResponse = RtRecord({
     }),
   ),
 });
+
+export type UserAuthentication = RtStatic<typeof UserAuthenticationType>;
 
 export const User = RtRecord({
   id: RtNumber,
