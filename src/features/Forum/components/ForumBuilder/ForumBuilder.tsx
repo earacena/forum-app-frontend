@@ -32,7 +32,7 @@ function ForumBuilderForm() {
   const [topicFields, setTopicFields] = useState<TopicItem[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const isUserLoggedIn = auth.token !== '';
+  const isUserLoggedIn = auth.user?.token !== '';
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,7 +45,7 @@ function ForumBuilderForm() {
       setIsSubmitting(true);
 
       const newForum = await forumService.create({
-        token: auth.token,
+        token: auth.user?.token,
         forumTitle,
         forumTopics: topicFields,
       });
@@ -76,10 +76,10 @@ function ForumBuilderForm() {
 
   useEffect(() => {
     // If user is not logged in, redirect use to login
-    if (!auth.token) {
+    if (!auth.user?.token) {
       navigate('/login');
     }
-  }, [navigate, auth.token]);
+  }, [navigate, auth.user?.token]);
 
   return (
     <ForumBuilderWrapper
