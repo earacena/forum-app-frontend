@@ -1,4 +1,4 @@
-import { TokenResponse } from '../types';
+import { UserAuthenticationType } from '../types';
 
 const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/login`;
 
@@ -19,8 +19,8 @@ const login = async (credentials: Credentials) => {
   if (responseJson.error) {
     throw new Error(`${responseJson.error}`);
   } else {
-    const tokenResponse = TokenResponse.check(responseJson);
-    return tokenResponse;
+    const userAuthResponse = UserAuthenticationType.check(responseJson);
+    return userAuthResponse;
   }
 };
 
