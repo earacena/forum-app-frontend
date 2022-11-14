@@ -4,7 +4,7 @@ import type { TopicItem } from '../types';
 const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/forums`;
 
 type ForumCreateProps = {
-  token: string,
+  token: string | undefined,
   forumTitle: string,
   forumTopics: TopicItem[],
 };
@@ -17,6 +17,10 @@ const getAll = async () => {
 };
 
 const create = async ({ token, forumTitle, forumTopics }: ForumCreateProps) => {
+  if (!token) {
+    throw new Error('token missing');
+  }
+
   const response = await fetch(baseUrl, {
     method: 'POST',
     headers: {
