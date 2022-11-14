@@ -1,24 +1,25 @@
+import { isMissingDeclaration } from 'typescript';
 import { Post, PostArray } from '../types';
 
 const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/posts`;
 
-interface CreateFields {
-  token: string;
+type CreateProps = {
+  token: string | undefined;
   threadId: number;
   content: string;
   isOriginalPost: boolean;
-}
+};
 
-interface RemoveFields {
-  token: string;
+type RemoveProps = {
+  token: string | undefined;
   id: number;
-}
+};
 
-interface UpdateFields {
+type UpdateProps = {
   id: number;
   content: string;
-  token: string;
-}
+  token: string | undefined;
+};
 
 const getAll = async () => {
   const response = await fetch(baseUrl);
@@ -31,7 +32,11 @@ const create = async ({
   threadId,
   content,
   isOriginalPost,
-}: CreateFields) => {
+}: CreateProps) => {
+  if (!token) {
+    throw new Error('postService.create() - token missing');
+  }
+
   const response = await fetch(baseUrl, {
     method: 'POST',
     headers: {
@@ -44,7 +49,11 @@ const create = async ({
   return createdThread;
 };
 
-const remove = async ({ token, id }: RemoveFields) => {
+const remove = async ({ token, id }: RemoveProps) => {
+  if (!token) {
+    throw new Error('postService.remove() - token missing');
+  }
+
   await fetch(`${baseUrl}/${id}`, {
     method: 'DELETE',
     headers: {
@@ -54,7 +63,11 @@ const remove = async ({ token, id }: RemoveFields) => {
   });
 };
 
-const update = async ({ token, id, content }: UpdateFields) => {
+const update = async ({ token, id, content }: UpdateProps) => {
+  if (!token) {
+    throw new Error('postService.update() - token missing');
+  }
+
   const response = await fetch(`${baseUrl}/${id}`, {
     method: 'PUT',
     headers: {
