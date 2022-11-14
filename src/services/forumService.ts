@@ -18,7 +18,7 @@ const getAll = async () => {
 
 const create = async ({ token, forumTitle, forumTopics }: ForumCreateProps) => {
   if (!token) {
-    throw new Error('token missing');
+    throw new Error('forumService.create() - token missing');
   }
 
   const response = await fetch(baseUrl, {
