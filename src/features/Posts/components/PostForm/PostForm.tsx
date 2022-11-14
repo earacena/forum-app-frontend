@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled, { ThemeContext } from 'styled-components';
 import { HiUser } from 'react-icons/hi';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import postService from '../../../../services/postService';
 import threadService from '../../../../services/threadService';
@@ -14,7 +15,12 @@ import {
   PostFormWrapper,
   TextArea,
 } from './styles/postForm.style';
-import { FormSubmitButton, ErrorMessage, FormLabel } from '../../../../components';
+import {
+  FormSubmitButton,
+  ErrorMessage,
+  FormLabel,
+  Spin,
+} from '../../../../components';
 import { ProfileCard, UserAvatar, UserName } from '../../styles/post.styles';
 
 type Input = {
@@ -39,6 +45,7 @@ function PostForm({ threadId }: PostFormProps) {
   const auth = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const theme = useContext(ThemeContext);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const {
     register,
@@ -53,6 +60,7 @@ function PostForm({ threadId }: PostFormProps) {
 
   const onSubmit: SubmitHandler<Input> = async (postData) => {
     try {
+      setIsSubmitting(true);
       if (!threadId) {
         throw new Error('Cannot reply to this thread');
       }
@@ -76,6 +84,7 @@ function PostForm({ threadId }: PostFormProps) {
       notify('message', 'Replied to thread', 4);
     } catch (error: unknown) {
       notify('error', 'Error while replying to thread.', 4);
+      setIsSubmitting(false);
     }
   };
 
@@ -125,7 +134,7 @@ function PostForm({ threadId }: PostFormProps) {
             primary
             type="submit"
           >
-            Post
+            { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Post' }
           </FormSubmitButton>
           <CloseFormButton
             type="button"
