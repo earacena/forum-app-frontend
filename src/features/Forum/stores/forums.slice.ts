@@ -1,22 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { Forums, Forum } from '../../../types';
-
-type ForumsState = {
-  allForums: Forums | undefined;
-  currentForum: Forum | undefined;
-};
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ForumPayload, ForumsPayload, ForumsState } from '../types/forum.types';
 
 const initialState: ForumsState = {
-  allForums: undefined,
-  currentForum: undefined,
+  allForums: null,
+  currentForum: null,
 };
 
 const forumsSlice = createSlice({
   name: 'forums',
   initialState,
   reducers: {
-    setForums: (state, action) => ({ ...state, allForums: action.payload.forums }),
-    setCurrentForum: (state, action) => action.payload.forum,
+    setForums: (state: ForumsState, action: PayloadAction<ForumsPayload>) => ({
+      ...state,
+      allForums: action.payload.forums,
+    }),
+    setCurrentForum: (state: ForumsState, action: PayloadAction<ForumPayload>) => ({
+      ...state,
+      currentForum: action.payload.forum,
+    }),
   },
 });
 
