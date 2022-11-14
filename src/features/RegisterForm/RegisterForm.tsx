@@ -47,27 +47,27 @@ function RegisterForm() {
     },
   });
 
-  const isUserLoggedIn = auth.token !== '';
+  const isUserLoggedIn = auth.user?.token !== '';
 
   useEffect(() => {
     // If user is already logged in, and they go to login page, redirect the user to previous page
-    if (auth.token) {
+    if (auth.user?.token) {
       navigate(-1);
     }
-  }, [navigate, auth.token]);
+  }, [navigate, auth.user?.token]);
 
   const onSubmit: SubmitHandler<Inputs> = async (credentials) => {
     try {
       setIsSubmitting(true);
       await userService.create(credentials);
 
-      const token = await loginService.login({
+      const userAuth = await loginService.login({
         username: credentials.username,
         password: credentials.password,
       });
 
-      dispatch(setAuthenticatedUser(token));
-      window.localStorage.setItem('forumAppUser', JSON.stringify(token));
+      dispatch(setAuthenticatedUser({ user: userAuth }));
+      window.localStorage.setItem('forumAppUser', JSON.stringify(userAuth));
       reset({
         name: '',
         username: '',
