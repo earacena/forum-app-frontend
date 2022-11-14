@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { ThemeContext } from 'styled-components';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import {
-  FormInput, FormSubmitButton, ErrorMessage, FormLabel,
+  FormInput,
+  FormSubmitButton,
+  ErrorMessage,
+  FormLabel,
+  Spin,
 } from '../../../../components';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import postService from '../../../../services/postService';
@@ -23,11 +29,14 @@ type Inputs = {
 };
 
 function ThreadForm() {
+  const theme = useContext(ThemeContext);
   const auth = useAppSelector((state) => state.auth);
   const threads = useAppSelector((state) => state.threads.allThreads);
   const currentTopic = useAppSelector((state) => state.topics.currentTopic);
   const dispatch = useAppDispatch();
   const [threadFormVisible, setThreadFormVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -42,6 +51,7 @@ function ThreadForm() {
 
   const onSubmit: SubmitHandler<Inputs> = async (threadData) => {
     try {
+      setIsSubmitting(true);
       // Prepare new thread
       if (!currentTopic) {
         throw new Error('Cannot post in a undefined topic');
@@ -77,6 +87,7 @@ function ThreadForm() {
         setThreadFormVisible(!threadFormVisible);
       }
     } catch (error: unknown) {
+      setIsSubmitting(false);
       notify('error', 'Error while creating thread.', 4);
     }
   };
@@ -122,7 +133,9 @@ function ThreadForm() {
           placeholder="What's on your mind?"
           {...register('content', { required: true })}
         />
-        <FormSubmitButton primary type="submit">Create Thread</FormSubmitButton>
+        <FormSubmitButton primary type="submit">
+          { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Create Thread' }
+        </FormSubmitButton>
       </ThreadFormWrapper>
     </div>
   );
