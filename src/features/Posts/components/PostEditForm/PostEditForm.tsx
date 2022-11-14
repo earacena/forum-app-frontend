@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import postService from '../../../../services/postService';
 import { setPosts } from '../../stores/posts.slice';
 import { notify } from '../../../Notification';
-import { FormSubmitButton, ErrorMessage } from '../../../../components';
+import { FormSubmitButton, ErrorMessage, Spin } from '../../../../components';
 
 interface VisibilityProps {
   readonly visible: boolean;
@@ -41,6 +42,8 @@ function PostEditForm({
   const auth = useAppSelector((state) => state.auth);
   const posts = useAppSelector((state) => state.posts);
   const dispatch = useAppDispatch();
+  const theme = useContext(ThemeContext);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const {
     register,
@@ -54,6 +57,7 @@ function PostEditForm({
 
   const onSubmit: SubmitHandler<Input> = async (postData) => {
     try {
+      setIsSubmitting(true);
       const updatedPost = await postService.update({
         token: auth.token,
         id: postId,
@@ -64,6 +68,7 @@ function PostEditForm({
       notify('message', 'Edited a post.', 4);
     } catch (error: unknown) {
       notify('error', 'Error while editing a post.', 4);
+      setIsSubmitting(false);
     }
   };
 
@@ -74,7 +79,9 @@ function PostEditForm({
         id="content"
         {...register('content', { required: true })}
       />
-      <FormSubmitButton primary type="submit">Confirm Edit</FormSubmitButton>
+      <FormSubmitButton primary type="submit">
+        { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Confirm Edit' }
+      </FormSubmitButton>
     </PostEditFormWrapper>
   );
 }
