@@ -1,33 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { Static as RtStatic } from 'runtypes';
-import { TopicArray, Topic } from '../../../types';
-
-interface TopicsState {
-  allTopics: RtStatic<typeof TopicArray> | undefined,
-  currentTopic: RtStatic<typeof Topic> | undefined,
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TopicsState, TopicsPayload, TopicPayload } from '../types/topics.types';
 
 const initialState: TopicsState = {
-  allTopics: undefined,
-  currentTopic: undefined,
+  allTopics: null,
+  currentTopic: null,
 };
 
 const topicSlice = createSlice({
   name: 'topic',
   initialState,
   reducers: {
-    setTopics: (state, action) => ({ ...state, allTopics: action.payload }),
-    setCurrentTopic: (state, action) => ({ ...state, currentTopic: action.payload }),
-    resetTopics: (state) => ({ ...state, allTopics: [] }),
-    resetCurrentTopic: (state) => ({ ...state, currentTopic: initialState.currentTopic }),
+    setTopics: (state: TopicsState, action: PayloadAction<TopicsPayload>) => ({
+      ...state,
+      allTopics: action.payload.topics,
+    }),
+    setCurrentTopic: (state: TopicsState, action: PayloadAction<TopicPayload>) => ({
+      ...state,
+      currentTopic: action.payload.topic,
+    }),
+    resetTopics: (state: TopicsState) => ({ ...state, allTopics: [] }),
+    resetCurrentTopic: (state: TopicsState) => ({
+      ...state,
+      currentTopic: initialState.currentTopic,
+    }),
   },
 });
 
 export const {
-  setTopics,
-  setCurrentTopic,
-  resetTopics,
-  resetCurrentTopic,
+  setTopics, setCurrentTopic, resetTopics, resetCurrentTopic,
 } = topicSlice.actions;
 
 export default topicSlice.reducer;
