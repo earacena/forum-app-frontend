@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { ThemeContext } from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setAuthenticatedUser } from '../auth';
 import loginService from '../../services/loginService';
@@ -16,6 +18,7 @@ import {
   FormInput,
   ErrorMessage,
   FormLabel,
+  Spin,
 } from '../../components';
 
 type Inputs = {
@@ -26,7 +29,10 @@ type Inputs = {
 function LoginForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const theme = useContext(ThemeContext);
   const auth = useAppSelector((state) => state.auth);
+
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const isUserLoggedIn = auth.token !== '';
 
@@ -51,6 +57,7 @@ function LoginForm() {
 
   const onSubmit: SubmitHandler<Inputs> = async (credentials) => {
     try {
+      setIsSubmitting(true);
       const token = await loginService.login(credentials);
 
       if (token) {
@@ -72,6 +79,7 @@ function LoginForm() {
       }
     } catch (error) {
       notify('error', 'Incorrect username or password, try again.', 4);
+      setIsSubmitting(false);
     }
   };
 
@@ -101,7 +109,9 @@ function LoginForm() {
         />
       </InputWrapper>
 
-      <FormSubmitButton primary type="submit">Log In</FormSubmitButton>
+      <FormSubmitButton primary type="submit">
+        { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Log In' }
+      </FormSubmitButton>
     </LoginFormWrapper>
   );
 }
