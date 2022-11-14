@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { BsPlusLg } from 'react-icons/bs';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { ThemeContext } from 'styled-components';
 import {
-  FormLabel, FormInput, FormSubmitButton, ErrorMessage,
+  FormLabel,
+  FormInput,
+  FormSubmitButton,
+  ErrorMessage,
+  Spin,
 } from '../../../../components';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { notify } from '../../../Notification';
@@ -23,10 +29,13 @@ type Inputs = {
 };
 
 function TopicForm() {
+  const theme = useContext(ThemeContext);
   const dispatch = useAppDispatch();
   const topics = useAppSelector((state) => state.topics.allTopics);
   const auth = useAppSelector((state) => state.auth);
   const [topicFormVisible, setTopicFormVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -40,6 +49,7 @@ function TopicForm() {
 
   const onSubmit: SubmitHandler<Inputs> = async (topicData) => {
     try {
+      setIsSubmitting(true);
       if (topics && !topics.map((t) => t.title).includes(topicData.title) && topicFormVisible) {
         const newTopic = {
           token: auth.token,
@@ -54,6 +64,7 @@ function TopicForm() {
     } catch (error) {
       console.error(error);
       notify('error', 'Error creating topic', 4);
+      setIsSubmitting(false);
     }
   };
 
@@ -108,7 +119,7 @@ function TopicForm() {
             primary
             type="submit"
           >
-            Create
+            { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Create' }
           </FormSubmitButton>
           <CloseButton
             type="button"
