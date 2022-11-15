@@ -38,7 +38,7 @@ function Threads() {
       const fetchedThreads = await topicService.getThreadsOfTopic({
         id: topicId,
       });
-      dispatch(setThreads(fetchedThreads));
+      dispatch(setThreads({ threads: fetchedThreads }));
     };
 
     fetchThreads();
@@ -47,7 +47,7 @@ function Threads() {
   useEffect(() => {
     const fetchTopic = async () => {
       const fetchedTopic = await topicService.getTopicById({ id: topicId });
-      dispatch(setCurrentTopic(fetchedTopic));
+      dispatch(setCurrentTopic({ topic: fetchedTopic }));
     };
 
     if (!topic) {
@@ -61,9 +61,9 @@ function Threads() {
 
   const handleDelete = async (threadId: number) => {
     try {
-      await threadService.remove({ token: auth.token, id: threadId });
+      await threadService.remove({ token: auth.user?.token, id: threadId });
       if (threads) {
-        dispatch(setThreads(threads.filter((t) => t.id !== threadId)));
+        dispatch(setThreads({ threads: threads.filter((t) => t.id !== threadId) }));
         notify('message', 'Deleted a thread.', 4);
       }
     } catch (error: unknown) {
@@ -84,14 +84,14 @@ function Threads() {
             <ThreadItemWrapper
               key={thread.id}
               onClick={() => openThread(thread.id)}
-              author={auth.id === thread.userId}
+              author={auth.user?.id === thread.userId}
             >
               <ThreadTitle>{thread.title}</ThreadTitle>
               <LeftVerticalLine>
                 {new Date(thread.dateCreated).toDateString()}
               </LeftVerticalLine>
             </ThreadItemWrapper>
-            {auth.id === thread.userId && (
+            {auth.user?.id === thread.userId && (
               <DeleteThreadButton
                 onClick={() => handleDelete(thread.id)}
               >
