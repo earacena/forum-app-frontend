@@ -20,7 +20,7 @@ function Posts({ posts, threadAuthorId }: PostsProps) {
             <Post
               post={post}
               isThreadAuthor={threadAuthorId ? threadAuthorId === post.userId : false}
-              isAuthor={auth.id ? auth.id === post.userId : false}
+              isAuthor={auth.user?.id ? auth.user?.id === post.userId : false}
             />
           </PostItem>
         ))}
