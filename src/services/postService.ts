@@ -1,4 +1,3 @@
-import { isMissingDeclaration } from 'typescript';
 import { Post, PostArray } from '../types';
 
 const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/posts`;
