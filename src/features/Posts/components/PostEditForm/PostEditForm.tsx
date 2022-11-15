@@ -26,12 +26,12 @@ type Input = {
   content: string;
 };
 
-interface PostEditFormProps {
+type PostEditFormProps = {
   postId: number,
   postContent: string,
   beingEdited: boolean,
   setBeingEdited: React.Dispatch<React.SetStateAction<boolean>>,
-}
+};
 
 function PostEditForm({
   postId,
