@@ -1,4 +1,4 @@
-# Forum Web Application Frontend
+# Forum Web Application, Frontend
 
 ## Description
 This is the frontend of the forum web application. Deployed live [here]().
