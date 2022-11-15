@@ -1,20 +1,20 @@
-import { ThreadArray, Topic, TopicArray } from '../types';
+import { ThreadArray, TopicArray, TopicType } from '../types';
 
 const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/topics`;
 
-interface TopicIdFields {
+type TopicIdProps = {
   id: number;
-}
+};
 
-interface TopicThreadsFields {
+type TopicThreadsProps = {
   id: number;
-}
+};
 
-interface TopicCreateFields {
+type TopicCreateProps = {
   token: string;
   title: string;
   description: string;
-}
+};
 
 type GetTopicsOfForumProps = {
   forumId: number;
@@ -26,17 +26,17 @@ const getAll = async () => {
   return fetchedTopics;
 };
 
-const getTopicById = async ({ id }: TopicIdFields) => {
+const getTopicById = async ({ id }: TopicIdProps) => {
   if (Number.isNaN(id)) {
     throw new Error('invalid topic id number');
   }
 
   const response = await fetch(`${baseUrl}/${id}`);
-  const topic = Topic.check(await response.json());
+  const topic = TopicType.check(await response.json());
   return topic;
 };
 
-const getThreadsOfTopic = async ({ id }: TopicThreadsFields) => {
+const getThreadsOfTopic = async ({ id }: TopicThreadsProps) => {
   if (Number.isNaN(id)) {
     throw new Error('invalid topic id number');
   }
@@ -45,7 +45,7 @@ const getThreadsOfTopic = async ({ id }: TopicThreadsFields) => {
   return threads;
 };
 
-const create = async ({ token, title, description }: TopicCreateFields) => {
+const create = async ({ token, title, description }: TopicCreateProps) => {
   if (!token) {
     throw new Error('Cannot perform this action if not signed in');
   }
@@ -63,7 +63,7 @@ const create = async ({ token, title, description }: TopicCreateFields) => {
     throw new Error('Bad Request while sending POST request for thread');
   }
 
-  const createdThread = Topic.check(await response.json());
+  const createdThread = TopicType.check(await response.json());
   return createdThread;
 };
 
