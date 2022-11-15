@@ -2,10 +2,10 @@ import { UserAuthenticationType } from '../types';
 
 const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/login`;
 
-interface Credentials {
+type Credentials = {
   username: string;
   password: string;
-}
+};
 
 const login = async (credentials: Credentials) => {
   const response = await fetch(baseUrl, {
