@@ -34,7 +34,7 @@ function LoginForm() {
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const isUserLoggedIn = auth.user?.token !== '';
+  const isUserLoggedIn = auth.user !== null;
 
   const {
     register,
@@ -50,7 +50,7 @@ function LoginForm() {
 
   useEffect(() => {
     // If user is already logged in, and they go to login page, redirect the user to previous page
-    if (auth.user?.token) {
+    if (auth.user) {
       navigate(-1);
     }
   }, [navigate, auth.user]);
