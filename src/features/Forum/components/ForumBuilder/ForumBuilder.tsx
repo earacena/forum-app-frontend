@@ -76,7 +76,7 @@ function ForumBuilderForm() {
 
   useEffect(() => {
     // If user is not logged in, redirect use to login
-    if (auth.user !== null) {
+    if (auth.user === null) {
       navigate('/login');
     }
   }, [navigate, auth.user]);
