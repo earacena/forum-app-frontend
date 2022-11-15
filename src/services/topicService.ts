@@ -11,7 +11,7 @@ type TopicThreadsProps = {
 };
 
 type TopicCreateProps = {
-  token: string;
+  token: string | undefined;
   title: string;
   description: string;
 };
