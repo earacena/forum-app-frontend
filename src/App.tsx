@@ -159,7 +159,7 @@ function App() {
     const forumAppUserJSON = window.localStorage.getItem('forumAppUser');
     if (forumAppUserJSON) {
       const forumAppUser = JSON.parse(forumAppUserJSON);
-      dispatch(setAuthenticatedUser(forumAppUser));
+      dispatch(setAuthenticatedUser({ user: forumAppUser }));
     }
   }, [dispatch]);
 
