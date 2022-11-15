@@ -2,15 +2,15 @@ import { User, UserArray } from '../types';
 
 const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/users`;
 
-interface GetUserByIdFields {
+type GetUserByIdProps = {
   id: number;
-}
+};
 
-interface CreateUserFields {
+type CreateUserProps = {
   name: string;
   username: string;
   password: string;
-}
+};
 
 const getAll = async () => {
   const response = await fetch(`${baseUrl}/`);
@@ -18,13 +18,13 @@ const getAll = async () => {
   return users;
 };
 
-const getUserById = async ({ id }: GetUserByIdFields) => {
+const getUserById = async ({ id }: GetUserByIdProps) => {
   const response = await fetch(`${baseUrl}/${id}`);
   const user = User.check(await response.json());
   return user;
 };
 
-const create = async ({ name, username, password }: CreateUserFields) => {
+const create = async ({ name, username, password }: CreateUserProps) => {
   const response = await fetch(baseUrl, {
     method: 'POST',
     headers: {
