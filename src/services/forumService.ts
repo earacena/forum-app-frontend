@@ -18,7 +18,7 @@ const getAll = async () => {
 
 const create = async ({ token, forumTitle, forumTopics }: ForumCreateProps) => {
   if (!token) {
-    throw new Error('forumService.create() - token missing');
+    throw new Error('Cannot perform this action if not signed in');
   }
 
   const response = await fetch(baseUrl, {
