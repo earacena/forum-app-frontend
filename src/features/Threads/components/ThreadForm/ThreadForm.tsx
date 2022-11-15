@@ -58,7 +58,7 @@ function ThreadForm() {
       }
 
       const newThread = {
-        token: auth.token,
+        token: auth.user?.token,
         title: threadData.title,
         topicId: currentTopic.id,
       };
@@ -66,11 +66,11 @@ function ThreadForm() {
       // POST new thread, get id
       const createdThread = await threadService.create(newThread);
       if (threads) {
-        dispatch(setThreads(threads.concat(createdThread)));
+        dispatch(setThreads({ threads: threads.concat(createdThread) }));
 
         // Prepare new post for thread
         const newPost = {
-          token: auth.token,
+          token: auth.user?.token,
           content: threadData.content,
           threadId: createdThread.id,
           isOriginalPost: true,
@@ -94,7 +94,7 @@ function ThreadForm() {
 
   return (
     <div>
-      {auth.token && (
+      {auth.user?.token && (
         <CenteredDiv>
           <CreateButton
             visible={!threadFormVisible}
