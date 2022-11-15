@@ -3,13 +3,13 @@ import { PostArray, ThreadArray, ThreadType } from '../types';
 const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/threads`;
 
 type CreateProps = {
-  token: string;
+  token: string | undefined;
   title: string;
   topicId: number;
 };
 
 type RemoveProps = {
-  token: string;
+  token: string | undefined;
   id: number;
 };
 
