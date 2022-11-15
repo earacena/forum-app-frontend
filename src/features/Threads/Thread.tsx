@@ -31,7 +31,7 @@ function Thread() {
         const fetchedThread = await threadService.getThread({
           id: threadId,
         });
-        dispatch(setCurrentThread(fetchedThread));
+        dispatch(setCurrentThread({ thread: fetchedThread }));
       } catch (error) {
         console.log(error);
       }
@@ -45,7 +45,7 @@ function Thread() {
         const fetchedPosts = await threadService.getPostsOfThread({
           id: threadId,
         });
-        dispatch(setPosts(fetchedPosts));
+        dispatch(setPosts({ posts: fetchedPosts }));
       } catch (error) {
         console.log(error);
       }
@@ -58,7 +58,7 @@ function Thread() {
       try {
         if (thread?.topicId) {
           const topic = await topicService.getTopicById({ id: thread?.topicId });
-          dispatch(setCurrentTopic(topic));
+          dispatch(setCurrentTopic({ topic }));
         }
       } catch (error) {
         console.log(error);
