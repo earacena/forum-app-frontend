@@ -22,10 +22,11 @@ import {
   ColumnDiv,
   CloseButton,
 } from './styles/topicForm.styles';
+import { setAuthenticatedUser } from '../../../auth';
 
 type Inputs = {
-  title: string,
-  description: string,
+  title: string;
+  description: string;
 };
 
 function TopicForm() {
@@ -33,6 +34,7 @@ function TopicForm() {
   const dispatch = useAppDispatch();
   const topics = useAppSelector((state) => state.topics.allTopics);
   const auth = useAppSelector((state) => state.auth);
+  const forum = useAppSelector((state) => state.forums.currentForum);
   const [topicFormVisible, setTopicFormVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -50,15 +52,19 @@ function TopicForm() {
   const onSubmit: SubmitHandler<Inputs> = async (topicData) => {
     try {
       setIsSubmitting(true);
-      if (topics && !topics.map((t) => t.title).includes(topicData.title) && topicFormVisible) {
+      if (
+        topics
+        && !topics.map((t) => t.title).includes(topicData.title)
+        && topicFormVisible
+      ) {
         const newTopic = {
-          token: auth.token,
+          token: auth.user?.token,
           title: topicData.title,
           description: topicData.description,
         };
 
         const createdTopic = await topicService.create(newTopic);
-        dispatch(setTopics(topics.concat(createdTopic)));
+        dispatch(setTopics({ topics: topics.concat(createdTopic) }));
         notify('message', 'Created topic successfully.', 4);
       }
     } catch (error) {
@@ -70,17 +76,25 @@ function TopicForm() {
 
   return (
     <div>
-      {auth.token && auth.role === 'admin' && (
-        <CenteredDiv>
-          <CreateButton
-            visible={!topicFormVisible}
-            onClick={() => setTopicFormVisible(!topicFormVisible)}
-          >
-            <BsPlusLg />
-          </CreateButton>
-        </CenteredDiv>
+      {auth.user?.token
+        && forum
+        && auth.user?.roles
+          .filter((r) => r.forumId === forum.id)
+          .map((r) => r.role)
+          .includes('admin') && (
+          <CenteredDiv>
+            <CreateButton
+              visible={!topicFormVisible}
+              onClick={() => setTopicFormVisible(!topicFormVisible)}
+            >
+              <BsPlusLg />
+            </CreateButton>
+          </CenteredDiv>
       )}
-      <TopicFormWrapper visible={topicFormVisible} onSubmit={handleSubmit(onSubmit)}>
+      <TopicFormWrapper
+        visible={topicFormVisible}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <TopicFormTitle>Start a new topic</TopicFormTitle>
 
         <ColumnDiv>
@@ -115,11 +129,16 @@ function TopicForm() {
         </ColumnDiv>
 
         <span>
-          <FormSubmitButton
-            primary
-            type="submit"
-          >
-            { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Create' }
+          <FormSubmitButton primary type="submit">
+            {isSubmitting ? (
+              <Spin>
+                <AiOutlineLoading3Quarters
+                  style={{ color: theme.bg, fontSize: '40px' }}
+                />
+              </Spin>
+            ) : (
+              'Create'
+            )}
           </FormSubmitButton>
           <CloseButton
             type="button"
@@ -128,7 +147,6 @@ function TopicForm() {
           >
             Cancel
           </CloseButton>
-
         </span>
       </TopicFormWrapper>
     </div>
