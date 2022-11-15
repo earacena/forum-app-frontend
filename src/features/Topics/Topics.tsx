@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Static as RtStatic } from 'runtypes';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { ThemeContext } from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -31,7 +30,7 @@ function Topics({ forumId }: TopicsProps) {
     const fetchTopics = async () => {
       try {
         const fetchedTopics = await topicService.getTopicsOfForum({ forumId });
-        dispatch(setTopics(fetchedTopics));
+        dispatch(setTopics({ topics: fetchedTopics }));
       } catch (error) {
         console.error(error);
       }
@@ -40,8 +39,8 @@ function Topics({ forumId }: TopicsProps) {
     fetchTopics();
   }, [dispatch, forumId]);
 
-  const handleClick = (topic: RtStatic<typeof Topic>) => {
-    dispatch(setCurrentTopic(topic));
+  const handleClick = (topic: Topic) => {
+    dispatch(setCurrentTopic({ topic }));
     navigate(`/topic/${topic.id}`);
   };
 
