@@ -22,7 +22,6 @@ import {
   ColumnDiv,
   CloseButton,
 } from './styles/topicForm.styles';
-import { setAuthenticatedUser } from '../../../auth';
 
 type Inputs = {
   title: string;
