@@ -59,11 +59,11 @@ function PostEditForm({
     try {
       setIsSubmitting(true);
       const updatedPost = await postService.update({
-        token: auth.token,
+        token: auth.user?.token,
         id: postId,
         content: postData.content,
       });
-      dispatch(setPosts(posts.map((p) => (p.id === postId ? updatedPost : p))));
+      dispatch(setPosts({ posts: posts.map((p) => (p.id === postId ? updatedPost : p)) }));
       setBeingEdited(false);
       notify('message', 'Edited a post.', 4);
     } catch (error: unknown) {
