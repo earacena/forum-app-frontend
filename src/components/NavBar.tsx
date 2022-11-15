@@ -60,7 +60,7 @@ function NavBar({ themeMode, setThemeMode }: NavBarProps) {
       <Link to="/">
         <NavButton>Home</NavButton>
       </Link>
-      {auth.user?.token && (
+      {auth.user !== null && (
         <Link to="/builder">
           <NavButton>Builder</NavButton>
         </Link>
@@ -75,17 +75,17 @@ function NavBar({ themeMode, setThemeMode }: NavBarProps) {
         )}
       </ThemeSwitcher>
       <Spacer />
-      {!auth.user?.token && (
+      {auth.user === null && (
         <Link to="/login">
           <NavButton>Log In</NavButton>
         </Link>
       )}
-      {!auth.user?.token && (
+      {auth.user === null && (
         <Link to="/register">
           <NavButton>Register</NavButton>
         </Link>
       )}
-      {auth.user?.token && (
+      {auth.user !== null && (
         <UserActions>
           <UserName>{` ${auth.user?.name} `}</UserName>
           <NavButton onClick={handleLogOut}>Log Out</NavButton>
