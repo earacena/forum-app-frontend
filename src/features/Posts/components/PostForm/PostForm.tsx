@@ -66,7 +66,7 @@ function PostForm({ threadId }: PostFormProps) {
       }
 
       const newPost = {
-        token: auth.token,
+        token: auth.user?.token,
         content: postData.content,
         isOriginalPost: false,
         threadId,
@@ -76,7 +76,7 @@ function PostForm({ threadId }: PostFormProps) {
       const updatedPosts = await threadService.getPostsOfThread({
         id: threadId,
       });
-      dispatch(setPosts(updatedPosts));
+      dispatch(setPosts({ posts: updatedPosts }));
       reset({
         content: '',
       });
@@ -90,7 +90,7 @@ function PostForm({ threadId }: PostFormProps) {
 
   return (
     <ComponentWrapper>
-      {auth.token && (
+      {auth.user?.token && (
         <CenteredDiv>
           <AddPostButton
             visible={!postFormVisible}
@@ -102,7 +102,7 @@ function PostForm({ threadId }: PostFormProps) {
       )}
 
       <PostFormWrapper
-        visible={auth.token ? postFormVisible : false}
+        visible={auth.user?.token ? postFormVisible : false}
         onSubmit={handleSubmit(onSubmit)}
       >
         <ProfileCard>
@@ -110,7 +110,7 @@ function PostForm({ threadId }: PostFormProps) {
             <HiUser size={50} color={theme.fg} />
           </UserAvatar>
           <UserName>
-            {`${auth.name}`}
+            {`${auth.user?.name}`}
           </UserName>
         </ProfileCard>
         <hr style={{ height: '100%' }} />
