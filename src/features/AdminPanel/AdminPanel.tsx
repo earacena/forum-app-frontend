@@ -9,7 +9,7 @@ function AdminPanel() {
   const auth = useAppSelector((state) => state.auth);
   const [users, setUsers] = useState<RtStatic<typeof UserArray>>([]);
 
-  const isAuthorizedToAccess = auth.token && auth.role === 'admin';
+  const isAuthorizedToAccess = auth.user?.token && auth.user?.roles.map((r) => r.role).includes('admin');
 
   useEffect(() => {
     const fetchUsers = async () => {
