@@ -33,7 +33,7 @@ const create = async ({
   isOriginalPost,
 }: CreateProps) => {
   if (!token) {
-    throw new Error('postService.create() - token missing');
+    throw new Error('Cannot perform this action if not signed in');
   }
 
   const response = await fetch(baseUrl, {
@@ -50,7 +50,7 @@ const create = async ({
 
 const remove = async ({ token, id }: RemoveProps) => {
   if (!token) {
-    throw new Error('postService.remove() - token missing');
+    throw new Error('Cannot perform this action if not signed in');
   }
 
   await fetch(`${baseUrl}/${id}`, {
@@ -64,7 +64,7 @@ const remove = async ({ token, id }: RemoveProps) => {
 
 const update = async ({ token, id, content }: UpdateProps) => {
   if (!token) {
-    throw new Error('postService.update() - token missing');
+    throw new Error('Cannot perform this action if not signed in');
   }
 
   const response = await fetch(`${baseUrl}/${id}`, {
