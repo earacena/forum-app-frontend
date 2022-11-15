@@ -1,25 +1,25 @@
-import { PostArray, Thread, ThreadArray } from '../types';
+import { PostArray, ThreadArray, ThreadType } from '../types';
 
 const baseUrl = `${process.env.REACT_APP_BACKEND_URL}/api/threads`;
 
-interface CreateFields {
+type CreateProps = {
   token: string;
   title: string;
   topicId: number;
-}
+};
 
-interface RemoveFields {
+type RemoveProps = {
   token: string;
   id: number;
-}
+};
 
-interface ThreadPostsFields {
+type ThreadPostsProps = {
   id: number;
-}
+};
 
-interface GetThreadFields {
+type GetThreadProps = {
   id: number;
-}
+};
 
 const getAll = async () => {
   const response = await fetch(baseUrl);
@@ -27,7 +27,7 @@ const getAll = async () => {
   return fetchedThreads;
 };
 
-const create = async ({ token, title, topicId }: CreateFields) => {
+const create = async ({ token, title, topicId }: CreateProps) => {
   if (!token) {
     throw new Error('Cannot perform this action if not signed in');
   }
@@ -45,11 +45,15 @@ const create = async ({ token, title, topicId }: CreateFields) => {
     throw new Error('Bad Request while sending POST request for thread');
   }
 
-  const createdThread = Thread.check(await response.json());
+  const createdThread = ThreadType.check(await response.json());
   return createdThread;
 };
 
-const remove = async ({ token, id }: RemoveFields) => {
+const remove = async ({ token, id }: RemoveProps) => {
+  if (!token) {
+    throw new Error('Cannot perform this action if not signed in');
+  }
+
   await fetch(`${baseUrl}/${id}`, {
     method: 'DELETE',
     headers: {
@@ -59,7 +63,7 @@ const remove = async ({ token, id }: RemoveFields) => {
   });
 };
 
-const getPostsOfThread = async ({ id }: ThreadPostsFields) => {
+const getPostsOfThread = async ({ id }: ThreadPostsProps) => {
   if (Number.isNaN(id)) {
     throw new Error('invalid thread id number');
   }
@@ -68,12 +72,12 @@ const getPostsOfThread = async ({ id }: ThreadPostsFields) => {
   return posts;
 };
 
-const getThread = async ({ id }: GetThreadFields) => {
+const getThread = async ({ id }: GetThreadProps) => {
   if (Number.isNaN(id)) {
     throw new Error('invalid thread number');
   }
   const response = await fetch(`${baseUrl}/${id}`);
-  const fetchedThread = Thread.check(await response.json());
+  const fetchedThread = ThreadType.check(await response.json());
   return fetchedThread;
 };
 
