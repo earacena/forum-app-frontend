@@ -133,7 +133,11 @@ function ThreadForm() {
           placeholder="What's on your mind?"
           {...register('content', { required: true })}
         />
-        <FormSubmitButton primary type="submit">
+        <FormSubmitButton
+          primary
+          type="submit"
+          disabled={isSubmitting}
+        >
           { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Create Thread' }
         </FormSubmitButton>
       </ThreadFormWrapper>

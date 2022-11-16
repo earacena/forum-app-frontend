@@ -135,7 +135,11 @@ function RegisterForm() {
         />
       </InputWrapper>
 
-      <FormSubmitButton primary type="submit">
+      <FormSubmitButton
+        primary
+        type="submit"
+        disabled={isSubmitting}
+      >
         { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Register' }
       </FormSubmitButton>
     </RegisterFormWrapper>

@@ -79,7 +79,11 @@ function PostEditForm({
         id="content"
         {...register('content', { required: true })}
       />
-      <FormSubmitButton primary type="submit">
+      <FormSubmitButton
+        primary
+        type="submit"
+        disabled={isSubmitting}
+      >
         { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Confirm Edit' }
       </FormSubmitButton>
     </PostEditFormWrapper>

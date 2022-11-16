@@ -128,7 +128,11 @@ function TopicForm() {
         </ColumnDiv>
 
         <span>
-          <FormSubmitButton primary type="submit">
+          <FormSubmitButton
+            primary
+            type="submit"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? (
               <Spin>
                 <AiOutlineLoading3Quarters
