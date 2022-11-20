@@ -46,7 +46,7 @@ function Topics({ forumId }: TopicsProps) {
 
   return (
     <TopicsWrapper>
-      {topics === undefined && <Spin><AiOutlineLoading3Quarters style={{ color: theme.fg, fontSize: '40px' }} /></Spin>}
+      {topics === null && <Spin><AiOutlineLoading3Quarters style={{ color: theme.fg, fontSize: '40px' }} /></Spin>}
       {topics?.length === 0 && <span>There are no topics for discussion.</span>}
       <TopicListWrapper>
         {topics?.map((topic) => (
