@@ -47,7 +47,7 @@ function RegisterForm() {
     },
   });
 
-  const isUserLoggedIn = auth.user?.token !== '';
+  const isUserLoggedIn = auth.user !== null;
 
   useEffect(() => {
     // If user is already logged in, and they go to login page, redirect the user to previous page
