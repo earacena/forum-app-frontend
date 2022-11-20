@@ -170,7 +170,7 @@ function App() {
 
   const headerAndNavBar = () => (
     <>
-      <AppHeader>Forum App</AppHeader>
+      <AppHeader style={{ display: 'none' }}>Forum App</AppHeader>
       <NavBar
         themeMode={themeMode}
         setThemeMode={setThemeMode}
