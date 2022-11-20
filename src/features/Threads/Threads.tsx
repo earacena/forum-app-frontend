@@ -76,7 +76,7 @@ function Threads() {
       <ThreadsTitle>{topic?.title}</ThreadsTitle>
       <ThreadsDescription>{topic?.description}</ThreadsDescription>
       <ThreadForm />
-      {threads === undefined && <Spin><AiOutlineLoading3Quarters style={{ color: theme.fg, fontSize: '40px' }} /></Spin>}
+      {threads === null && <Spin><AiOutlineLoading3Quarters style={{ color: theme.fg, fontSize: '40px' }} /></Spin>}
       {threads?.length === 0 && <span>There are no topics for discussion.</span>}
       <ThreadListWrapper>
         {threads?.map((thread) => (
