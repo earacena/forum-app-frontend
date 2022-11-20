@@ -149,6 +149,11 @@ function App() {
   const dispatch = useAppDispatch();
   const [themeMode, setThemeMode] = useState<string>('');
 
+  // Set App title
+  useEffect(() => {
+    document.title = 'Forum App';
+  }, []);
+
   // Set the App wide background color
   useEffect(() => {
     document.body.style.backgroundColor = themeMode === 'light' ? themes.light.bg : themes.dark.bg;
