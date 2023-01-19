@@ -42,7 +42,7 @@ function PostEditForm({
   const auth = useAppSelector((state) => state.auth);
   const posts = useAppSelector((state) => state.posts);
   const dispatch = useAppDispatch();
-  const theme = useContext(ThemeContext);
+  const { fg } = useContext(ThemeContext);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const {
@@ -84,7 +84,7 @@ function PostEditForm({
         type="submit"
         disabled={isSubmitting}
       >
-        { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Confirm Edit' }
+        { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: fg, fontSize: '40px' }} /></Spin> : 'Confirm Edit' }
       </FormSubmitButton>
     </PostEditFormWrapper>
   );

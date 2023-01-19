@@ -23,7 +23,7 @@ type TopicsProps = {
 function Topics({ forumId }: TopicsProps) {
   const dispatch = useAppDispatch();
   const topics = useAppSelector((state) => state.topics.allTopics);
-  const theme = useContext(ThemeContext);
+  const { fg } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,7 +46,7 @@ function Topics({ forumId }: TopicsProps) {
 
   return (
     <TopicsWrapper>
-      {topics === null && <Spin><AiOutlineLoading3Quarters style={{ color: theme.fg, fontSize: '40px' }} /></Spin>}
+      {topics === null && <Spin><AiOutlineLoading3Quarters style={{ color: fg, fontSize: '40px' }} /></Spin>}
       {topics?.length === 0 && <span>There are no topics for discussion.</span>}
       <TopicListWrapper>
         {topics?.map((topic) => (

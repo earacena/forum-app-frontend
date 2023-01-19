@@ -19,7 +19,7 @@ function Forums() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const forums = useAppSelector((state) => state.forums.allForums);
-  const theme = useContext(ThemeContext);
+  const { fg } = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchForums = async () => {
@@ -37,7 +37,7 @@ function Forums() {
   return (
     <ForumsWrapper>
       <ForumHeader2>Explore</ForumHeader2>
-      {forums === null && <Spin><AiOutlineLoading3Quarters style={{ color: theme.fg, fontSize: '40px' }} /></Spin>}
+      {forums === null && <Spin><AiOutlineLoading3Quarters style={{ color: fg, fontSize: '40px' }} /></Spin>}
       {forums?.length === 0 && <span>There are no forums created yet.</span>}
       <ForumList>
         {forums?.map((f) => (

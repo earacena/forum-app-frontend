@@ -29,7 +29,7 @@ type Inputs = {
 };
 
 function ThreadForm() {
-  const theme = useContext(ThemeContext);
+  const { bg } = useContext(ThemeContext);
   const auth = useAppSelector((state) => state.auth);
   const threads = useAppSelector((state) => state.threads.allThreads);
   const currentTopic = useAppSelector((state) => state.topics.currentTopic);
@@ -138,7 +138,7 @@ function ThreadForm() {
           type="submit"
           disabled={isSubmitting}
         >
-          { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Create Thread' }
+          { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: bg, fontSize: '40px' }} /></Spin> : 'Create Thread' }
         </FormSubmitButton>
       </ThreadFormWrapper>
     </div>

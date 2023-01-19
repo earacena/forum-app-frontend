@@ -44,7 +44,7 @@ function PostForm({ threadId }: PostFormProps) {
   const [postFormVisible, setPostFormVisible] = useState(false);
   const auth = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
-  const theme = useContext(ThemeContext);
+  const { fg, bg } = useContext(ThemeContext);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const {
@@ -107,7 +107,7 @@ function PostForm({ threadId }: PostFormProps) {
       >
         <ProfileCard>
           <UserAvatar>
-            <HiUser size={50} color={theme.fg} />
+            <HiUser size={50} color={fg} />
           </UserAvatar>
           <UserName>
             {`${auth.user?.name}`}
@@ -115,7 +115,7 @@ function PostForm({ threadId }: PostFormProps) {
         </ProfileCard>
         <hr style={{ height: '100%' }} />
         <InputWrapper style={{
-          flex: 1, marginLeft: '10px', color: theme.fg, height: '100%',
+          flex: 1, marginLeft: '10px', color: fg, height: '100%',
         }}
         >
           <FormLabel htmlFor="post-content" style={{ borderLeft: '1px', margin: 0 }}>Post body</FormLabel>
@@ -135,7 +135,7 @@ function PostForm({ threadId }: PostFormProps) {
             type="submit"
             disabled={isSubmitting}
           >
-            { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Post' }
+            { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: bg, fontSize: '40px' }} /></Spin> : 'Post' }
           </FormSubmitButton>
           <CloseFormButton
             type="button"

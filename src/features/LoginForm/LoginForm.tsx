@@ -29,7 +29,7 @@ type Inputs = {
 function LoginForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const theme = useContext(ThemeContext);
+  const { bg } = useContext(ThemeContext);
   const auth = useAppSelector((state) => state.auth);
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -114,7 +114,7 @@ function LoginForm() {
         type="submit"
         disabled={isSubmitting}
       >
-        { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Log In' }
+        { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: bg, fontSize: '40px' }} /></Spin> : 'Log In' }
       </FormSubmitButton>
     </LoginFormWrapper>
   );

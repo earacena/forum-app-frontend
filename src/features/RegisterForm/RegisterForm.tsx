@@ -31,7 +31,7 @@ function RegisterForm() {
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
-  const theme = useContext(ThemeContext);
+  const { bg } = useContext(ThemeContext);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const {
@@ -140,7 +140,7 @@ function RegisterForm() {
         type="submit"
         disabled={isSubmitting}
       >
-        { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin> : 'Register' }
+        { isSubmitting ? <Spin><AiOutlineLoading3Quarters style={{ color: bg, fontSize: '40px' }} /></Spin> : 'Register' }
       </FormSubmitButton>
     </RegisterFormWrapper>
   );

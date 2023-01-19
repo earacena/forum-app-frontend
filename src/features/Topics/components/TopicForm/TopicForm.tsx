@@ -29,7 +29,7 @@ type Inputs = {
 };
 
 function TopicForm() {
-  const theme = useContext(ThemeContext);
+  const { bg } = useContext(ThemeContext);
   const dispatch = useAppDispatch();
   const topics = useAppSelector((state) => state.topics.allTopics);
   const auth = useAppSelector((state) => state.auth);
@@ -136,7 +136,7 @@ function TopicForm() {
             {isSubmitting ? (
               <Spin>
                 <AiOutlineLoading3Quarters
-                  style={{ color: theme.bg, fontSize: '40px' }}
+                  style={{ color: bg, fontSize: '40px' }}
                 />
               </Spin>
             ) : (

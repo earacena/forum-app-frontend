@@ -31,6 +31,7 @@ function Post({ post, isThreadAuthor, isAuthor }: PostProps) {
   const posts = useAppSelector((state) => state.posts);
   const auth = useAppSelector((state) => state.auth);
   const theme = useContext(ThemeContext);
+  const { fg } = theme;
 
   const [beingEdited, setBeingEdited] = useState(false);
 
@@ -48,7 +49,7 @@ function Post({ post, isThreadAuthor, isAuthor }: PostProps) {
     <PostWrapper threadAuthor={isThreadAuthor} author={isAuthor} theme={theme}>
       <ProfileCard>
         <UserAvatar>
-          <HiUser size={50} color={theme.fg} />
+          <HiUser size={50} color={fg} />
         </UserAvatar>
         <UserName>
           {`${post?.authorName}`}

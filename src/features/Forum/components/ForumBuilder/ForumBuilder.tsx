@@ -24,7 +24,7 @@ import {
 } from './styles/forumBuilder.styles';
 
 function ForumBuilderForm() {
-  const theme = useContext(ThemeContext);
+  const { bg } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const auth = useAppSelector((state) => state.auth);
@@ -128,7 +128,7 @@ function ForumBuilderForm() {
         style={{ margin: '30px', marginLeft: 0 }}
         disabled={isSubmitting}
       >
-        {!isSubmitting ? 'Create' : <Spin><AiOutlineLoading3Quarters style={{ color: theme.bg, fontSize: '40px' }} /></Spin>}
+        {!isSubmitting ? 'Create' : <Spin><AiOutlineLoading3Quarters style={{ color: bg, fontSize: '40px' }} /></Spin>}
       </FormSubmitButton>
     </ForumBuilderWrapper>
   );

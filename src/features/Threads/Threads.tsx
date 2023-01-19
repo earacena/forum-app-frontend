@@ -27,7 +27,7 @@ function Threads() {
   const dispatch = useAppDispatch();
   const threads = useAppSelector((state) => state.threads.allThreads);
   const topic = useAppSelector((state) => state.topics.currentTopic);
-  const theme = useContext(ThemeContext);
+  const { fg } = useContext(ThemeContext);
   const auth = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -76,7 +76,7 @@ function Threads() {
       <ThreadsTitle>{topic?.title}</ThreadsTitle>
       <ThreadsDescription>{topic?.description}</ThreadsDescription>
       <ThreadForm />
-      {threads === null && <Spin><AiOutlineLoading3Quarters style={{ color: theme.fg, fontSize: '40px' }} /></Spin>}
+      {threads === null && <Spin><AiOutlineLoading3Quarters style={{ color: fg, fontSize: '40px' }} /></Spin>}
       {threads?.length === 0 && <span>There are no topics for discussion.</span>}
       <ThreadListWrapper>
         {threads?.map((thread) => (
